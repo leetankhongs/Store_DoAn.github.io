@@ -6,54 +6,69 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 router.get('/index.html', function(req, res, next) {
-  res.render('index.hbs', { title: 'Express' });
+  res.render('index', { title: 'Express' });
 });
-router.get('/TKNgay.html', function(req, res, next) {
-  res.render('ThongKe/TKNgay.hbs', { title: 'Express' });
+router.get('/register.html', function(req, res, next) {
+  res.render('Login/register.hbs', { title: 'Express' });
 });
-router.get('/TKThang.html', function(req, res, next) {
-  res.render('ThongKe/TKThang.hbs', { title: 'Express' });
+router.get('/SamSung.html', function(req, res, next) {
+  res.render('Phone/SamSung.hbs', { title: 'Express' });
 });
-router.get('/TKNam.html', function(req, res, next) {
-  res.render('ThongKe/TKNam.hbs', { title: 'Express' });
+router.get('/Iphone.html', function(req, res, next) {
+  res.render('Phone/Iphone.hbs', { title: 'Express' });
 });
-router.get('/ListNguoiDung.html', function(req, res, next) {
-  res.render('NguoiDung/ListNguoiDung.hbs', { title: 'Express' });
+router.get('/Oppo.html', function(req, res, next) {
+  res.render('Phone/Oppo.hbs', { title: 'Express' });
 });
-router.get('/EditUser.html', function(req, res, next) {
-  res.render('NguoiDung/EditUser.hbs', { title: 'Express' });
+router.get('/Nokia.html', function(req, res, next) {
+  res.render('Phone/Nokia.hbs', { title: 'Express' });
 });
-router.get('/DaGiao.html', function(req, res, next) {
-  res.render('DonHang/DaGiao.hbs', { title: 'Express' });
+router.get('/Asus.html', function(req, res, next) {
+  res.render('Laptop/Asus.hbs', { title: 'Express' });
 });
-router.get('/ChuaGiao.html', function(req, res, next) {
-  res.render('DonHang/ChuaGiao.hbs', { title: 'Express' });
+router.get('/Acer.html', function(req, res, next) {
+  res.render('Laptop/Acer.hbs', { title: 'Express' });
 });
-router.get('/DangGiao.html', function(req, res, next) {
-  res.render('DonHang/DangGiao.hbs', { title: 'Express' });
+router.get('/Dell.html', function(req, res, next) {
+  res.render('Laptop/Dell.hbs', { title: 'Express' });
 });
-router.get('/TuyChinh.html', function(req, res, next) {
-  res.render('GianHang/TuyChinh.hbs', { title: 'Express' });
+router.get('/HP.html', function(req, res, next) {
+  res.render('Laptop/HP.hbs', { title: 'Express' });
 });
-router.get('/ThemGianHang.html', function(req, res, next) {
-  res.render('GianHang/ThemGianHang.hbs', { title: 'Express' });
+router.get('/Lenovo.html', function(req, res, next) {
+  res.render('Laptop/Lenovo.hbs', { title: 'Express' });
 });
-router.get('/DienThoai.html', function(req, res, next) {
-  res.render('GianHang/DienThoai.hbs', { title: 'Express' });
+router.get('/MSI.html', function(req, res, next) {
+  res.render('Laptop/MSI.hbs', { title: 'Express' });
 });
-router.get('/Laptop.html', function(req, res, next) {
-  res.render('GianHang/Laptop.hbs', { title: 'Express' });
+router.get('/cart.html', function(req, res, next) {
+  res.render('Cart/Cart.hbs', { title: 'Express' });
 });
-router.get('/ThemSanPham.html', function(req, res, next) {
-  res.render('GianHang/ThemSanPham.hbs', { title: 'Express' });
+
+router.get('/forgetpass.html', function(req, res, next) {
+  res.render('Login/ForgetPass.hbs', { title: 'Express' });
 });
-router.get('/TopSP.html', function(req, res, next) {
-  res.render('TOP/TopSP.hbs', { title: 'Express' });
+
+router.get('/products.html', function(req, res, next) {
+  res.render('Login/index.hbs', { title: 'Express' });
 });
-router.get('/TopGHLaptop.html', function(req, res, next) {
-  res.render('TOP/TopGHLaptop.hbs', { title: 'Express' });
+router.get('/User.html', function(req, res, next) {
+  res.render('Login/User.hbs', { title: 'Express' });
 });
-router.get('/TopGHPhone.html', function(req, res, next) {
-  res.render('TOP/TopGHPhone.hbs', { title: 'Express' });
+router.get('/History.html', function(req, res, next) {
+  res.render('Cart/History.hbs', { title: 'Express' });
 });
+router.get('/ThanhToan.html', function(req, res, next) {
+  res.render('Cart/States/ThanhToan.hbs', { title: 'Express' });
+});
+router.get('/VanChuyen.html', function(req, res, next) {
+  res.render('Cart/States/VanChuyen.hbs', { title: 'Express' });
+});
+router.get('/GiaoHang.html', function(req, res, next) {
+  res.render('Cart/States/GiaoHang.hbs', { title: 'Express' });
+});
+router.get('/product_details.html', function(req, res, next) {
+  res.render('Laptop/LaptopDetail.hbs', { title: 'Express' });
+});
+
 module.exports = router;
