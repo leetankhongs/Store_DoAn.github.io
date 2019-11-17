@@ -102,134 +102,31 @@
 		</div>
 		<h4>LapTop </h4>
 			  <ul class="thumbnails">
+				{{# each laptops}}
 				<li class="span3">
 				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Laptop/HP.jpg" alt=""/></a>
+					<a  href="product_details.html"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
-					  <h5>HP EliteBook X360 14 i7 8550U/16GB/512GB/Win10 (5XD05PA)</h5>
-
-					 
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">51.990.000</a></h4>
+					  <h5>{{this.SimpleDetail}}</h5>
+					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Laptop/Asus.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Asus Gaming ROG Strix G531 i7 9750H/8GB/512GB/6GB RTX2060/Win10 (VAL218T)</h5>
-
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">38.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Laptop/Dell.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Dell XPS 13 9370 i7 8550U/8GB/256GB/Office365/Win10 (415PX3)</h5>
-
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">44.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Laptop/Acer.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Acer Predator Triton 500 PT515 51 7398 i7 8750H/16GB/256GB/8GB RTX2070/Win10 (NH.Q4XSV.003)</h5>
-
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">59.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Laptop/Lenovo.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Lenovo Yoga C930 13IKB i7 8550U/16GB/512GB/Win10 (81C4009QVN)</h5>
-
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">49.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Laptop/MSI.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>MSI Gaming 15 GF63 9SC i7 9750H/8GB/256GB/4GB GTX1650/Win10 (070VN)</h5>
-
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">26.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
+				{{/each}}
 			  </ul>	
 			  <h4>Điện thoại</h4>
 			   <ul class="thumbnails">
+				{{# each phones}}
 				<li class="span3">
 				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Mobile/Iphone.jpg" alt=""/></a>
+					<a  href="product_details.html"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
-					  <h5>Iphone 11 Pro Max</h5>
-
-					 
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">43.990.000</a></h4>
+					  <h5>{{this.SimpleDetail}}</h5>
+					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Mobile/Iphone.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Iphone 11 Pro Max</h5>
-
-					 
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">43.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Mobile/Oppo.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>OPPO Reno</h5>
-
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">16.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Mobile/Nokia.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Nokia 8.1</h5>
-
-					  <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">6.590.000</a></h4>
-					</div>
-				  </div>
-				</li>
-								<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Mobile/Oppo.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>OPPO Reno</h5>
-
-					   <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">16.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-					<li class="span3">
-				  <div class="thumbnail">
-					<a  href="product_details.html"><img src="themes/images/Mobile/Iphone.jpg" alt=""/></a>
-					<div class="caption">
-					  <h5>Iphone 11 Pro Max</h5>
-
-					 
-					 <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">43.990.000</a></h4>
-					</div>
-				  </div>
-				</li>
-				
+				{{/each}}
 			  </ul>	
 
 		</div>
