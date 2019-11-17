@@ -1,13 +1,46 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-router.get('/index.html', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+var mongoose = require('mongoose');
+//Kết nối database
+mongoose.connect('mongodb+srv://admin123:admin123@cluster0-kqj7g.mongodb.net/Store?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true }).then(
+	() => {
+		console.log('KN THANH CONG')
+
+	},
+	err => { /** handle initial connection error */
+		console.log('KNOI loi~');
+	}
+);
+
+let products = require("../models/productModel");
+
+router.get('/', function(req,res,next){
+  products.find({TypeProduct: 'Laptop'})
+    .limit(8)
+    .then(function(laptop){
+      products.find({TypeProduct: 'Phone'})
+        .limit(8)
+        .then(function(phone)
+        {
+          res.render('index',{laptops: laptop, phones: phone});
+        })
+
+    })
+})
+
+router.get('/index.html', function(req,res,next){
+  products.find({TypeProduct: 'Laptop'})
+    .then(function(laptop){
+      products.find({TypeProduct: 'Phone'})
+        .then(function(phone)
+        {
+          res.render('index',{laptops: laptop, phones: phone});
+        })
+
+    })
+})
+
 router.get('/register.html', function(req, res, next) {
   res.render('Login/register.hbs', { title: 'Express' });
 });
