@@ -17,10 +17,8 @@ let products = require("../models/productModel");
 
 router.get('/', function(req,res,next){
   products.find({TypeProduct: 'Laptop'})
-    .limit(8)
     .then(function(laptop){
       products.find({TypeProduct: 'Phone'})
-        .limit(8)
         .then(function(phone)
         {
           res.render('index',{laptops: laptop, phones: phone});
@@ -39,7 +37,29 @@ router.get('/index.html', function(req,res,next){
         })
 
     })
-})
+});
+router.get('/product_details/:id/:Brand', function(req,res, next)
+{
+
+
+    products.findById(req.params.id) 
+    .then(product =>{
+      products.find({Brand: req.params.Brand})
+      .limit(8)
+      .then(sameBrand => {
+        res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand})
+      })
+    })
+});
+router.get('/BrandProduct/:Brand', function(req,res, next)
+{
+    products.find({Brand: req.params.Brand})
+    .then(function(laptop)
+    {
+      res.render('BrandProduct.hbs',{laptops: laptop});
+    })
+});
+
 
 router.get('/register.html', function(req, res, next) {
   res.render('Login/register.hbs', { title: 'Express' });
@@ -57,8 +77,15 @@ router.get('/Nokia.html', function(req, res, next) {
   res.render('Phone/Nokia.hbs', { title: 'Express' });
 });
 router.get('/Asus.html', function(req, res, next) {
-  res.render('Laptop/Asus.hbs', { title: 'Express' });
+  products.find({Brand: 'Asus'})
+  .then(function(laptop)
+  {
+    res.render('Laptop/Asus.hbs',{laptops: laptop});
+  })
 });
+
+
+
 router.get('/Acer.html', function(req, res, next) {
   res.render('Laptop/Acer.hbs', { title: 'Express' });
 });
@@ -100,8 +127,8 @@ router.get('/VanChuyen.html', function(req, res, next) {
 router.get('/GiaoHang.html', function(req, res, next) {
   res.render('Cart/States/GiaoHang.hbs', { title: 'Express' });
 });
-router.get('/product_details.html', function(req, res, next) {
-  res.render('Laptop/LaptopDetail.hbs', { title: 'Express' });
-});
+// router.get('/product_details.html', function(req, res, next) {
+//   res.render('Laptop/LaptopDetail.hbs', { title: 'Express' });
+// });
 
 module.exports = router;
