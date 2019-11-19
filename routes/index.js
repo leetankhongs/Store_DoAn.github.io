@@ -17,35 +17,57 @@ let products = require("../models/productModel");
 
 router.get('/', function(req,res,next){
   products.find({TypeProduct: 'Laptop'})
+    .limit(8)
     .then(function(laptop){
       products.find({TypeProduct: 'Phone'})
+        .limit(8)
         .then(function(phone)
         {
-          res.render('index',{laptops: laptop, phones: phone});
+          products.find({TypeProduct: 'Laptop'})
+            .limit(4)
+            .then(function(SpecialLaptop){
+              products.find({TypeProduct: 'Phone'})
+              .limit(4)
+                .then(function(SpecialPhone)
+                {
+                  res.render('index',{laptops: laptop, phones: phone,SpecialLaptop: SpecialLaptop, SpecialPhone: SpecialPhone });
+                })
+
+            })
         })
 
     })
-})
+});
 
 router.get('/index.html', function(req,res,next){
   products.find({TypeProduct: 'Laptop'})
+    .limit(8)
     .then(function(laptop){
       products.find({TypeProduct: 'Phone'})
+        .limit(8)
         .then(function(phone)
         {
-          res.render('index',{laptops: laptop, phones: phone});
+          products.find({TypeProduct: 'Laptop'})
+            .limit(4)
+            .then(function(SpecialLaptop){
+              products.find({TypeProduct: 'Phone'})
+              .limit(4)
+                .then(function(SpecialPhone)
+                {
+                  res.render('index',{laptops: laptop, phones: phone,SpecialLaptop: SpecialLaptop, SpecialPhone: SpecialPhone });
+                })
+
+            })
         })
 
     })
 });
 router.get('/product_details/:id/:Brand', function(req,res, next)
 {
-
-
     products.findById(req.params.id) 
     .then(product =>{
       products.find({Brand: req.params.Brand})
-      .limit(8)
+      .limit(6)
       .then(sameBrand => {
         res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand})
       })
@@ -56,7 +78,10 @@ router.get('/BrandProduct/:Brand', function(req,res, next)
     products.find({Brand: req.params.Brand})
     .then(function(laptop)
     {
-      res.render('BrandProduct.hbs',{laptops: laptop});
+      products.count({Brand: req.params.Brand})
+      .then(function(count){
+        res.render('BrandProduct.hbs',{laptops: laptop, Brand: req.params.Brand, count: count});
+      })
     })
 });
 
