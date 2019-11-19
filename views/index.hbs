@@ -8,88 +8,34 @@
 			<div class="carousel-inner">
 			  <div class="item active">
 			  <ul class="thumbnails">
+				{{#each SpecialLaptop}}
 				<li class="span3">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href="product_details.html"><img src="themes/images/Laptop/Asus.jpg" alt=""></a>
+					<a href="/product_details/{{this._id}}/{{this.Brand}}"><img src="{{this.Image}}" alt=""></a>
 					<div class="caption">
-					  <h5>Asus Gaming Rog</h5>
-					  <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">38.990.000</span></h4>
+					  <h5>{{this.Name}}</h5>
+					  <h4><a class="btn" href="/product_details/{{this._id}}/{{this.Brand}}">Xem</a> <span class="pull-right">{{this.Cost}}</span></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="themes/images/Laptop/MSI.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>MSI Gaming</h5>
-					  <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">26.990.000</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="themes/images/Laptop/Dell.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Dell XPS</h5>
-					   <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">44.990.000</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="themes/images/Laptop/HP.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>HP EliteBook</h5>
-					   <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">51.990.000</span></h4>
-					</div>
-				  </div>
-				</li>
+				{{/each}}
 			  </ul>
 			  </div>
 			   <div class="item">
 			  <ul class="thumbnails">
+				{{#each SpecialPhone}}
 				<li class="span3">
 				  <div class="thumbnail">
 				  <i class="tag"></i>
-					<a href="product_details.html"><img src="themes/images/Mobile/Iphone.jpg" alt=""></a>
+					<a href="/product_details/{{this._id}}/{{this.Brand}}"><img src="{{this.Image}}" alt=""></a>
 					<div class="caption">
-					  <h5>Iphone 11 Pro Max</h5>
-					  <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">43.990.000</span></h4>
+					  <h5>{{this.Name}}</h5>
+					  <h4><a class="btn" href="/product_details/{{this._id}}/{{this.Brand}}">Xem</a> <span class="pull-right">{{this.Cost}}</span></h4>
 					</div>
 				  </div>
 				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-				  <i class="tag"></i>
-					<a href="product_details.html"><img src="themes/images/Mobile/SamSung01.png" alt=""></a>
-					<div class="caption">
-					  <h5>Samsung Galaxy S10 +</h5>
-					  <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">26.990.000</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="themes/images/Mobile/Oppo.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>OPPO</h5>
-					   <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">16.990.000</span></h4>
-					</div>
-				  </div>
-				</li>
-				<li class="span3">
-				  <div class="thumbnail">
-					<a href="product_details.html"><img src="themes/images/Mobile/Nokia.jpg" alt=""></a>
-					<div class="caption">
-					  <h5>Nokia 8.1</h5>
-					   <h4><a class="btn" href="product_details.html">Xem</a> <span class="pull-right">6.590.000</span></h4>
-					</div>
-				  </div>
-				</li>
+				{{/each}}
 			  </ul>
 			  </div>
 
@@ -108,7 +54,7 @@
 					<a  href="/product_details/{{this._id}}/{{this.Brand}}"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
 					  <h5>{{this.SimpleDetail}}</h5>
-					 <h5 style="text-align:center"><a class="btn" href="/product_details/{{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					 <h5 style="text-align:center"><a class="btn" href="/product_details/{{this._id}}/{{this.Brand}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
 					</div>
 				  </div>
 				</li>
@@ -119,10 +65,10 @@
 				{{# each phones}}
 				<li class="span3">
 				  <div class="thumbnail">
-					<a  href="/product_details/{{this._id}}"><img src="{{this.Image}}" alt=""/></a>
+					<a  href="/product_details/{{this._id}}/{{this.Brand}}"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
 					  <h5>{{this.SimpleDetail}}</h5>
-					 <h5 style="text-align:center"><a class="btn" href="/product_details/{{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					 <h5 style="text-align:center"><a class="btn" href="/product_details/{{this._id}}/{{this.Brand}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
 					</div>
 				  </div>
 				</li>
