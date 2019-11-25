@@ -1,89 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-var mongoose = require('mongoose');
-//Kết nối database
-mongoose.connect('mongodb+srv://admin123:admin123@cluster0-kqj7g.mongodb.net/Store?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true }).then(
-	() => {
-		console.log('KN THANH CONG')
+const productController = require("../Controller/ProductController")
 
-	},
-	err => { /** handle initial connection error */
-		console.log('KNOI loi~');
-	}
-);
+router.get('/', productController.home);
 
-let products = require("../models/productModel");
-
-router.get('/', function(req,res,next){
-  products.find({TypeProduct: 'Laptop'})
-    .limit(8)
-    .then(function(laptop){
-      products.find({TypeProduct: 'Phone'})
-        .limit(8)
-        .then(function(phone)
-        {
-          products.find({TypeProduct: 'Laptop'})
-            .limit(4)
-            .then(function(SpecialLaptop){
-              products.find({TypeProduct: 'Phone'})
-              .limit(4)
-                .then(function(SpecialPhone)
-                {
-                  res.render('index',{laptops: laptop, phones: phone,SpecialLaptop: SpecialLaptop, SpecialPhone: SpecialPhone });
-                })
-
-            })
-        })
-
-    })
-});
-
-router.get('/index.html', function(req,res,next){
-  products.find({TypeProduct: 'Laptop'})
-    .limit(8)
-    .then(function(laptop){
-      products.find({TypeProduct: 'Phone'})
-        .limit(8)
-        .then(function(phone)
-        {
-          products.find({TypeProduct: 'Laptop'})
-            .limit(4)
-            .then(function(SpecialLaptop){
-              products.find({TypeProduct: 'Phone'})
-              .limit(4)
-                .then(function(SpecialPhone)
-                {
-                  res.render('index',{laptops: laptop, phones: phone,SpecialLaptop: SpecialLaptop, SpecialPhone: SpecialPhone });
-                })
-
-            })
-        })
-
-    })
-});
-router.get('/product_details/:id/:Brand', function(req,res, next)
-{
-    products.findById(req.params.id) 
-    .then(product =>{
-      products.find({Brand: req.params.Brand})
-      .limit(6)
-      .then(sameBrand => {
-        res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand})
-      })
-    })
-});
-router.get('/BrandProduct/:Brand', function(req,res, next)
-{
-    products.find({Brand: req.params.Brand})
-    .then(function(laptop)
-    {
-      products.count({Brand: req.params.Brand})
-      .then(function(count){
-        res.render('BrandProduct.hbs',{laptops: laptop, Brand: req.params.Brand, count: count});
-      })
-    })
-});
+router.get('/index.html', productController.home);
+router.get('/product_details/:id/:Brand', productController.detailProduct);
+router.get('/BrandProduct/:Brand', productController.brand);
 
 
 router.get('/register.html', function(req, res, next) {
