@@ -7,11 +7,15 @@ var logger = require('morgan');
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
+require('dotenv').config();
+
+
 var app = express();
 
+const dbURL = process.env.DB_URL;
 var mongoose = require('mongoose');
 //Kết nối database
-mongoose.connect('mongodb+srv://admin123:admin123@cluster0-kqj7g.mongodb.net/Store?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true }).then(
+mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true }).then(
 	() => {
 		console.log('KN THANH CONG')
 
