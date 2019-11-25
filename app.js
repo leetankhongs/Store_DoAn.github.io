@@ -4,10 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+var mongoose = require('mongoose');
+//Kết nối database
+mongoose.connect('mongodb+srv://admin123:admin123@cluster0-kqj7g.mongodb.net/Store?retryWrites=true&w=majority', { useNewUrlParser: true, useCreateIndex: true }).then(
+	() => {
+		console.log('KN THANH CONG')
+
+	},
+	err => { /** handle initial connection error */
+		console.log('KNOI loi~');
+	}
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,7 +30,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/Laptop/LaptopDetail.hbs', express.static(path.join(__dirname,'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
