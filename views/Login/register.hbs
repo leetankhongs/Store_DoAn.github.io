@@ -2,51 +2,58 @@
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li><a href="index">Home</a> <span class="divider">/</span></li>
 		<li class="active">Đăng kí</li>
     </ul>
-	<h3> Đăng kí</h3>	
+	<h3> Đăng kí</h3>
 	<div class="well">
-
-	<form class="form-horizontal" >
+		<form class="form-horizontal" method="POST" action="/register" >	
+		{{# each errors}}
+		<div class="alert alert-danger alert-dismissible show" role="alert">
+ 		 {{this.msg}}
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  		</button>
+		</div>				
+		{{/ each}}	
 		<h4>THÔNG TIN CÁ NHÂN</h4>
 		<div class="control-group">
-			<label class="control-label" for="inputFname1">Tên <sup>*</sup></label>
+			<label class="control-label" for="Name">Tên <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" name="Name" placeholder="Tên">
+			  <input type="text" name="Name" placeholder="Tên" value={{this.Name}}>
 			</div>
-		 </div>>
+		 </div>
 		<div class="control-group">
-		<label class="control-label" for="input_email">Email <sup>*</sup></label>
+		<label class="control-label" for="Email">Email <sup>*</sup></label>
 		<div class="controls">
-		  <input type="text" name="Email" placeholder="Email">
+		  <input type="text" name="Email" placeholder="Email" value={{this.Email}}>
 		</div>
-	  </div>	  
-	<div class="control-group">
-		<label class="control-label" for="inputPassword1">Mật khẩu <sup>*</sup></label>
+	  	</div>	  
+		<div class="control-group">
+		<label class="control-label" for="Password1">Mật khẩu <sup>*</sup></label>
 		<div class="controls">
-		  <input type="password" name="Password1" placeholder="Mật khẩu">
+		  <input type="password" name="Password1" placeholder="Mật khẩu" value={{this.Password1}}>
 		</div>
-	</div>	  
-	<div class="control-group">
-		<label class="control-label" for="inputPassword1">Nhập lại mật khẩu <sup>*</sup></label>
+		</div>	  
+		<div class="control-group">
+		<label class="control-label" for="Password2">Nhập lại mật khẩu <sup>*</sup></label>
 		<div class="controls">
-		  <input type="password" name="Password2" placeholder="Nhập lại mật khẩu">
+		  <input type="password" name="Password2" placeholder="Nhập lại mật khẩu" value={{this.Password2}}>
 		</div>
-	</div>	  
+		</div>	  
 
 		<h4>ĐỊA CHỈ</h4>
 		<div class="control-group">
-			<label class="control-label" for="address">Địa chỉ<sup>*</sup></label>
+			<label class="control-label" for="Address">Địa chỉ<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" name="Address" placeholder="Địa chỉ"/> <span>Tên đường, quận (huyện)</span>
+			  <input type="text" name="Address" placeholder="Địa chỉ" value={{this.Address}}> <span>Tên đường, quận (huyện)</span>
 			</div>
 		</div>
 		
 		<div class="control-group">
-			<label class="control-label " for="phone">Điện thoại<sup>*</sup></label>
+			<label class="control-label " for="Phone">Điện thoại<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text"  name="Phone" id="phone" placeholder="Điện thoại"/>
+			  <input type="text"  name="Phone" placeholder="Điện thoại" value={{this.Phone}}>
 			</div>
 		</div>
 		
@@ -55,8 +62,6 @@
 	
 	<div class="control-group">
 			<div class="controls">
-				<input type="hidden" name="email_create" value="1">
-				<input type="hidden" name="is_new_customer" value="1">
 				<input class="btn btn-large btn-success" type="submit" value="Đăng kí" />
 			</div>
 		</div>		
