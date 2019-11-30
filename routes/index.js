@@ -87,6 +87,6 @@ router.get('/GiaoHang.html', function(req, res, next) {
 // });
 router.post('/Login/register.hbs', (req, res) =>
 {
-
-}
+  const{Name,Email,Password1,Password2,Address,Phone } =req.body
+});
 module.exports = router;
