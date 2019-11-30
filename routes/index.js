@@ -33,6 +33,10 @@ router.get('/Asus.html', function(req, res, next) {
   })
 });
 
+router.get('/login.html', function(req, res, next) {
+  res.render('Login/login.hbs', { title: 'Express' });
+});
+
 
 
 router.get('/Acer.html', function(req, res, next) {
@@ -58,6 +62,8 @@ router.get('/forgetpass.html', function(req, res, next) {
   res.render('Login/ForgetPass.hbs', { title: 'Express' });
 });
 
+
+
 router.get('/products.html', function(req, res, next) {
   res.render('Login/index.hbs', { title: 'Express' });
 });
@@ -79,5 +85,8 @@ router.get('/GiaoHang.html', function(req, res, next) {
 // router.get('/product_details.html', function(req, res, next) {
 //   res.render('Laptop/LaptopDetail.hbs', { title: 'Express' });
 // });
+router.post('/Login/register.hbs', (req, res) =>
+{
 
+}
 module.exports = router;
