@@ -1,0 +1,46 @@
+<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index">Home</a> <span class="divider">/</span></li>
+		<li class="active">Đăng nhập</li>
+    </ul>
+	<h3> ĐĂNG NHẬP</h3>	
+	<hr class="soft"/>
+	{{#if success_msg }}
+	<div class="alert alert-success alert-dismissible show" role="alert">
+ 		 <strong>{{this.success_msg}}</strong>
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  		</button>
+		</div>	
+	{{/if}}
+	<div class="row">
+        <div class="span9" style="min-height:900px">
+		  <div class="well">
+			<form class="form-horizontal loginFrm">
+			  <div class="control-group">								
+				<input type="text" id="inputEmail" placeholder="Email">
+			  </div>
+			  <div class="control-group">
+				<input type="password" id="inputPassword" placeholder="Password">
+			  </div>
+			  <div class="control-group">
+				<label class="checkbox">
+				<input type="checkbox"> Remember me
+				</label>
+			  </div>
+			  <div class="control-group">
+					<a href="/forgetpass" style="text-decoration:underline">Quên mật khẩu</a>
+				</div>
+			</form>		
+			<button type="submit" class="btn btn-success" data-dismiss="modal" aria-hidden="true">Đăng nhập</button>
+			
+			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href='register'">Đăng kí</button>
+		  </div>
+        </div>
+	</div>
+	</div>	
+	
+</div>
+</div>
+</div>
+</div>
