@@ -6,6 +6,7 @@ var logger = require('morgan');
 var app = express();
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 const localStategy = require('passport-local').Strategy
 
 var indexRouter = require('./routes');
@@ -41,6 +42,18 @@ app.use(
     saveUninitialized: true
   })
 );
+
+//connect flash
+
+app.use(flash());
+
+app.use((req, res, next) =>
+{
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+})
 
 app.use(logger('dev'));
 app.use(express.json());

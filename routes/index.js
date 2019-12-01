@@ -1,13 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose');
-
-
 
 const productController = require("../Controller/ProductController");
-const newUser = require("../models/userModel");
-console.log(newUser);
+const User = require("../models/userModel");
 router.get('/', productController.home);
 
 router.get('/index', productController.home);
@@ -130,8 +126,8 @@ router.post('/register', (req, res) =>
     })
   }
   else{
-    newUser.findOne({email:Email}).then(newUser => {
-      if(newUser)
+    User.findOne({email:Email}).then(User => {
+      if(User)
       {
         errors.push({msg: "Email đã tồn tại"});
         res.render('./Login/register',{
@@ -146,27 +142,37 @@ router.post('/register', (req, res) =>
       }
       else
       {
-        
+        //create new user
+    const newUser = new User ({
+      Name,
+      Email,
+      Password,
+      Address,
+      Phone
+  });
+  
+
+  //Hash password
+  bcrypt.genSalt(10,(err, salt)=>
+    bcrypt.hash(newUser.Password,salt,(err,hash)=>
+     {
+       if(err) throw err;
+
+       newUser.Password = hash;
+
+       //save
+       newUser.save().then(User => {
+         
+          req.flash('successs_msg','Đăng kí thành công. Đăng nhập ngay!!!');
+          res.redirect('/login');
+       }).catch(err => console.log(err));
+     }
+    ))
       }
     })
-    //create new user
-    const newUser1 = new newUser ({
-        Name,
-        Email,
-        Password,
-        Address,
-        Phone
-    });
-    newUser1.save(function(err,newUser){
-      if(err)
-      throw err;   
-    })
-    let message = "Tạo tài khoản thành công. Đăng nhập ngay!"
-    res.render('./Login/login',{message});
+    
   } 
 });
-
-router.post()
 
 
 module.exports = router;
