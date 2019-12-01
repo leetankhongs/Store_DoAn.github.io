@@ -3,21 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var app = express();
 const passport = require('passport');
+const session = require('express-session');
 const localStategy = require('passport-local').Strategy
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
 require('dotenv').config();
-
-
-var app = express();
-
 const dbURL = process.env.DB_URL;
 var mongoose = require('mongoose');
+
+
 //Kết nối database
-mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true }).then(
+mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
 	() => {
 		console.log('KN THANH CONG')
 
@@ -31,6 +31,17 @@ mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true }).then(
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use(express.urlencoded({ extended: true }));
+
+// Express session
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +51,7 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

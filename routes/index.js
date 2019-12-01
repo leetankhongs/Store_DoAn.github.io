@@ -1,8 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 
-const productController = require("../Controller/ProductController")
 
+
+const productController = require("../Controller/ProductController");
+const newUser = require("../models/userModel");
+console.log(newUser);
 router.get('/', productController.home);
 
 router.get('/index', productController.home);
@@ -89,27 +94,27 @@ router.get('/GiaoHang', function(req, res, next) {
 // });
 router.post('/register', (req, res) =>
 {
-  const{Name,Email,Password1,Password2,Address,Phone } =req.body;
+  const{Name,Email,Password,Password2,Address,Phone } =req.body;
   let errors = [];
 
   //check nhập đủ
-  if(!Name || !Email || !Password1 || !Password2 || !Address || !Phone)
+  if(!Name || !Email || !Password || !Password2 || !Address || !Phone)
   {
-    errors.push({msg:'Hãy nhập tất cả các trường'});
+    errors.push({msg:'Hãy nhập tất cả các thông tin'});
   }
 
   //check password match
 
-  if(Password1 !== Password2)
+  if(Password !== Password2)
   {
     errors.push({msg: "Mật khẩu không khớp"});
   }
 
   //check password length >=6 
 
-  if( Password1.length < 6)
+  if( Password.length < 6)
   {
-    errors.push({msg:"Mật khâu dưới 6 kí tự"});
+    errors.push({msg:"Hãy nhập mật khẩu trên 6 kí tự"});
   }
 
   if(errors.length > 0 )
@@ -118,16 +123,50 @@ router.post('/register', (req, res) =>
       errors,
       Name,
       Email,
-      Password1,
+      Password,
       Password2,
       Address,
       Phone
     })
   }
   else{
-    res.send('pass');
+    newUser.findOne({email:Email}).then(newUser => {
+      if(newUser)
+      {
+        errors.push({msg: "Email đã tồn tại"});
+        res.render('./Login/register',{
+         errors,
+         Name,
+         Email,
+         Password,
+         Password2,
+         Address,
+         Phone
+        });
+      }
+      else
+      {
+        
+      }
+    })
+    //create new user
+    const newUser1 = new newUser ({
+        Name,
+        Email,
+        Password,
+        Address,
+        Phone
+    });
+    newUser1.save(function(err,newUser){
+      if(err)
+      throw err;   
+    })
+    let message = "Tạo tài khoản thành công. Đăng nhập ngay!"
+    res.render('./Login/login',{message});
   } 
 });
+
+router.post()
 
 
 module.exports = router;
