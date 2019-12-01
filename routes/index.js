@@ -126,8 +126,8 @@ router.post('/register', (req, res) =>
     })
   }
   else{
-    User.findOne({email:Email}).then(User => {
-      if(User)
+    User.findOne({email:Email}).then(UserResult => {
+      if(UserResult)
       {
         errors.push({msg: "Email đã tồn tại"});
         res.render('./Login/register',{
@@ -143,33 +143,33 @@ router.post('/register', (req, res) =>
       else
       {
         //create new user
-    const newUser = new User ({
-      Name,
-      Email,
-      Password,
-      Address,
-      Phone
-  });
+        const newUser = new User ({
+          Name,
+          Email,
+          Password,
+          Address,
+          Phone
+        });
   
 
   //Hash password
-  bcrypt.genSalt(10,(err, salt)=>
-    bcrypt.hash(newUser.Password,salt,(err,hash)=>
-     {
-       if(err) throw err;
+      bcrypt.genSalt(10,(err, salt)=>
+        bcrypt.hash(newUser.Password,salt,(err,hash)=>
+        {
 
-       newUser.Password = hash;
+          if (err) throw err;
+          newUser.Password = hash;
 
-       //save
-       newUser.save().then(User => {
-         
-          req.flash('successs_msg','Đăng kí thành công. Đăng nhập ngay!!!');
-          res.redirect('/login');
-       }).catch(err => console.log(err));
-     }
-    ))
-      }
-    })
+          //save
+          newUser.save().then(User => {
+            
+              req.flash('successs_msg','Đăng kí thành công. Đăng nhập ngay!!!');
+              res.redirect('/login');
+          }).catch(err => console.log(err));
+        }
+        ))
+          }
+        })
     
   } 
 });
