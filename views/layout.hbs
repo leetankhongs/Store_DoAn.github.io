@@ -36,7 +36,7 @@
 <div id="header">
 <div class="container">
   <div id="welcomeLine" class="row">
-    <div class="span6">Welcome!<strong> 1712479</strong></div>
+    <div class="span6">Welcome!<strong> </strong></div>
     <div class="span6">
       <div class="pull-right">
           <a href="/Cart"><span class="">Fr</span></a>
@@ -69,12 +69,20 @@
 		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
-		<li class=""><a href="/History">Lịch sử mua hàng</a></li>
-		<li class=""><a href="/User">Tài khoản</a></li>
+		{{#if user}}
+				<li class=""><a href="/User">{{user.Name}}</a></li>
+				<li class="">
+				<a href="/users/logout"><span class="btn btn-large btn-success">Đăng xuất</span></a>	
+				</li>
+		{{else}}
+
+
 		<li class="">
 		<a href="/users/login"><span class="btn btn-large btn-success">Đăng nhập</span></a>	
-	</li>
-    </ul>
+
+		</li>
+				{{/if}}
+		</ul>
   </div>
 </div>
 </div>
