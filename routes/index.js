@@ -6,7 +6,7 @@ const passport = require('passport');
 const productController = require("../Controller/ProductController");
 const userController = require("../Controller/UserController");
 
-router.get('/', productController.home);
+router.get('/',  productController.home);
 router.get('/index', productController.home);
 router.get('/product_details/:id/:Brand', productController.detailProduct);
 router.get('/BrandProduct/:Brand', productController.brand);

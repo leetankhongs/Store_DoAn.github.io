@@ -96,3 +96,8 @@ exports.login = (req,res,next) => {
   }) (req, res, next);
 }
 
+exports.logout = (req, res) =>{
+  req.logout();
+  req.flash('success_msg', ' Bạn đã đăng xuất thành công');
+  res.redirect('/users/login');
+}
