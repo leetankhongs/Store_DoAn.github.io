@@ -1,5 +1,7 @@
 let products = require("../models/productModel");
 
+const {ensureAuthenticated} = require('../Controller/auth');
+
 exports.home = (req,res,next) =>{
     products.find({TypeProduct: 'Laptop'})
       .limit(8)
@@ -47,3 +49,5 @@ exports.brand = (req,res, next) =>
       })
     })
 }
+
+
