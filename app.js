@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var app = express();
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -12,10 +11,14 @@ const localStategy = require('passport-local').Strategy
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 
+var app = express();
+
+//Passport 
+require('./Controller/passport.js')(passport);
+
 require('dotenv').config();
 const dbURL = process.env.DB_URL;
 var mongoose = require('mongoose');
-
 
 //Kết nối database
 mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
@@ -42,6 +45,9 @@ app.use(
     saveUninitialized: true
   })
 );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //connect flash
 

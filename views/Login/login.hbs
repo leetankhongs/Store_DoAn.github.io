@@ -13,15 +13,25 @@
   		</button>
 		</div>	
 	{{/if}}
+
+	{{#if error }}
+	<div class="alert alert-success alert-dismissible show" role="alert">
+ 		 <strong>{{this.error}}</strong>
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  		</button>
+		</div>	
+	{{/if}}
+	
 	<div class="row">
         <div class="span9" style="min-height:900px">
 		  <div class="well">
-			<form class="form-horizontal loginFrm">
+			<form class="form-horizontal loginFrm"  action="/users/login" method="post" >
 			  <div class="control-group">								
-				<input type="text" id="inputEmail" placeholder="Email">
+				<input type="text" id="inputEmail" Name="username" placeholder="Email">
 			  </div>
 			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
+				<input type="password" id="inputPassword" name="password" placeholder="Password">
 			  </div>
 			  <div class="control-group">
 				<label class="checkbox">
@@ -31,10 +41,11 @@
 			  <div class="control-group">
 					<a href="/forgetpass" style="text-decoration:underline">Quên mật khẩu</a>
 				</div>
+				<button type="submit" class="btn btn-success" data-dismiss="modal" aria-hidden="true">Đăng nhập</button>
+
 			</form>		
-			<button type="submit" class="btn btn-success" data-dismiss="modal" aria-hidden="true">Đăng nhập</button>
-			
-			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href='register'">Đăng kí</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true" onclick="window.location.href='/users/register'">Đăng kí</button>
+
 		  </div>
         </div>
 	</div>
