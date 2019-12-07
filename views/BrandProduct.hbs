@@ -5,7 +5,7 @@
                 <li><a href="/index">Home</a> <span class="divider">/</span></li>
                 <li class="active">{{Brand}}</li>
             </ul>
-            <h3> {{Brand}} <small class="pull-right"> Hiện có {{count}} loại sản phẩm </small></h3>	
+            <h3> {{Brand}} <small class="pull-right"> Hiện có {{count}} loại sản phẩm</small></h3>	
             <hr class="soft"/>
 
             <hr class="soft"/>
@@ -208,10 +208,10 @@
                         {{# each laptops}}
                         <li class="span3">
                         <div class="thumbnail">
-                            <a href="/product_details/{{this._id}}/{{this.Brand}}" ><img src="{{this.Image}}" alt="" /></a>
+                            <a href="/product_details/{{this.Brand}}?id={{this._id}}" ><img src="{{this.Image}}" alt="" /></a>
                             <div class="caption">
                             <h5>{{this.SimpleDetail}}</h5>
-					        <h5 style="text-align:center"><a class="btn" href="/product_details/{{this._id}}/{{this.Brand}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					        <h5 style="text-align:center"><a class="btn" href="/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
                             </div>
                         </div>
                         </li>
@@ -222,19 +222,20 @@
             </div>
 
             <a href="compair" class="btn btn-large pull-right">Compair Product</a>
-            <div class="pagination">
-                    <ul>
-                    <li><a href="#">&lsaquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">&rsaquo;</a></li>
-                    </ul>
-                    </div>
-                    <br class="clr"/>
+            <div class="pagination" onload="generate_table({{Brand}},{{count}}">
+                <ul>
+                <li><a href="/BrandProduct/{{Brand}}?page={{currentPage.pre}}">&lsaquo;</a></li>
+                {{#each pages}}
+                    <li><a href="/BrandProduct/{{this.brand}}?page={{this.pos}}">{{this.pos}}</a></li>
+                {{/each}}
+                <li><a href="/BrandProduct/{{Brand}}?page={{currentPage.pos}}">&rsaquo;</a></li> 
+                </ul> 
+                </div>
+                <br class="clr"/>
+                <nav class="pagination" role="navigation">
+
             </div>
         </div>
     </div>
 </div>
+

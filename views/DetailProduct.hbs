@@ -123,7 +123,7 @@
 						<p>
 						{{this.Description}}
 						</p>
-						<a class="btn btn-small pull-right" href="/product_details/{{this._id}}/{{this.Brand}}">View Details</a>
+						<a class="btn btn-small pull-right" href="/product_details/{{this.Brand}}?id={{this._id}}">View Details</a>
 						<br class="clr"/>
 					</div>
 					<div class="span3 alignR">
@@ -133,8 +133,8 @@
 						<input type="checkbox">  Adds product to compair
 					</label><br/>
 					<div class="btn-group">
-					  <a href="/product_details/{{this._id}}/{{this.Brand}}" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-					  <a href="/product_details/{{this._id}}/{{this.Brand}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+					  <a href="/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+					  <a href="/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 					 </div>
 						</form>
 					</div>
@@ -147,7 +147,7 @@
                     {{# each sameBrand}}
 					<li class="span3">
                         <div class="thumbnail">
-                            <a href="/product_details/{{this.id}}"><img src="{{this.Image}}" alt=""/></a>
+                            <a href="/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""/></a>
                             <div class="caption">
                             <h5>{{this.SimpleDetail}}</h5>
                                 <h4 style="text-align:center"> <a class="btn" href="#">Thêm vào giỏ<i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h4>
