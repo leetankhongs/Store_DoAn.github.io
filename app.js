@@ -10,6 +10,7 @@ const localStategy = require('passport-local').Strategy
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
+var productRouter = require('./routes/product');
 
 var app = express();
 
@@ -71,6 +72,7 @@ app.use(passport.initialize());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/product', productRouter);
 
 
 // catch 404 and forward to error handler

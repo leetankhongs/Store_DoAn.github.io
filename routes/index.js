@@ -1,23 +1,23 @@
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose');
 const passport = require('passport');
 
 const productController = require("../Controller/ProductController");
-const userController = require("../Controller/UserController");
 
 router.get('/',  productController.home);
 router.get('/index', productController.home);
-router.get('/product_details/:Brand/', productController.detailProduct);
-router.get('/BrandProduct/:Brand', productController.brand);
+
+
+
+
+
+
+
+
 
 router.get('/cart', function(req, res, next) {
   res.render('Cart/Cart.hbs', { title: 'Express' });
 });
-
-
-
-
 
 router.get('/products', function(req, res, next) {
   res.render('Login/index.hbs', { title: 'Express' });
