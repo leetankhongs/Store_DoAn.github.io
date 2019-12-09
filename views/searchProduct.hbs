@@ -5,11 +5,11 @@
                 <li><a href="/index">Home</a> <span class="divider">/</span></li>
                 <li class="active">{{Brand}}</li>
             </ul>
-            <h3> {{Brand}} <small class="pull-right"> Hiện có {{count}} loại sản phẩm{{sort}}</small></h3>	
+            <h3> {{Brand}} <small class="pull-right"> {{title}}</small></h3>	
             <hr class="soft"/>
 
             <hr class="soft"/>
-            <form class="form-horizontal span6" action="/product/BrandProduct/{{Brand}}/sort" method="post">
+            <form class="form-horizontal span6" action="/product/search/sort?require={{require}}" method="POST">
                 <div class="control-group">
                 <label class="control-label alignL">Sắp xếp </label>
 
@@ -26,15 +26,16 @@
                         document.getElementById("mySelect").selectedIndex = {{sort}};
                 </script>
             </form>
-            
+                        
             <div id="myTab" class="pull-right">
                 <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
                 <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
             </div>
             <br class="clr"/>
+
             <div class="tab-content">
-                <div class="tab-pane" id="listView">
-                    {{#each laptops}}
+                 <div class="tab-pane" id="listView">
+                    {{#each products}}
                     <div class="row">	  
                         <div class="span2">
                             <img src="{{this.Image}}" alt=""/>
@@ -64,10 +65,9 @@
                    
                     <hr class="soft"/>
                 </div>
-
                 <div class="tab-pane  active" id="blockView">
                     <ul class="thumbnails">
-                        {{# each laptops}}
+                        {{# each products}}
                         <li class="span3">
                         <div class="thumbnail">
                             <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" ><img src="{{this.Image}}" alt="" /></a>
@@ -83,13 +83,14 @@
                 </div>
             </div>
 
+            <a href="compair" class="btn btn-large pull-right">Compair Product</a>
             <div class="pagination" onload="generate_table({{Brand}},{{count}}">
                 <ul>
-                <li><a href="/product/BrandProduct/{{Brand}}?sort={{sort}}&page={{currentPage.pre}}">&lsaquo;</a></li>
+                <li><a href="/product/search?require={{require}}&page={{positionPage.pre}}&sort={{sort}}">&lsaquo;</a></li>
                 {{#each pages}}
-                    <li><a href="/product/BrandProduct/{{this.brand}}?sort={{this.sort}}&page={{this.pos}}">{{this.pos}}</a></li>
+                    <li><a href="/product/search?require={{this.require}}&page={{this.pos}}&sort={{this.sort}}">{{this.pos}}</a></li>
                 {{/each}}
-                <li><a href="/product/BrandProduct/{{Brand}}?sort={{sort}}&page={{currentPage.pos}}">&rsaquo;</a></li> 
+                <li><a href="/product/search?require={{require}}&page={{positionPage.pos}}&sort={{sort}}">&rsaquo;</a></li> 
                 </ul> 
                 </div>
                 <br class="clr"/>
