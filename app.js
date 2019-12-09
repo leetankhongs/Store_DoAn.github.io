@@ -15,7 +15,7 @@ var productRouter = require('./routes/product');
 var app = express();
 
 //Passport 
-require('./Controller/passport.js')(passport);
+require('./Config/passport.js')(passport);
 
 require('dotenv').config();
 const dbURL = process.env.DB_URL;

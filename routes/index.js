@@ -3,9 +3,10 @@ var router = express.Router();
 const passport = require('passport');
 
 const productController = require("../Controller/ProductController");
+const indexController = require("../Controller/indexController")
 
-router.get('/',  productController.home);
-router.get('/index', productController.home);
+router.get('/',  indexController.home);
+router.get('/index', indexController.home);
 
 
 
