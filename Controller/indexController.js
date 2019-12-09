@@ -6,4 +6,4 @@ exports.home = async (req,res,next) =>{
     const SpecialLaptop = await  products.find({TypeProduct: 'Laptop'}).limit(4) ;
     const SpecialPhone = await products.find({TypeProduct: 'Phone'}).limit(4);
     res.render('index',{laptops: laptop, phones: phone,SpecialLaptop: SpecialLaptop, SpecialPhone: SpecialPhone });                
-  }
+}

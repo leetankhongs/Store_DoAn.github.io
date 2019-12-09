@@ -46,11 +46,21 @@ exports.brand = async (req,res, next) =>
 }
 
 
+exports.searchPost = (req, res, next)=>
+{
+  const require = req.query.require||req.body.require ;
+  const typeSort = req.body.sort||0;
+  
+  if(typeSort === 0)
+    res.redirect('/product/search?require='+require );
+  else
+    res.redirect('/product/search?require='+require +'&sort=' + typeSort);
 
+}
 
 exports.search = async (req, res, next) =>
 {
-  const sort = req.query.sort || 0;
+  const sort = req.query.sort || req.body.sort || 0;
   var typeSort;
 
   if(parseInt(req.query.sort) === 1)
@@ -61,6 +71,8 @@ exports.search = async (req, res, next) =>
     typeSort = {Cost: 1}
   if(parseInt(req.query.sort) ===4)
     typeSort = {Cost: -1}
+  if(sort === 0)
+    typeSort={};
 
   const require = req.query.require;
   const product = await products.find().sort(typeSort);
