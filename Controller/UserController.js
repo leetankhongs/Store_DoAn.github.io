@@ -76,9 +76,8 @@ exports.register = (req,res,next) =>
 
           //save
           newUser.save().then(User => {
-            
+            req.flash('success_msg','Đăng kí thành công. Đăng nhập ngay!!!');
               res.redirect('/users/login');
-              req.flash('successs_msg','Đăng kí thành công. Đăng nhập ngay!!!');
 
           }).catch(err => console.log(err));
         }
