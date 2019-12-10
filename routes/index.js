@@ -3,21 +3,20 @@ var router = express.Router();
 const passport = require('passport');
 
 const productController = require("../Controller/ProductController");
+const indexController = require("../Controller/indexController")
 
-router.get('/',  productController.home);
-router.get('/index', productController.home);
-
-
-
+router.get('/',  indexController.home);
+router.get('/index', indexController.home);
 
 
 
 
 
 
-router.get('/cart', function(req, res, next) {
-  res.render('Cart/Cart.hbs', { title: 'Express' });
-});
+
+
+
+
 
 router.get('/products', function(req, res, next) {
   res.render('Login/index.hbs', { title: 'Express' });

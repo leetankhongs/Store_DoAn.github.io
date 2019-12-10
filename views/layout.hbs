@@ -39,13 +39,13 @@
     <div class="span6">Welcome!<strong> </strong></div>
     <div class="span6">
       <div class="pull-right">
-          <a href="/Cart"><span class="">Fr</span></a>
-          <a href="/Cart"><span class="">Es</span></a>
+          <a href="/cart/shopping-cart"><span class="">Fr</span></a>
+          <a href="/cart/shopping-cart"><span class="">Es</span></a>
           <span class="btn btn-mini">En</span>
-          <a href="/Cart"><span>&pound;</span></a>
+          <a href="/cart/shopping-cart"><span>&pound;</span></a>
           <span class="btn btn-mini">$155.00</span>
-          <a href="/Cart"><span class="">$</span></a>
-          <a href="/Cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Giỏ hàng </span> </a> 
+          <a href="/cart/shopping-cart"><span class="">$</span></a>
+          <a href="/cart/shopping-cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ {{session.cart.totalQty}} ] Giỏ hàng </span> </a> 
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="Cart"><img src="/themes/images/ico-cart.png" alt="cart">Có (3) sản phẩm  <span class="badge badge-warning pull-right">124.970.000đ</span></a></div>
+		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right">{{session.cart.totalPrice}}</span></a></div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			<li class="subMenu open"><a> Điện thoại (132) </a>
 				<ul>

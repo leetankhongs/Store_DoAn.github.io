@@ -46,6 +46,14 @@
 			  </div>
 			  </div>
 		</div>
+		{{#if success_msg }}
+		<div class="alert alert-success alert-dismissible show" role="alert">
+			<strong>{{this.success_msg}}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>	
+		{{/if}}
 		<h4>LapTop </h4>
 			  <ul class="thumbnails">
 				{{# each laptops}}
@@ -54,7 +62,7 @@
 					<a  href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
 					  <h5>{{this.SimpleDetail}}</h5>
-					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
 					</div>
 				  </div>
 				</li>
@@ -68,7 +76,7 @@
 					<a  href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
 					  <h5>{{this.SimpleDetail}}</h5>
-					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
 					</div>
 				  </div>
 				</li>

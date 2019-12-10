@@ -3,7 +3,7 @@
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
 		<li class="active"> Giỏ hàng</li>
     </ul>
-	<h3>  GIỎ HÀNG [ <small>3 Item(s) </small>]<a href="index.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
+	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]<a href="index.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
 	<hr class="soft"/>
 	<table class="table table-bordered">
 		<tr><th> Bạn đã đăng kí chưa?  </th></tr>
@@ -44,62 +44,21 @@
                   <th>Mô tả</th>
                   <th>Số lượng</th>
 				  <th>Giá</th>
-                  <th>Giảm giá</th>
-                  <th>Vận chuyển</th>
                   <th>Tổng</th>
 				</tr>
               </thead>
               <tbody>
+				  {{#each products}}
                 <tr>
-                  <td> <img width="60" src="themes/images/Laptop/Asus.jpg" alt=""/></td>
-                  <td>Asus Gaming ROG Strix G531 i7 9750H/8GB/512GB/6GB RTX2060/Win10 (VAL218T)</td>
+                  <td> <img width="60" src="{{this.item.Image}}" alt=""/></td>
+                  <td>{{this.item.SimpleDetail}}</td>
 				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+					  {{this.qty}}
 				  </td>
-                  <td>38.990.000</td>
-                  <td>1.000.000</td>
-                  <td>--</td>
-                  <td>37.990.000</td>
+                  <td>{{this.item.Cost}}</td>
+                  <td>{{this.item.Cost}}</td>
                 </tr>
-				<tr>
-                  <td> <img width="60" src="themes/images/Laptop/Dell.jpg" alt=""/></td>
-                  <td>Dell XPS 13 9370 i7 8550U/8GB/256GB/Office365/Win10 (415PX3)</td>
-				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"  size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
-				  </td>
-                  <td>44.990.000</td>
-                  <td>--</td>
-                  <td>--</td>
-                  <td>44.990.000</td>
-                </tr>
-				<tr>
-                  <td> <img width="60" src="themes/images/Mobile/Iphone.jpg" alt=""/></td>
-                  <td>Iphone 11 Pro Max</td>
-				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"  size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
-				  </td>
-                  <td>43.990.000</td>
-                  <td>2.000.000</td>
-                  <td>--</td>
-                  <td>41.990.000</td>
-                </tr>
-				
-                <tr>
-                  <td colspan="6" style="text-align:right">Tổng giá:	</td>
-                  <td> 127.970.000đ</td>
-                </tr>
-				 <tr>
-                  <td colspan="6" style="text-align:right">Tổng giảm giá:	</td>
-                  <td> 3.000.000đ</td>
-                </tr>
-                 <tr>
-                  <td colspan="6" style="text-align:right">Tổng vận chuyển:	</td>
-                  <td> 0</td>
-                </tr>
-				 <tr>
-                  <td colspan="6" style="text-align:right"><strong>TOTAL (127.970.000-3.000.000+0) =</strong></td>
-                  <td class="label label-important" style="display:block"> <strong> 124.970.000  </strong></td>
-                </tr>
+				{{/each}}
 				</tbody>
             </table>
 		
@@ -150,7 +109,7 @@
 				   <div class="control-group">
 					<label class="control-label" for="inputPost">Tổng tiền thanh toán </label>
 					<div class="controls">
-					  <label id="inputPost"><b>124.970.000đ</b></label>
+					  <label id="inputPost"><b>{{session.cart.totalPrice}}đ</b></label>
 					</div>
 				  </div>
 				</form>				  

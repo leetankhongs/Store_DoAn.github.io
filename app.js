@@ -1,25 +1,26 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 const localStategy = require('passport-local').Strategy
 
-var indexRouter = require('./routes');
-var usersRouter = require('./routes/users');
-var productRouter = require('./routes/product');
+const indexRouter = require('./routes');
+const usersRouter = require('./routes/users');
+const productRouter = require('./routes/product');
+const cartRouter = require('./routes/cart');
 
-var app = express();
+const app = express();
 
 //Passport 
-require('./Controller/passport.js')(passport);
+require('./Config/passport.js')(passport);
 
 require('dotenv').config();
 const dbURL = process.env.DB_URL;
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 //Kết nối database
 mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }).then(
@@ -60,6 +61,7 @@ app.use((req, res, next) =>
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
+  res.locals.session = req.session;
   next();
 })
 
@@ -73,6 +75,7 @@ app.use(passport.initialize());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/product', productRouter);
+app.use('/cart', cartRouter);
 
 
 // catch 404 and forward to error handler
