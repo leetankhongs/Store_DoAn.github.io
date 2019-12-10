@@ -42,7 +42,7 @@ exports.brand = async (req,res, next) =>
       }
   
       res.render('BrandProduct.hbs',{laptops: laptop.slice(start,end), Brand: req.params.Brand, count: count, pages: pages, 
-            currentPage: {pre: page -1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1} , sort: sort});
+            currentPage: {pre: page -1 < 1 ? page:page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1} , sort: sort});
 }
 
 
@@ -105,7 +105,7 @@ exports.search = async (req, res, next) =>
     }
   }
 
-  res.render('searchProduct.hbs', {products: result.slice(start, end), require: require,pages: pages, positionPage: {pre: page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1}, sort: sort});
+  res.render('searchProduct.hbs', {products: result.slice(start, end), require: require,pages: pages, positionPage: {pre: page-1 < 1? page: page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1}, sort: sort});
 }
 
 
