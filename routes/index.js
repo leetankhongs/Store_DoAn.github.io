@@ -16,9 +16,7 @@ router.get('/index', indexController.home);
 
 
 
-router.get('/cart', function(req, res, next) {
-  res.render('Cart/Cart.hbs', { title: 'Express' });
-});
+
 
 router.get('/products', function(req, res, next) {
   res.render('Login/index.hbs', { title: 'Express' });

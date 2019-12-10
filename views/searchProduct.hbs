@@ -32,7 +32,14 @@
                 <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
             </div>
             <br class="clr"/>
-
+            {{#if success_msg }}
+                <div class="alert alert-success alert-dismissible show" role="alert">
+                    <strong>{{this.success_msg}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>	
+	        {{/if}}
             <div class="tab-content">
                  <div class="tab-pane" id="listView">
                     {{#each products}}
@@ -54,7 +61,7 @@
                         <form class="form-horizontal qtyFrm">
                         <h3>{{this.Cost}}</h3>
                         
-                        <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large btn-primary"> Thêm vào <i class=" icon-shopping-cart"></i></a>
+                        <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào <i class=" icon-shopping-cart"></i></a>
                         <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
                         
                         </form>
@@ -73,7 +80,7 @@
                             <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" ><img src="{{this.Image}}" alt="" /></a>
                             <div class="caption">
                             <h5>{{this.SimpleDetail}}</h5>
-					        <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					        <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
                             </div>
                         </div>
                         </li>
