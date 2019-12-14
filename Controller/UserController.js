@@ -1,7 +1,7 @@
 let User = require("../models/userModel");
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
-
+const Cart = require('../models/cart');
 exports.register = (req,res,next) =>
 {
   const{Name,Email,Password,Password2,Address,Phone } =req.body;
@@ -87,16 +87,38 @@ exports.register = (req,res,next) =>
     
   } 
 }
-exports.login = (req,res,next) => {
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/login',
-    failureFlash: true
-  }) (req, res, next);
+exports.login = (req, res, next) => {
+
+      if(req.session.oldUrl)
+      {
+        res.redirect(req.session.oldUrl);
+      }
+      else
+      {
+        if(req.session.cart)
+          req.user.Cart =req.session.cart  ;
+        else
+        req.session.cart = req.user.Cart;
+        res.redirect('/');
+      }
+  
 }
+
 
 exports.logout = (req, res) =>{
   req.logout();
+  req.session.cart = null;
   req.flash('success_msg', ' Bạn đã đăng xuất thành công');
   res.redirect('/users/login');
 }
+
+exports.isLogin = (req, res, next) =>{
+  if(req.isAuthenticated())
+  {
+      return next();
+  }
+  req.flash('error_msg','Bạn cần phải đăng nhập để thực hiện việc thanh toán');
+  req.session.oldUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  res.redirect('/users/login')
+}
+

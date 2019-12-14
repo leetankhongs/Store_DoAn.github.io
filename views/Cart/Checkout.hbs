@@ -1,0 +1,48 @@
+	
+			
+<dive class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li class="active"> Giỏ hàng</li>
+    </ul>
+	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]<a href="index.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
+	<hr class="soft"/>
+	<table class="table table-bordered">
+			 <tr><th>Thông tin giao hàng </th></tr>
+			 <tr> 
+			 <td>
+				<form class="form-horizontal" action= "/cart/pay" method="POST">
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Họ tên người nhận</label>
+                        <div class="controls">
+                            <input type="text" id="inputCountry" placeholder="Họ tên" name= "Fullname">
+                        </div>
+				    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputCountry">Địa chỉ </label>
+                        <div class="controls">
+                            <input type="text" id="inputCountry" placeholder="Địa chỉ" name= "Address">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Số điện thoại </label>
+                        <div class="controls">
+                            <input type="text" id="inputPost" placeholder="Số điện thoại" name="Phone">
+                        </div> 
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="inputPost">Tổng tiền thanh toán </label>
+                        <div class="controls">
+                            <label  ><b>{{session.cart.totalPrice}}đ</b></label>
+                        </div>
+                    </div>
+			  
+			  </td>
+			  </tr>
+            </table>			
+            <a href="/cart/shopping-cart" class="btn btn-large"><i class="icon-arrow-left"></i> Quay lại </a>
+            <button type="submit" class="btn btn-large pull-right"> Thanh toán	</button>
+    		</form>		
+</div>
+</div></div>
+</div>

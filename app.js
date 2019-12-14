@@ -29,7 +29,7 @@ mongoose.connect(dbURL, { useNewUrlParser: true, useCreateIndex: true, useUnifie
 
 	},
 	err => { /** handle initial connection error */
-		console.log('KNOI loi~');
+		console.log(err);
 	}
 );
 

@@ -14,12 +14,17 @@ var userSchema= new mongoose.Schema({
         require: true
     },
     Address:
-    {   type:String,
+    {   type: String,
         require:false
     },
     Phone: 
-    {   type: Number,
+    {   type: String,
         require:true
+    },
+    Cart:
+    {
+        type: Object,
+        required: false
     }
 });
 

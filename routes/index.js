@@ -11,13 +11,6 @@ router.get('/index', indexController.home);
 
 
 
-
-
-
-
-
-
-
 router.get('/products', function(req, res, next) {
   res.render('Login/index.hbs', { title: 'Express' });
 });

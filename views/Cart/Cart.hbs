@@ -1,11 +1,19 @@
-<div class="span9">
+<dive class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li><a href="/">Home</a> <span class="divider">/</span></li>
 		<li class="active"> Giỏ hàng</li>
     </ul>
-	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]<a href="index.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
+	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]<a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
 	<hr class="soft"/>
-	<table class="table table-bordered">
+	{{#if error_msg }}
+	<div class="alert alert-success alert-dismissible show" role="alert">
+ 		 <strong>{{this.error_msg}}</strong>
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  		</button>
+		</div>	
+	{{/if}}
+	{{!-- <table class="table table-bordered">
 		<tr><th> Bạn đã đăng kí chưa?  </th></tr>
 		 <tr> 
 		 <td>
@@ -35,7 +43,7 @@
 			</form>
 		  </td>
 		  </tr>
-	</table>		
+	</table>		 --}}
 			
 	<table class="table table-bordered">
               <thead>
@@ -48,7 +56,7 @@
 				</tr>
               </thead>
               <tbody>
-				  {{#each products}}
+				{{#each products}}
                 <tr>
                   <td> <img width="60" src="{{this.item.Image}}" alt=""/></td>
                   <td>{{this.item.SimpleDetail}}</td>
@@ -59,65 +67,14 @@
                   <td>{{this.item.Cost}}</td>
                 </tr>
 				{{/each}}
+				<tr>
+					<td colspan="4"><b>Tổng tiền</b></td>
+					<td>{{session.cart.totalPrice}}đ</td>
+				</tr>
 				</tbody>
-            </table>
-		
-		
-            <table class="table table-bordered">
-			<tbody>
-				 <tr>
-                  <td> 
-				<form class="form-horizontal">
-				<div class="control-group">
-				<label class="control-label"><strong> Mã giảm giá: </strong> </label>
-				<div class="controls">
-				<input type="text" class="input-medium" placeholder="CODE">
-				<button type="submit" class="btn"> Thêm </button>
-				</div>
-				</div>
-				</form>
-				</td>
-                </tr>
-				
-			</tbody>
-			</table>
-			
-			<table class="table table-bordered">
-			 <tr><th>Thông tin giao hàng </th></tr>
-			 <tr> 
-			 <td>
-				<form class="form-horizontal">
-				  <div class="control-group">
-					<label class="control-label" for="inputCountry">Địa chỉ </label>
-					<div class="controls">
-					  <input type="text" id="inputCountry" placeholder="Địa chỉ">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<label class="control-label" for="inputPost">Số điện thoại </label>
-					<div class="controls">
-					  <input type="text" id="inputPost" placeholder="Số điện thoại">
-					</div>
-				  </div>
-				 
-				   <div class="control-group">
-					<label class="control-label" for="inputPost">Thông tin khác </label>
-					<div class="controls">
-					  <input type="text" id="inputPost" placeholder="Thông tin khác">
-					</div>
-				  </div>
-				   <div class="control-group">
-					<label class="control-label" for="inputPost">Tổng tiền thanh toán </label>
-					<div class="controls">
-					  <label id="inputPost"><b>{{session.cart.totalPrice}}đ</b></label>
-					</div>
-				  </div>
-				</form>				  
-			  </td>
-			  </tr>
             </table>		
-	<a href="index.html" class="btn btn-large"><i class="icon-arrow-left"></i> Quay lại </a>
-	<a href="index.html" class="btn btn-large pull-right">Thanh toán <i class="icon-arrow-right"></i></a>
+	<a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Quay lại </a>
+	<a href="/cart/checkout" class="btn btn-large pull-right">Thanh toán <i class="icon-arrow-right"></i></a>
 	
 </div>
 </div></div>
