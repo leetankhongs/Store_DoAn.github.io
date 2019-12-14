@@ -109,7 +109,9 @@
 				</table>
 				
 				
-              </div>
+         
+
+			  </div>
 		<div class="tab-pane fade" id="profile">
 		<div id="myTab" class="pull-right">
 		 <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
@@ -135,21 +137,21 @@
 						<br class="clr"/>
 					</div>
 					<div class="span3 alignR">
-					<form class="form-horizontal qtyFrm">
-					<h3> $222.00</h3>
-					<label class="checkbox">
-						<input type="checkbox">  Adds product to compair
-					</label><br/>
-					<div class="btn-group">
-					  <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-					  <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-					 </div>
-						</form>
+						<form class="form-horizontal qtyFrm">
+						<h3> $222.00</h3>
+						<label class="checkbox">
+							<input type="checkbox">  Adds product to compair
+						</label><br/>
+						<div class="btn-group">
+						<a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+						<a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+						</div>
+							</form>
 					</div>
+				</div>
+				<hr class="soft"/>
+				{{/each}}
 			</div>
-			<hr class="soft"/>
-			{{/each}}
-		</div>
 			<div class="tab-pane active" id="blockView">
 				<ul class="thumbnails">
                     {{# each sameBrand}}
@@ -163,16 +165,38 @@
                         </div>
                     </li>
 					{{/each}}
-				  </ul>
-			<hr class="soft"/>
+				</ul>
+				<hr class="soft"/>
 			</div>
-		</div>
-				<br class="clr">
-					 </div>
-		</div>
-          </div>
-
+			
 	</div>
-</div>
-</div> </div>
+		<br class="clr">
+	</div>
+	<div class="containerz">
+		<h2>Để lại bình luận!</h2>
+				<form action="">
+
+					{{#if user}}
+					<label for="fname"> Xin chào {{user.Name}}!!. Bạn có bình luận gì không? </label>
+					
+					{{else}}
+					<label for="fname">Tên của bạn</label>
+					<input class="inserttextz" type="text" id="fname" name="firstname" placeholder="Your name..">
+
+					<label for="email">Email</label>
+					<input class="inserttextz" type="text" id="lname" name="lastname" placeholder="Your email..">
+					{{/if}}
+					<label for="subject">Nội dung</label>
+					<textarea class="inserttexty" id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+					
+					<input class="submitz" type="submit" value="Submit">
+
+				</form>			
+			</div>
+	</div>
+    </div>
+	</div>
+	</div>
+	</div>
+ 	</div>
 </div>
