@@ -28,7 +28,7 @@ module.exports = async (passport) =>
                 }
                 else
                 {
-                    return done(null, false, { message: 'Password không chính xác'});
+                    return done(null, false, { message:'Password không chính xác'});
                 }
 
             });     
