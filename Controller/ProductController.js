@@ -1,4 +1,5 @@
 const products = require("../models/productModel");
+const comment = require("../models/comment");
 
 exports.detailProduct = async (req,res, next) =>
 {
@@ -108,5 +109,29 @@ exports.search = async (req, res, next) =>
   res.render('searchProduct.hbs', {products: result.slice(start, end), require: require,pages: pages, positionPage: {pre: page-1 < 1? page: page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1}, sort: sort});
 }
 
+exports.comment =  (req, res, next) =>
+{
+  const IDSanPham = product.IDSanPham;
+  let name, email, content;
+  if(user)
+  {
+    name = user.name;
+    email = user.email;
+    content  = req.body;
+  }
+  else
+  {
+    name, email, content = req.body;
+  }
+
+  const newComment = new comment({
+    IDSanPham,
+    name,
+    email,
+    content
+  })
+
+  console.log(newComment);
+}
 
 
