@@ -1,0 +1,81 @@
+<dive class="span9">
+    <ul class="breadcrumb">
+		<li><a href="/">Home</a> <span class="divider">/</span></li>
+		<li class="active"> Giỏ hàng</li>
+    </ul>
+	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]<a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
+	<hr class="soft"/>
+	{{#if error_msg }}
+	<div class="alert alert-success alert-dismissible show" role="alert">
+ 		 <strong>{{this.error_msg}}</strong>
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  		</button>
+		</div>	
+	{{/if}}
+	{{!-- <table class="table table-bordered">
+		<tr><th> Bạn đã đăng kí chưa?  </th></tr>
+		 <tr> 
+		 <td>
+			<form class="form-horizontal">
+				<div class="control-group">
+				  <label class="control-label" for="inputUsername">Tên đăng nhập</label>
+				  <div class="controls">
+					<input type="text" id="inputUsername" placeholder="Tên đăng nhập">
+				  </div>
+				</div>
+				<div class="control-group">
+				  <label class="control-label" for="inputPassword1">Mật khẩu</label>
+				  <div class="controls">
+					<input type="password" id="inputPassword1" placeholder="Mật khẩu">
+				  </div>
+				</div>
+				<div class="control-group">
+				  <div class="controls">
+					<button type="submit" class="btn">Đăng nhập</button> OR <a href="register.html" class="btn">Đăng kí</a>
+				  </div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+					  <a href="forgetpass.html" style="text-decoration:underline">Quên mật khẩu</a>
+					</div>
+				</div>
+			</form>
+		  </td>
+		  </tr>
+	</table>		 --}}
+			
+	<table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Sản phẩm</th>
+                  <th>Mô tả</th>
+                  <th>Số lượng</th>
+				  <th>Giá</th>
+                  <th>Tổng</th>
+				</tr>
+              </thead>
+              <tbody>
+				{{#each products}}
+                <tr>
+                  <td> <img width="60" src="{{this.item.Image}}" alt=""/></td>
+                  <td>{{this.item.SimpleDetail}}</td>
+				  <td>
+					  {{this.qty}}
+				  </td>
+                  <td>{{this.item.Cost}}</td>
+                  <td>{{this.item.Cost}}</td>
+                </tr>
+				{{/each}}
+				<tr>
+					<td colspan="4"><b>Tổng tiền</b></td>
+					<td>{{session.cart.totalPrice}}đ</td>
+				</tr>
+				</tbody>
+            </table>		
+	<a href="/" class="btn btn-large"><i class="icon-arrow-left"></i> Quay lại </a>
+	<a href="/cart/checkout" class="btn btn-large pull-right">Thanh toán <i class="icon-arrow-right"></i></a>
+	
+</div>
+</div></div>
+</div>
