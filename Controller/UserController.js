@@ -1,7 +1,5 @@
 let User = require("../models/userModel");
-const passport = require('passport');
 const bcrypt = require('bcryptjs');
-const Cart = require('../models/cart');
 exports.register = (req,res,next) =>
 {
   const{Name,Email,Password,Password2,Address,Phone } =req.body;
@@ -104,7 +102,54 @@ exports.login = (req, res, next) => {
   
 }
 
+exports.informationUser = (req, res, next) => {
+  
+  res.render('Login/User.hbs');
+}
 
+exports.pageChangePassword = (req, res, next) => {
+  res.render('Login/passwordchange.hbs');
+}
+exports.changePassword = (req, res, next) => {
+  const {oldpassword, newpassword1, newpassword2} = req.body
+  bcrypt.compare(oldpassword, req.user.Password, (err, isMatch) =>
+  {
+      if(err) throw err;
+
+      if(isMatch)
+      {
+          if(newpassword1.localeCompare(newpassword2)===0)
+          {
+            bcrypt.genSalt(10,(err, salt)=>
+            bcrypt.hash(newpassword1,salt,(err,hash)=>
+            {
+    
+              if (err) throw err;
+              req.user.Password = hash;
+    
+              //save
+              req.user.save().then(() => {
+                req.logout();
+                req.flash('success_msg','Thay đổi mật khẩu thành công, mời đăng nhập lại');
+                res.redirect('/users/login');
+    
+              }).catch(err => console.log(err));
+            }))
+          }
+          else
+          {
+            req.flash('error_msg',"Mật khẩu mới không khớp");
+            res.redirect('/users/infor')
+          }
+      }
+      else
+      {
+          req.flash('error_msg',"Mật khẩu cũ không chính xác");
+          res.redirect('/users/infor')
+      }
+
+  });     
+}
 exports.logout = (req, res) =>{
   req.logout();
   req.session.cart = null;
