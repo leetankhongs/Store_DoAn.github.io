@@ -55,7 +55,43 @@ exports.Pay = (req, res, next) => {
             res.redirect('/');
     })
 }
+exports.removeProduct = (req, res, next) => {
+    var productID = req.params.id;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.removeItem(productID);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }    
+    res.redirect('/cart/shopping-cart');
+};
+exports.reduceNumberProduct = (req, res, next) => {
+    var productID = req.params.id;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.reduceByOne(productID);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }    
+    res.redirect('/cart/shopping-cart');
+}
 
+exports.increaseNumberProduct =(req, res, next) => {
+    var productID = req.params.id;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.increaseByOne(productID);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }
+    res.redirect('/cart/shopping-cart');
+}
 exports.Checkout =  (req, res, next) => {
 
     if(!req.session.cart || req.session.cart === null)

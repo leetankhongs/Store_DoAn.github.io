@@ -9,39 +9,7 @@ router.post('/add-to-cart/:id', CartController.addToCart);
 router.get('/shopping-cart', CartController.shoppingCart);
 router.get('/checkout', UserController.isLogin, CartController.Checkout)
 router.post('/pay', CartController.Pay);
-router.get('/reduce/:id', (req, res, next) => {
-    var productID = req.params.id;
-    var cart = new Cart(req.session.cart?req.session.cart: {});
-    cart.reduceByOne(productID);
-    req.session.cart = cart;
-    if(req.user)
-    {
-        req.user.Cart = cart;
-        req.user.save();
-    }    res.redirect('/cart/shopping-cart');
-});
-router.get('/increase/:id', (req, res, next) => {
-    var productID = req.params.id;
-    var cart = new Cart(req.session.cart?req.session.cart: {});
-    cart.increaseByOne(productID);
-    req.session.cart = cart;
-    if(req.user)
-    {
-        req.user.Cart = cart;
-        req.user.save();
-    }
-    res.redirect('/cart/shopping-cart');
-});
-router.get('/remove/:id', (req, res, next) => {
-    var productID = req.params.id;
-    var cart = new Cart(req.session.cart?req.session.cart: {});
-    cart.removeItem(productID);
-    req.session.cart = cart;
-    if(req.user)
-    {
-        req.user.Cart = cart;
-        req.user.save();
-    }    
-    res.redirect('/cart/shopping-cart');
-});
+router.get('/reduce/:id', CartController.reduceNumberProduct);
+router.get('/increase/:id', CartController.increaseNumberProduct);
+router.get('/remove/:id', CartController.removeProduct);
 module.exports = router;
