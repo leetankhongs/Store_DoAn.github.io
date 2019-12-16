@@ -172,24 +172,38 @@
 	</div>
 		<br class="clr">
 	</div>
+	<h2>Bình luận</h2>
+	
 	<div class="containerz">
-		<h2>Để lại bình luận!</h2>
-				<form action="/comment" method="POST">
+	
+	{{#if output.Comment}}
+		{{#each output.Comment}}
+		<div class='friend'>
+         <img src='/themes/images/avatar.png'class='avatar'>
+        <h5> &nbsp; &nbsp;{{name}}</h5>
+        <p> &nbsp; &nbsp;{{content}}</p>
+		<hr/>
+    	
+		{{/each}}
+	{{else}}
+			<h2>Chưa có bình luận nào về sản phẩm này</h2>
+	{{/if}}
+		</div>
+		</div>
 
-					{{#if user}}
-					<label for="fname"> Xin chào <strong>{{user.Name}}</strong>. Bạn có bình luận gì không? </label>
-					<label for="fname">Tên của bạn</label>
-					<input class="inserttextz" type="text" id="fname" name="name" placeholder="Your name..">
-
-					<label for="email">Email</label>
-					<input class="inserttextz" type="text" id="lname" name="email" placeholder="Your email..">
-					{{/if}}
-					<label for="subject">Nội dung</label>
-					<textarea class="inserttexty" id="subject" name="content" placeholder="Write something.." style="height:200px"></textarea>
-					
-					<button class="submitz" type="submit" >Submit</button>
-
-				</form>			
+		{{#if user}}
+			<form action="/product/comment?id={{output._id}}" method="POST">
+			<label for="fname"> Xin chào <strong>{{user.Name}}</strong>. Hãy để lại bình luận </label>
+			<label for="subject">Nội dung</label>
+			<textarea class="inserttexty" id="subject" name="content" placeholder="Write something.." style="height:200px"></textarea>
+			
+			<button class="submitz" type="submit" onclick="checkFunction()" name="submitcomment">Submit</button>
+			</form>
+			{{else}}
+			<i class="textright"><span><u><a class="hyperlink" href="/users/login">Đăng nhập</a></u> để bình luận</span></i>
+		{{/if}}
+							
+		
 			</div>
 	</div>
     </div>

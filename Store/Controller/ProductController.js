@@ -1,5 +1,4 @@
 const products = require("../models/productModel");
-const comment = require("../models/comment");
 
 exports.detailProduct = async (req,res, next) =>
 {
@@ -111,27 +110,28 @@ exports.search = async (req, res, next) =>
 
 exports.comment =  (req, res, next) =>
 {
-  const IDSanPham = product.IDSanPham;
-  let name, email, content;
-  if(user)
+  var name = req.user.Name;
+  var content =  req.body.content;
+  var productid = req.query.id;
+  var backURL=req.header('Referer') || '/';
+  console.log(name,content,productid);
+
+  if(content)
   {
-    name = user.name;
-    email = user.email;
-    content  = req.body;
+  var commentz = {"name": name, "content": content};
+  
+  products.findByIdAndUpdate(productid, { $push: {Comment: commentz}}, function(err,products)
+  {
+    if(err) console.log(err);
+    res.redirect(backURL);
+  });
   }
   else
   {
-    name, email, content = req.body;
+    res.redirect(backURL);
   }
-
-  const newComment = new comment({
-    IDSanPham,
-    name,
-    email,
-    content
-  })
-
-  console.log(newComment);
+  
+  
 }
 
 

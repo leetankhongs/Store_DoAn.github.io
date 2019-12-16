@@ -8,7 +8,6 @@ router.get('/BrandProduct/:Brand', productController.brand);
 router.get('/search', productController.search);
 router.post('/search', productController.searchPost);
 router.post('/comment',productController.comment);
-
 module.exports = router;
 
   

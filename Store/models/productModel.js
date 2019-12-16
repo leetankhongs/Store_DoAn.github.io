@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+
 var productSchema = new mongoose.Schema({
   Brand: {
     type: String,
@@ -32,7 +33,9 @@ var productSchema = new mongoose.Schema({
   Description: {
     type: String,
     require: false
-  }
+  },
+  Comment: [{name: String, content: String}]
+  
 }, { collection: 'products' });
 
 module.exports = mongoose.model('products', productSchema);
