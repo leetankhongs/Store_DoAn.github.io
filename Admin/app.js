@@ -5,11 +5,19 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let hbs = require('hbs');
 
+//Include helpers
 let paginationHelpers = require('./helpers/pagination');
+let stateHelpers = require('./helpers/state');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+//Include routers
+let indexRouter = require('./routes/index');
+let usersRouter = require('./routes/users');
+let categoryRouter = require('./routes/categories');
 
+//Include services
+let categoryService = require('./services/categoryService');
+
+//Create app
 var app = express();
 
 // Use env file
@@ -37,8 +45,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Add layout related changes
+app.use(function(req, res, next) {
+  (async () => {
+    res.locals.Categories = await categoryService.getAllCategories();
+    next();
+  })(); 
+});
+
+//Set up routers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/categories', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -57,6 +75,7 @@ app.use(function(err, req, res, next) {
 });
 
 //Add helpers
-hbs.registerHelper('usersPagination', paginationHelpers.makeUsersPagination);
+hbs.registerHelper('pagination', paginationHelpers.makePagination);
+hbs.registerHelper('activityState', stateHelpers.makeListItemState);
 
 module.exports = app;

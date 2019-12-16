@@ -3,28 +3,34 @@ var mongoose = require('mongoose');
 var userSchema= new mongoose.Schema({
     Name: 
     {   type: String,
-        require: true
+        required: true
     },
     Email:
     {   type: String,
-        require: true
+        required: true
     },
     Password:
     {   type: String,
-        require: true
+        required: true
     },
     Address:
     {   type: String,
-        require:false
+        required:false
     },
     Phone: 
     {   type: String,
-        require:true
+        required:true
     },
     Cart:
     {
         type: Object,
         required: false
+    },
+    isDelete: 
+    {
+        type: Boolean,
+        default: false,
+        required: false,
     }
 });
 

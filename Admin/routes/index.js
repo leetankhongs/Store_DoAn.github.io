@@ -36,7 +36,7 @@ router.get('/ThemGianHang.html', function(req, res, next) {
   res.render('GianHang/ThemGianHang.hbs', { title: 'Express' });
 });
 router.get('/DienThoai.html', function(req, res, next) {
-  res.render('GianHang/DienThoai.hbs', { title: 'Express' });
+  res.render('GianHang/QLSanPham.hbs', { title: 'Express' });
 });
 router.get('/Laptop.html', function(req, res, next) {
   res.render('GianHang/Laptop.hbs', { title: 'Express' });
