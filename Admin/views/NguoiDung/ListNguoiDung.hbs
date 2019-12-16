@@ -39,6 +39,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Email</th>
                                     <th>Địa chỉ</th>
+                                    <th>Trạng thái</th>
                                     <th>Chỉnh sửa</th>
                                 </tr>
                                 {{#each users}}
@@ -48,9 +49,17 @@
                                         <td>{{this.Email}}</td>
                                         <td>{{this.Address}}</td>
                                         <td>
+                                            {{#activityState this.isDelete}}
+                                            {{/activityState}}
+                                        </td>
+                                        <td>
                                             <a href="/EditUser.html"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                            <form method="POST" action="/users" style="display: inline-block;">
+                                            <form method="POST" action="#" style="display: inline-block;">
+                                            {{#if this.isDelete}}
+                                                <button data-toggle="tooltip" title="Recover" class="pd-setting-ed" name="recover" value={{this.Email}}><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                            {{else}}
                                                 <button data-toggle="tooltip" title="Trash" class="pd-setting-ed" name="delete" value={{this.Email}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            {{/if}}
                                             </form>
                                         </td>
                                     </tr>
@@ -60,8 +69,8 @@
                             <div class="custom-pagination">
                                 <nav aria-label="Page navigation example">
                                     <ul class="pagination">
-                                        {{#usersPagination min currentPage max totalPages}} 
-                                        {{/usersPagination}}
+                                        {{#pagination min currentPage max totalPages link}} 
+                                        {{/pagination}}
                                     </ul>
                                 </nav>
                             </div>

@@ -5,6 +5,7 @@ let userController = require('../controllers/userController');
 /* GET users listing. */
 router.get('/', userController.loadUsers);
 
-router.post('/', userController.deleteUser);
+/* POST users listing. */
+router.post('/', userController.actionOnUser);
 
 module.exports = router;
