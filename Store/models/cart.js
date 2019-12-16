@@ -3,24 +3,48 @@ module.exports = function Cart(oldCart) {
     this.totalQty = oldCart.totalQty || 0;
     this.totalPrice = oldCart.totalPrice || 0;
 
-    this.add = (item, id, qty) =>
+    this.add = (item, id, QTY) =>
     {
-        qty = parseInt(qty);
+        // QTY = parseInt(QTY);
         var storedItem = this.items[id]
         if(!storedItem)
         {
             storedItem = this.items[id] = {item: item, qty: 0, price: 0};
-            storedItem.qty = storedItem.qty + qty;
+            storedItem.qty = storedItem.qty + QTY;
             storedItem.price = storedItem.item.Cost * storedItem.qty;
             this.totalQty++;
-            this.totalPrice += storedItem.item.Cost;
+            this.totalPrice += storedItem.item.Cost* QTY;
         }
         else{
-            storedItem.qty = storedItem.qty + qty;
+            storedItem.qty = storedItem.qty + QTY;
             storedItem.price = storedItem.item.Cost * storedItem.qty;
-            this.totalPrice += storedItem.item.Cost;
+            this.totalPrice += storedItem.item.Cost* QTY;
         }
 
+    }
+
+    this.reduceByOne = function(id) {
+        this.items[id].qty--;
+        this.items[id].price -= this.items[id].item.Cost;
+        this.totalPrice -= this.items[id].item.Cost;
+
+        if(this.items[id].qty<=0)
+        {
+            this.totalQty--;
+            delete this.items[id];
+        }
+    };
+
+    this.increaseByOne = function(id){
+        this.items[id].qty++;
+        this.items[id].price += this.items[id].item.Cost;
+        this.totalPrice += this.items[id].item.Cost;
+    }
+    
+    this.removeItem = function(id){
+        this.totalQty--;
+        this.totalPrice -= this.items[id].price;
+        delete this.items[id];
     }
 
     this.generateArray = () =>{
