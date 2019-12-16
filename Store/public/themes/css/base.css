@@ -105,3 +105,77 @@
 #topMenu li{float: none;}
 .navbar .nav > li > a {border-top:1px solid #666; padding:0}
 }
+
+
+.containerz
+{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.submitz
+{
+    background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitz:hover
+{
+    background-color: #45a049;
+}
+
+.inserttextz
+{
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+    height: 30px !important;
+}
+.inserttexty
+{
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+.friend img {
+  height: 50px;
+  width: 50px;
+  display: block;
+  float: left;
+  }
+
+  .avatar
+  {
+    height: 20px;
+    width: 20px;
+  }
+
+  #section{
+    padding: 30px 60px
+  }
+
+  .hyperlink
+  {
+    color: blue; 
+  }
+
+  .textright
+  {
+    text-align: right;
+  }

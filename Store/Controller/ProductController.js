@@ -108,5 +108,30 @@ exports.search = async (req, res, next) =>
   res.render('searchProduct.hbs', {products: result.slice(start, end), require: require,pages: pages, positionPage: {pre: page-1 < 1? page: page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1}, sort: sort});
 }
 
+exports.comment =  (req, res, next) =>
+{
+  var name = req.user.Name;
+  var content =  req.body.content;
+  var productid = req.query.id;
+  var backURL=req.header('Referer') || '/';
+  console.log(name,content,productid);
+
+  if(content)
+  {
+  var commentz = {"name": name, "content": content};
+  
+  products.findByIdAndUpdate(productid, { $push: {Comment: commentz}}, function(err,products)
+  {
+    if(err) console.log(err);
+    res.redirect(backURL);
+  });
+  }
+  else
+  {
+    res.redirect(backURL);
+  }
+  
+  
+}
 
 
