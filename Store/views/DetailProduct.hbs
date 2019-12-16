@@ -50,12 +50,12 @@
 			<div class="span6">
 				<h3>{{output.SimpleDetail}} </h3>
 				<hr class="soft"/>
-				<form class="form-horizontal qtyFrm" action="/cart/add-to-cart/{{output._id}}" method="GET">
+				<form class="form-horizontal qtyFrm" action="/cart/add-to-cart/{{output._id}}" method="POST">
 				  <div class="control-group">
 					<label class="control-label"><span>{{output.Cost}}</span></label>
 					<div class="controls">
 					<input type="number" class="span1" placeholder="Qty." name="qty"/>
-					  <button type="submit" class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i class=" icon-shopping-cart"></i></button>
+					<button type="submit" class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i class=" icon-shopping-cart"></i></button>
 					</div>
 				  </div>
 				</form>
