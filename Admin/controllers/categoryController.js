@@ -70,7 +70,10 @@ module.exports.upsertCategory = (req, res, next) => {
                 req.flash('error_msg', result);
             }
         }else{
-            await categoryService.insertCategory({Type: req.body.CategoryType, DisplayName: req.body.DisplayName});
+            const result = await categoryService.insertCategory({Type: req.body.CategoryType, DisplayName: req.body.DisplayName});
+            if(result !== true) {
+                req.flash('error_msg', 'Mã nhận diện gian hàng trùng với mã của gian hàng khác');
+            }
         }
         res.redirect('/categories');
     })();

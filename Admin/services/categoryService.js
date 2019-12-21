@@ -50,7 +50,8 @@ module.exports.updateCategory = async (_id, category) => {
 module.exports.insertCategory = async (category) => {
     const duplicate = await Category.findOne({Type: { $regex : new RegExp(category.Type, "i") }});
     if(!duplicate) {
-        return await Category.create(category);
+        await Category.create(category);
+        return true;
     }
     return false;
 }
