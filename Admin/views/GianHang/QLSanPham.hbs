@@ -1,13 +1,44 @@
+        <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list single-page-breadcome">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" class="">
+                                                <input type="text" placeholder="Tìm kiếm..." class="form-control">
+                                                <a href=""><i class="fa fa-search"></i></a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="/">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                             <li><a href="/categories">Danh sách gian hàng</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li><span class="bread-blod">Danh sách {{category.DisplayName}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="product-status mg-tb-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="product-status-wrap">
                             <h4>Danh sách {{category.DisplayName}}
+                            </h4>
                             <div class="add-product">
                                 <a href="/ThemSanPham.html">Thêm {{category.DisplayName}}</a>
                             </div>
-                            </h4>
                             <table>
                                 <tr>
                                     <th>Ảnh</th>
@@ -28,11 +59,18 @@
                                         <td>{{this.Cost}}</td>
                                         <td>{{this.Quantity}}</td>
                                         <td>
-                                            <button class="pd-setting">Hoạt động</button>
+                                            {{#activityState this.isDelete}}
+                                            {{/activityState}}
                                         </td>
                                         <td>
-                                            <a href="#"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                            <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            <form method="POST" action="#" style="display: inline-block;">
+                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed" name="edit" value={{this}}><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            {{#if this.isDelete}}
+                                                <button data-toggle="tooltip" title="Phục hồi" class="pd-setting-ed" name="recover" value={{this._id}}><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                            {{else}}
+                                                <button data-toggle="tooltip" title="Xoá" class="pd-setting-ed" name="delete" value={{this._id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                            {{/if}}
+                                            </form>
                                         </td>
                                     </tr>
                                 {{/each}}

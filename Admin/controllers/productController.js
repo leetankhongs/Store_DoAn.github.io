@@ -41,6 +41,25 @@ module.exports.manageProducts = (req, res, next) => {
         const min = currentPage <= parseInt(maxPage/2) || totalPages <= maxPage ? 0 : currentPage - parseInt(maxPage/2);
         const max = totalPages <= maxPage || currentPage >= parseInt(totalPages - maxPage/2) ? totalPages - 1 : currentPage + parseInt(maxPage/2);
 
-        res.render('GianHang/QLSanPham.hbs', {products, min, max, totalPages, currentPage, category, link: `/categories/${categoryName}`});
+        res.render('GianHang/QLSanPham.hbs', {products, min, max, totalPages, currentPage, category, link: `/categories/${categoryName}/products`});
     })(); 
+}
+
+module.exports.actionOnProduct = (req, res, next) => {
+    const deleteID = req.body.delete;
+    const recoverID = req.body.recover;
+
+    if(deleteID) {
+        (async () => {
+            await productService.removeProduct(deleteID);
+        })();
+    }
+
+    if(recoverID){
+        (async () => {
+            await productService.recoverProduct(recoverID);
+        })();
+    }
+
+    res.redirect(req.get('referer'));
 }

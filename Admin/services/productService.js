@@ -15,3 +15,11 @@ module.exports.load = async (currentPage, pageLength, category) => {
 
     return products;
 }
+
+module.exports.removeProduct = async (_id) => {
+    return await Product.findByIdAndUpdate(_id, {isDelete: true});
+}
+
+module.exports.recoverProduct = async (_id) => {
+    return await Product.findByIdAndUpdate(_id, {isDelete: false});
+}

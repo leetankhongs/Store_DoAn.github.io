@@ -14,7 +14,18 @@ var userSchema = new mongoose.Schema({
     {
         type: [String],
         default: []
-    }
+    },
+    isDelete: 
+    {
+        type: Boolean,
+        default: false,
+        required: false,
+    },
+    productAmount:
+    {
+        type: Number,
+        default: 0,
+    },
 });
 
 module.exports = mongoose.model('category', userSchema);

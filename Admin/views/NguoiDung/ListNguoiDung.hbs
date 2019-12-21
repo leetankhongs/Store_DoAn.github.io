@@ -14,7 +14,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <ul class="breadcome-menu">
-                                            <li><a href="index.html">Home</a> <span class="bread-slash">/</span>
+                                            <li><a href="/">Home</a> <span class="bread-slash">/</span>
                                             </li>
                                             <li><span class="bread-blod">Danh sách người dùng</span>
                                             </li>
@@ -56,9 +56,9 @@
                                             <a href="/EditUser.html"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             <form method="POST" action="#" style="display: inline-block;">
                                             {{#if this.isDelete}}
-                                                <button data-toggle="tooltip" title="Recover" class="pd-setting-ed" name="recover" value={{this.Email}}><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                                <button data-toggle="tooltip" title="Phục hồi" class="pd-setting-ed" name="recover" value={{this._id}}><i class="fa fa-undo" aria-hidden="true"></i></button>
                                             {{else}}
-                                                <button data-toggle="tooltip" title="Trash" class="pd-setting-ed" name="delete" value={{this.Email}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                <button data-toggle="tooltip" title="Xoá" class="pd-setting-ed" name="delete" value={{this._id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             {{/if}}
                                             </form>
                                         </td>

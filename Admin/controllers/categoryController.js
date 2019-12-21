@@ -34,3 +34,49 @@ module.exports.manageCategories = (req, res, next) => {
         res.render('GianHang/TuyChinh.hbs', {categories, min, max, totalPages, currentPage, link: "/categories"});
     })();  
 }
+
+module.exports.actionOnCategory = (req, res, next) => {
+    
+    if(req.body.edit) {
+        loadEditCategoryPage(res, req.body.edit);
+        return;
+    }
+    
+    const deleteID = req.body.delete;
+    const recoverID = req.body.recover;
+
+    (async () => {
+        if(deleteID) {
+            await categoryService.removeCategory(deleteID);
+        }
+
+        if(recoverID){
+            await categoryService.recoverCategory(recoverID); 
+        }   
+        res.redirect(req.get('referer'));
+    })();
+    
+}
+
+module.exports.addCategory = (req, res, next) => {
+    res.render("GianHang/SuaGianHang.hbs");
+}
+
+module.exports.upsertCategory = (req, res, next) => {
+    (async() => {
+        if(req.body.ID){
+            const result = await categoryService.updateCategory(req.body.ID, {Type: req.body.CategoryType, DisplayName: req.body.DisplayName})
+            if(result !== true) {
+                req.flash('error_msg', result);
+            }
+        }else{
+            await categoryService.insertCategory({Type: req.body.CategoryType, DisplayName: req.body.DisplayName});
+        }
+        res.redirect('/categories');
+    })();
+}
+
+const loadEditCategoryPage = async (res, categoryID) => {
+    const category = await categoryService.findCategoryByID(categoryID);
+    res.render("GianHang/SuaGianHang.hbs", {category});
+}
