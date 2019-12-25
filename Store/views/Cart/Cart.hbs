@@ -60,11 +60,15 @@
                 <tr>
                   <td> <img width="60" src="{{this.item.Image}}" alt=""/></td>
                   <td>{{this.item.SimpleDetail}}</td>
-				  <td>
-					  {{this.qty}}
+				  <td> 
+						<div class="input-append"><input class="span1" style="max-width:34px" value="{{this.qty}}"  size="16" type="text">
+							<a href="/cart/reduce/{{this.item._id}}"><button class="btn" type="button"><i class="icon-minus"></i></button></a>
+							<a href="/cart/increase/{{this.item._id}}"><button class="btn" type="button"><i class="icon-plus"></i></button></a>
+							<a href="/cart/remove/{{this.item._id}}"><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>	</a>			
+						</div>
 				  </td>
                   <td>{{this.item.Cost}}</td>
-                  <td>{{this.item.Cost}}</td>
+                  <td>{{this.price}}</td>
                 </tr>
 				{{/each}}
 				<tr>

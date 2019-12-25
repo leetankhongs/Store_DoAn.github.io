@@ -24,6 +24,7 @@ var userSchema= new mongoose.Schema({
     Cart:
     {
         type: Object,
+        default: null,
         required: false
     }
 });

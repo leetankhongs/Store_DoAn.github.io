@@ -8,14 +8,15 @@ exports.addToCart = async (req, res, next) => {
     var productID = req.params.id;
     
     var cart = new Cart(req.session.cart?req.session.cart: {});
-
+    const qty = parseInt(req.body.qty) ||1  ;
+    console.log(req.body.qty);
     products.findById(productID, function(err, product){
 
         if(err){
             return res.redirect('/')
         }
 
-        const qty = req.query.qty ||parseInt(req.body.qty)   || 1;
+
         cart.add(product, product._id, qty);
         req.session.cart = cart;
         if(req.user)
@@ -24,7 +25,6 @@ exports.addToCart = async (req, res, next) => {
             req.user.save();
         }
         req.flash('success_msg', ' Đã thêm vào giỏ hàng thành công');
-        console.log(req.session.cart);
         res.redirect(backURL);
     })
 }
@@ -55,7 +55,43 @@ exports.Pay = (req, res, next) => {
             res.redirect('/');
     })
 }
+exports.removeProduct = (req, res, next) => {
+    var productID = req.params.id;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.removeItem(productID);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }    
+    res.redirect('/cart/shopping-cart');
+};
+exports.reduceNumberProduct = (req, res, next) => {
+    var productID = req.params.id;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.reduceByOne(productID);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }    
+    res.redirect('/cart/shopping-cart');
+}
 
+exports.increaseNumberProduct =(req, res, next) => {
+    var productID = req.params.id;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.increaseByOne(productID);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }
+    res.redirect('/cart/shopping-cart');
+}
 exports.Checkout =  (req, res, next) => {
 
     if(!req.session.cart || req.session.cart === null)
