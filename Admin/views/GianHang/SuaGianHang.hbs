@@ -1,0 +1,112 @@
+ <!-- Mobile Menu end -->
+            <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list single-page-breadcome">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="/">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                             <li><a href="/categories">Quản lý gian hàng</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li>
+                                                {{#if category}}
+                                                    <span class="bread-blod">Cập nhật gian hàng</span>
+                                                {{else}}
+                                                    <span class="bread-blod">Thêm gian hàng</span>
+                                                {{/if}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Single pro tab start-->
+        <div class="single-product-tab-area mg-tb-15">
+            <!-- Single pro tab review Start-->
+            <div class="single-pro-review-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="review-tab-pro-inner">
+                                <ul id="myTab3" class="tab-review-design">
+                                    <li class="active"> 
+                                    {{#if category}}
+                                        <a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i>Cập nhật gian hàng</a>
+                                    {{else}}
+                                        <a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i>Thêm gian hàng</a>
+                                    {{/if}}
+                                    </li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content custom-product-edit">
+                                    <div class="product-tab-list tab-pane fade active in" id="description">
+                                        <form method="POST" action="/categories/upsert">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="review-content-section">
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Tên gian hàng&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                            {{#if category}}
+                                                                <input type="text" name="DisplayName" class="form-control" placeholder="Tên gian hàng" value="{{category.DisplayName}}" required/>
+                                                            {{else}}
+                                                                <input type="text" name="DisplayName" 
+                                                                class="form-control" placeholder="Tên gian hàng" required/>
+                                                            {{/if}}
+                                                            
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Mã loại gian hàng&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                            {{#if category}}
+                                                                <input type="text" onkeydown="return alphaOnly(event);" name="CategoryType" class="form-control" placeholder="Mã loại gian hàng" value="{{category.Type}}" required/>
+                                                            {{else}}
+                                                                <input type="text" onkeydown="return alphaOnly(event);" name="CategoryType" class="form-control" placeholder="Mã loại gian hàng" required/>
+                                                            {{/if}}
+                                                        </div>
+                                                    
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
+                                                        {{#if category}} 
+                                                        <button data-toggle="tooltip" name="ID" value={{category._id}} class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
+                                                        </button>
+                                                        {{else}} 
+                                                        <button data-toggle="tooltip" name="ID" class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
+                                                        </button>
+                                                        {{/if}}
+                                                        <a href="/categories"><button type="button" class="btn btn-warning waves-effect waves-light">Đóng
+                                                        </button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div> 
+    </div>
+    <script>
+        function alphaOnly(event) {
+
+            var key = event.keyCode;
+            return ((key >= 65 && key <= 90) || key == 8);
+
+        }
+    </script>

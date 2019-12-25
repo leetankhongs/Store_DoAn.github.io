@@ -11,10 +11,10 @@ module.exports.getUsersCount = async() => {
     return await User.estimatedDocumentCount();
 }
 
-module.exports.removeUser = async (Email) => {
-    return await User.findOneAndUpdate({Email}, {isDelete: true});
+module.exports.removeUser = async (_id) => {
+    return await User.findByIdAndUpdate(_id, {isDelete: true});
 }
 
-module.exports.recoverUser = async (Email) => {
-    return await User.findOneAndUpdate({Email}, {isDelete: false});
+module.exports.recoverUser = async (_id) => {
+    return await User.findByIdAndUpdate(_id, {isDelete: false});
 }

@@ -36,20 +36,20 @@ module.exports.loadUsers = (req, res, next) => {
 }
 
 module.exports.actionOnUser = (req, res, next) => {
-    const deleteEmail = req.body.delete;
-    const recoverEmail = req.body.recover;
+    const deleteID = req.body.delete;
+    const recoverID = req.body.recover;
 
-    if(deleteEmail) {
+    if(deleteID) {
         (async () => {
-            await userService.removeUser(deleteEmail);
+            await userService.removeUser(deleteID);
         })();
     }
 
-    if(recoverEmail){
+    if(recoverID){
         (async () => {
-            await userService.recoverUser(recoverEmail);
+            await userService.recoverUser(recoverID);
         })();
     }
 
-    res.redirect('/users');
+    res.redirect(req.get('referer'));
 }

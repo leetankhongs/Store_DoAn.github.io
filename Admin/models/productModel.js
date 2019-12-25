@@ -32,6 +32,12 @@ var productSchema = new mongoose.Schema({
   Description: {
     type: String,
     require: false
+  },
+  isDelete: 
+  {
+      type: Boolean,
+      default: false,
+      required: false,
   }
 }, { collection: 'products' });
 
