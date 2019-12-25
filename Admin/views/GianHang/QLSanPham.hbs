@@ -18,7 +18,7 @@
                                             </li>
                                              <li><a href="/categories">Danh sách gian hàng</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">Danh sách {{category.DisplayName}}</span>
+                                            <li><span class="bread-blod">Danh sách sản phẩm</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -37,7 +37,7 @@
                             <h4>Danh sách {{category.DisplayName}}
                             </h4>
                             <div class="add-product">
-                                <a href="/ThemSanPham.html">Thêm {{category.DisplayName}}</a>
+                                <a href="/categories/{{category.Type}}/products/add">Thêm {{category.DisplayName}}</a>
                             </div>
                             <table>
                                 <tr>
@@ -64,7 +64,7 @@
                                         </td>
                                         <td>
                                             <form method="POST" action="#" style="display: inline-block;">
-                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed" name="edit" value={{this}}><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button data-toggle="tooltip" title="Edit" class="pd-setting-ed" name="edit" value={{this._id}}><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                                             {{#if this.isDelete}}
                                                 <button data-toggle="tooltip" title="Phục hồi" class="pd-setting-ed" name="recover" value={{this._id}}><i class="fa fa-undo" aria-hidden="true"></i></button>
                                             {{else}}
