@@ -8,6 +8,9 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 
+//Passport 
+require('./Config/passport.js')(passport);
+
 //Include helpers
 let paginationHelpers = require('./helpers/pagination');
 let stateHelpers = require('./helpers/state');
@@ -16,6 +19,7 @@ let stateHelpers = require('./helpers/state');
 let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let categoryRouter = require('./routes/categories');
+let adminRouter = require('./routes/admin');
 
 //Include services
 let categoryService = require('./services/categoryService');
@@ -63,6 +67,7 @@ app.use((req, res, next) =>
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
   next();
 })
 
@@ -85,6 +90,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/categories', categoryRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
