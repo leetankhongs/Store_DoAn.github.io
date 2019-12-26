@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 //Include helpers
 let paginationHelpers = require('./helpers/pagination');
 let stateHelpers = require('./helpers/state');
+let miscellaneousHelpers = require('./helpers/misc');
 
 //Include routers
 let indexRouter = require('./routes/index');
@@ -62,7 +63,6 @@ app.use((req, res, next) =>
 {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
-  res.locals.error = req.flash('error');
   next();
 })
 
@@ -105,5 +105,6 @@ app.use(function(err, req, res, next) {
 //Add helpers
 hbs.registerHelper('pagination', paginationHelpers.makePagination);
 hbs.registerHelper('activityState', stateHelpers.makeListItemState);
+hbs.registerHelper('compareString', miscellaneousHelpers.compareString);
 
 module.exports = app;

@@ -4,6 +4,10 @@ module.exports.getProductsCount = async (category) => {
     return await Product.countDocuments({TypeProduct: { $regex : new RegExp(category.Type, "i") }});
 }
 
+module.exports.findProductByID = async (_id) => {
+    return await Product.findById(_id);
+}
+
 module.exports.load = async (currentPage, pageLength, category) => {
     const skip = currentPage * pageLength;
     let params = null;

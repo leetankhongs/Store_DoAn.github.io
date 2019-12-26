@@ -5,13 +5,12 @@ const pageLength = 10;
 const maxPage = 5;
 
 module.exports.manageProducts = (req, res, next) => {
-    const categoryName = req.param('CategoryName');
+    const categoryName = req.params.CategoryName;
     const currentPage = !req.query.currentPage ? 0 : req.query.currentPage - 1;
     if(currentPage < 0 || isNaN(currentPage)) {
         res.render('error.hbs', {message: "Resource not available"});
         return;
     }
-
 
     (async() => {
         //Check legible category
@@ -46,20 +45,39 @@ module.exports.manageProducts = (req, res, next) => {
 }
 
 module.exports.actionOnProduct = (req, res, next) => {
+
+    const categoryID = req.params.CategoryName;
+
+    if(req.body.edit) {
+        loadEditProductPage(res, req.body.edit, categoryID);
+        return;
+    }
+
     const deleteID = req.body.delete;
     const recoverID = req.body.recover;
 
-    if(deleteID) {
-        (async () => {
+    (async () => {
+        if(deleteID) {
             await productService.removeProduct(deleteID);
-        })();
-    }
-
-    if(recoverID){
-        (async () => {
+        }
+        if(recoverID){
             await productService.recoverProduct(recoverID);
-        })();
-    }
+        }
+        res.redirect(req.get('referer'));
+    })();
+    
+}
 
-    res.redirect(req.get('referer'));
+module.exports.addProduct = (req, res, next) => {
+    const Category = req.params.CategoryName;
+    res.render("GianHang/SuaSanPham.hbs", {Category});
+}
+
+module.exports.upsertProduct = (req, res, next) => {
+
+}
+
+const loadEditProductPage = async (res, productID, Category) => {
+    const product = await productService.findProductByID(productID);
+    res.render("GianHang/SuaSanPham.hbs", {Category, product});
 }
