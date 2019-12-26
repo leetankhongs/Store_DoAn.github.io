@@ -7,17 +7,23 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcome-heading">
-                                            <form role="search" class="">
-                                                <input type="text" placeholder="Search..." class="form-control">
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </form>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <ul class="breadcome-menu">
                                             <li><a href="index.html">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">Thêm sản phẩm</span>
+                                            <li><a href="/categories">Danh sách gian hàng</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li><a href="/categories/{{Category}}/products">Danh sách sản phẩm</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li>
+                                                {{#if product}}
+                                                    <span class="bread-blod">Cập nhật sản phẩm</span>
+                                                {{else}}
+                                                    <span class="bread-blod">Thêm sản phẩm</span>
+                                                {{/if}}
                                             </li>
                                         </ul>
                                     </div>
@@ -37,7 +43,11 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="review-tab-pro-inner">
                                 <ul id="myTab3" class="tab-review-design">
-                                    <li class="active"><a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i> Thêm gian hàng</a></li>
+                                    {{#if product}}
+                                    <li class="active"><a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i> Cập nhật sản phẩm</a></li>
+                                    {{else}}
+                                    <li class="active"><a href="#description"><i class="fa fa-pencil" aria-hidden="true"></i> Thêm sản phẩm</a><li></li>
+                                    {{/if}}
                                     <li><a href="#reviews"><i class="fa fa-file-image-o" aria-hidden="true"></i> Pictures</a></li>
                                 </ul>
                                 <div id="myTabContent" class="tab-content custom-product-edit">
@@ -49,35 +59,61 @@
                                                         <span class="input-group-addon"><b>Tên gian hàng&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
                                                         <div class="form-control">
 
-                                                        <select class="span1" name="days">
-                                                            <option value="">Gian hàng</option>
-                                                                <option value="1">Điện thoại&nbsp;&nbsp;</option>
-                                                                <option value="2">Laptop&nbsp;&nbsp;</option>
+                                                        <select class="span1" name="TypeProduct">
+                                                            <option>(Chọn Gian hàng)</option>
+                                                            {{#each Categories}}
+                                                                {{#compareString Type ../Category}}
+                                                                <option value={{../Type}} selected="selected">{{../DisplayName}}&nbsp;&nbsp;</option>
+                                                                {{else}}
+                                                                <option value={{../Type}}>{{../DisplayName}}&nbsp;&nbsp;</option>
+                                                                {{/compareString}}
+                                                            {{/each}}
                                                         </select>
                                                         </div>
                                                     </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><b>Tên sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
-                                                        <input type="text" class="form-control" placeholder="Các sản phẩm" >
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><b>Mã sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
-                                                        <input type="text" class="form-control" placeholder="Mã sản phẩm" >
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><b>Nhà cung cấp&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
-                                                        <input type="text" class="form-control" placeholder="Nhà cung cấp" >
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><b>Email nhà cung cấp&emsp;</b></span>
-                                                        <input type="text" class="form-control" placeholder="Email nhà cung cấp" >
-                                                    </div>
-                                                    <div class="input-group mg-b-pro-edt">
-                                                        <span class="input-group-addon"><b>Giá sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
-                                                        <input type="text" class="form-control" placeholder="Giá sản phẩm" >
-                                                    </div>
-                                                    
-                                                   
+                                                    {{#if product}}
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Hãng&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Brand" value="{{product.Brand}}" type="text" class="form-control" placeholder="Hãng sản xuất">
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Dòng sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Name" value="{{product.Name}}" type="text" class="form-control" placeholder="Dòng sản phẩm" >
+                                                        </div> 
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Tên sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="SimpleDetail" value="{{product.SimpleDetail}}" type="text" class="form-control" placeholder="Tên sản phẩm" >
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Giá&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Cost" type="number" value="{{product.Cost}}" min="0" class="form-control" placeholder="Giá sản phẩm" >
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Số lượng&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Quantity" type="number" value="{{product.Quantity}}" min="0" class="form-control" placeholder="Số lượng" >
+                                                        </div>
+                                                    {{else}}
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Hãng&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Brand" type="text" class="form-control" placeholder="Hãng sản xuất" >
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Dòng sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Name" type="text" class="form-control" placeholder="Dòng sản phẩm" >
+                                                        </div> 
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Tên sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="SimpleDetail" type="text" class="form-control" placeholder="Tên sản phẩm" >
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Giá&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Cost" type="number" min="0" class="form-control" placeholder="Giá sản phẩm" >
+                                                        </div>
+                                                        <div class="input-group mg-b-pro-edt">
+                                                            <span class="input-group-addon"><b>Số lượng&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                            <input name="Quantity" type="number" min="0" class="form-control" placeholder="Số lượng" >
+                                                        </div>
+                                                    {{/if}}
                                                 </div>
                                             </div>
                                            
@@ -85,9 +121,14 @@
                                         <div class="row">
                                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                                 <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
-                                                    <a href="index.html"><button type="button" class="btn btn-primary waves-effect waves-light m-r-10">Thêm
-														</button></a> 
-                                                    <a href="index.html"><button type="button" class="btn btn-warning waves-effect waves-light">Đóng
+                                                    {{#if product}}
+                                                    <button data-toggle="tooltip" name="ID" value={{product._id}} class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
+													</button>
+                                                    {{else}}
+                                                    <button data-toggle="tooltip" name="ID" class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
+													</button>
+                                                    {{/if}}
+                                                    <a href="/categories/{{Category}}/products"><button type="button" class="btn btn-warning waves-effect waves-light">Đóng
 														</button></a>
                                                 </div>
                                             </div>

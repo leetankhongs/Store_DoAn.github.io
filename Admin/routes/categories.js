@@ -5,6 +5,9 @@ const productController = require('../controllers/productController');
 const auth = require('../Config/auth');
 
 
+// Other routers
+const productRouter = require('./products');
+
 /* GET */
     //Manage categories
 router.get('/',auth.ensureAuthenticated, categoryController.manageCategories);
@@ -21,5 +24,10 @@ router.post('/upsert',auth.ensureAuthenticated, categoryController.upsertCategor
     //Products
 router.post('/:CategoryName/products',auth.ensureAuthenticated, productController.actionOnProduct);
 
+router.get('/add', categoryController.addCategory);
+
+/* Đến chỗ khác */
+    //Specific category products management
+router.use('/:CategoryName/products', productRouter);
 
 module.exports = router;
