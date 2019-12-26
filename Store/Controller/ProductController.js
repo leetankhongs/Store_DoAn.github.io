@@ -4,7 +4,36 @@ exports.detailProduct = async (req,res, next) =>
 {
     const product = await products.findById(req.query.id) ;
     const sameBrand = await products.find({Brand: req.params.Brand}).limit(6);
-    res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand});
+
+    var comment = product.Comment;
+    if(comment)
+    {
+      var page = parseInt(req.query.commentpage) || 1;
+      const count = product.Comment.length;
+
+      const limit = 5;  
+      const start = (page - 1) * limit;
+      const end = page * limit;
+      
+      let pages = [];
+
+      for(var i =1; i<= Math.ceil(count/limit) ; i++)
+      {
+        pages[i] = {
+        pos : i,
+        id: req.query.id,
+        Brand: req.params.Brand
+        }
+      }
+
+      comment = comment.slice(start,end);
+      console.log(comment);
+      res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand, Comment: comment, pages: pages, positionPage: {pre: page-1 < 1? page: page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1}});
+      
+    }
+    console.log(comment);
+
+    res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand, Comment: comment});
 
 }
 
@@ -75,6 +104,7 @@ exports.search = async (req, res, next) =>
     typeSort={};
 
   const require = req.query.require;
+
   const product = await products.find().sort(typeSort);
 
   var result = [];
@@ -114,7 +144,7 @@ exports.comment =  (req, res, next) =>
   var content =  req.body.content;
   var productid = req.query.id;
   var backURL=req.header('Referer') || '/';
-  console.log(name,content,productid);
+  //console.log(name,content,productid);
 
   if(content)
   {

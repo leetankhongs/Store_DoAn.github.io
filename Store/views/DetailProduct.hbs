@@ -1,214 +1,256 @@
-	<div class="span9">
-    <ul class="breadcrumb">
-    <li><a href="index">Home</a> <span class="divider">/</span></li>
-    <li><a href="products">Products</a> <span class="divider">/</span></li>
-    <li class="active">{{output.Name}}</li>
-    </ul>	
-	<div class="row">	
-		 	{{#if success_msg }}
-                <div class="alert alert-success alert-dismissible show" role="alert">
-                    <strong>{{this.success_msg}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>	
-		    {{/if}}  
-			<div id="gallery" class="span3">
-            <a href="{{output.Image}}" title="Fujifilm FinePix S2950 Digital Camera">
-				<img src="{{output.Image}}" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera"/>
-            </a>
+<div class="span9">
+	<ul class="breadcrumb">
+		<li><a href="index">Home</a> <span class="divider">/</span></li>
+		<li><a href="products">Products</a> <span class="divider">/</span></li>
+		<li class="active">{{output.Name}}</li>
+	</ul>
+	<div class="row">
+		{{#if success_msg }}
+		<div class="alert alert-success alert-dismissible show" role="alert">
+			<strong>{{this.success_msg}}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{{/if}}
+		<div id="gallery" class="span3">
+			<a href="{{output.Image}}" title="Fujifilm FinePix S2950 Digital Camera">
+				<img src="{{output.Image}}" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera" />
+			</a>
 			<div id="differentview" class="moreOptopm carousel slide">
-                <div class="carousel-inner">
-                  <div class="item active">
-                   <a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt=""/></a>
-                   <a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt=""/></a>
-                   <a href="{{output.Image}}" > <img style="width:29%" src="{{output.Image}}" alt=""/></a>
-                  </div>
-                  <div class="item">
-                   <a href="{{output.Image}}" > <img style="width:29%" src="{{output.Image}}" alt=""/></a>
-                   <a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt=""/></a>
-                   <a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt=""/></a>
-                  </div>
-                </div>
-              <!--  
+				<div class="carousel-inner">
+					<div class="item active">
+						<a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt="" /></a>
+						<a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt="" /></a>
+						<a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt="" /></a>
+					</div>
+					<div class="item">
+						<a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt="" /></a>
+						<a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt="" /></a>
+						<a href="{{output.Image}}"> <img style="width:29%" src="{{output.Image}}" alt="" /></a>
+					</div>
+				</div>
+				<!--  
 			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
               <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a> 
 			  -->
-              </div>
-			  
-			 <div class="btn-toolbar">
-			  <div class="btn-group">
-				<span class="btn"><i class="icon-envelope"></i></span>
-				<span class="btn" ><i class="icon-print"></i></span>
-				<span class="btn" ><i class="icon-zoom-in"></i></span>
-				<span class="btn" ><i class="icon-star"></i></span>
-				<span class="btn" ><i class=" icon-thumbs-up"></i></span>
-				<span class="btn" ><i class="icon-thumbs-down"></i></span>
-			  </div>
 			</div>
+
+			<div class="btn-toolbar">
+				<div class="btn-group">
+					<span class="btn"><i class="icon-envelope"></i></span>
+					<span class="btn"><i class="icon-print"></i></span>
+					<span class="btn"><i class="icon-zoom-in"></i></span>
+					<span class="btn"><i class="icon-star"></i></span>
+					<span class="btn"><i class=" icon-thumbs-up"></i></span>
+					<span class="btn"><i class="icon-thumbs-down"></i></span>
+				</div>
 			</div>
-			<div class="span6">
-				<h3>{{output.SimpleDetail}} </h3>
-				<hr class="soft"/>
-				<form class="form-horizontal qtyFrm" action="/cart/add-to-cart/{{output._id}}" method="POST">
-				  <div class="control-group">
+		</div>
+		<div class="span6">
+			<h3>{{output.SimpleDetail}} </h3>
+			<hr class="soft" />
+			<form class="form-horizontal qtyFrm" action="/cart/add-to-cart/{{output._id}}" method="POST">
+				<div class="control-group">
 					<label class="control-label"><span>{{output.Cost}}</span></label>
 					<div class="controls">
-					<input type="number" class="span1" placeholder="Qty." name="qty"/>
-					<button type="submit" class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i class=" icon-shopping-cart"></i></button>
-					</div>
-				  </div>
-				</form>
-				
-				<hr class="soft"/>
-				<h4>{{output.Quantity}} sản phẩm trong kho</h4>
-				<form class="form-horizontal qtyFrm pull-right">
-				  <div class="control-group">
-					<label class="control-label"><span>Màu</span></label>
-					<div class="controls">
-					  <select class="span2">
-						  <option>Đen</option>
-						  <option>Đỏ</option>
-						  <option>Xanh</option>
-						  <option>Vàng</option>
-						</select>
-					</div>
-				  </div>
-				</form>
-				<hr class="soft clr"/>
-				<p>
-					{{output.Description}}
-				</p>
-				<a class="btn btn-small pull-right" href="#detail">Thông tin chi tiết</a>
-				<br class="clr"/>
-			<a href="#" name="detail"></a>
-			<hr class="soft"/>
-			</div>
-			
-			<div class="span9">
-            <ul id="productDetail" class="nav nav-tabs">
-              <li class="active"><a href="#home" data-toggle="tab">Chi tiết sản phẩm</a></li>
-              <li><a href="#profile" data-toggle="tab">Sản phẩm gần đây</a></li>
-            </ul>
-            <div id="myTabContent" class="tab-content">
-              <div class="tab-pane fade active in" id="home">
-			  <h4>{{output.Name}}  </h4>
-                <table class="table table-bordered">
-				<tbody>
-				<tr class="techSpecRow"><th colspan="2">Cấu hình</th></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">CPU: </td><td class="techSpecTD2">Intel Core i7 Coffee Lake, 9750H, 2.60 GHz</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">RAM: </td><td class="techSpecTD2">8 GB, DDR4 (2 khe), 2666 MHz/td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Ổ cứng:</td><td class="techSpecTD2"> Hỗ trợ khe căm HDD SATA, SSD: 512 GB, M.2 PCIe</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Màn hình: </td><td class="techSpecTD2"> 15.6 inch, Full HD (1920 x 1080)</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Card màn hình:</td><td class="techSpecTD2">Card đồ họa rời, NVIDIA® GeForce RTX™ 2060</td></tr>
-                <tr class="techSpecRow"><td class="techSpecTD1">Cổng kết nối:</td><td class="techSpecTD2">HDMI 2.0, 3 x USB 3.1, LAN (RJ45), USB Type-C</td></tr>
-                <tr class="techSpecRow"><td class="techSpecTD1">Hệ điều hành: </td><td class="techSpecTD2">Windows 10 Home SL</td></tr>
-                <tr class="techSpecRow"><td class="techSpecTD1">Thiết kế: </td><td class="techSpecTD2">Vỏ kim loại, PIN liền</td></tr>
-                <tr class="techSpecRow"><td class="techSpecTD1">Kích thước: </td><td class="techSpecTD2">Dày 26 mm, 2.4 kg</td></tr>
-				</tbody>
-				</table>
-				
-				
-         
-
-			  </div>
-		<div class="tab-pane fade" id="profile">
-		<div id="myTab" class="pull-right">
-		 <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
-		 <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
-		</div>
-		<br class="clr"/>
-		<hr class="soft"/>
-		<div class="tab-content">
-			<div class="tab-pane" id="listView">
-                {{#each sameBrand}}	
-				<div class="row">
-					<div class="span2">
-						<img src="{{this.Image}}" alt=""/>
-					</div>
-					<div class="span4">
-						<h3>{{this.Brand}} | {{this.Name}}</h3>				
-						<hr class="soft"/>
-						<h5>{{this.SimpleDetail}} </h5>
-						<p>
-						{{this.Description}}
-						</p>
-						<a class="btn btn-small pull-right" href="/product/product_details/{{this.Brand}}?id={{this._id}}">View Details</a>
-						<br class="clr"/>
-					</div>
-					<div class="span3 alignR">
-						<form class="form-horizontal qtyFrm">
-						<h3> $222.00</h3>
-						<label class="checkbox">
-							<input type="checkbox">  Adds product to compair
-						</label><br/>
-						<div class="btn-group">
-						<a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-						<a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-						</div>
-							</form>
+						<input type="number" class="span1" placeholder="Qty." name="qty" />
+						<button type="submit" class="btn btn-large btn-primary pull-right"> Thêm vào giỏ <i
+								class=" icon-shopping-cart"></i></button>
 					</div>
 				</div>
-				<hr class="soft"/>
-				{{/each}}
-			</div>
-			<div class="tab-pane active" id="blockView">
-				<ul class="thumbnails">
-                    {{# each sameBrand}}
-					<li class="span3">
-                        <div class="thumbnail">
-                            <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""/></a>
-                            <div class="caption">
-                            <h5>{{this.SimpleDetail}}</h5>
-                                <h4 style="text-align:center"> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm vào giỏ<i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h4>
-                            </div>
-                        </div>
-                    </li>
-					{{/each}}
-				</ul>
-				<hr class="soft"/>
-			</div>
-			
-	</div>
-		<br class="clr">
-	</div>
-	<h2>Bình luận</h2>
-	
-	<div class="containerz">
-	
-	{{#if output.Comment}}
-		{{#each output.Comment}}
-		<div class='friend'>
-         <img src='/themes/images/avatar.png'class='avatar'>
-        <h5> &nbsp; &nbsp;{{name}}</h5>
-        <p> &nbsp; &nbsp;{{content}}</p>
-		<hr/>
-    	
-		{{/each}}
-	{{else}}
-			<h2>Chưa có bình luận nào về sản phẩm này</h2>
-	{{/if}}
-		</div>
+			</form>
+
+			<hr class="soft" />
+			<h4>{{output.Quantity}} sản phẩm trong kho</h4>
+			<form class="form-horizontal qtyFrm pull-right">
+				<div class="control-group">
+					<label class="control-label"><span>Màu</span></label>
+					<div class="controls">
+						<select class="span2">
+							<option>Đen</option>
+							<option>Đỏ</option>
+							<option>Xanh</option>
+							<option>Vàng</option>
+						</select>
+					</div>
+				</div>
+			</form>
+			<hr class="soft clr" />
+			<p>
+				{{output.Description}}
+			</p>
+			<a class="btn btn-small pull-right" href="#detail">Thông tin chi tiết</a>
+			<br class="clr" />
+			<a href="#" name="detail"></a>
+			<hr class="soft" />
 		</div>
 
-		{{#if user}}
+		<div class="span9">
+			<ul id="productDetail" class="nav nav-tabs">
+				<li class="active"><a href="#home" data-toggle="tab">Chi tiết sản phẩm</a></li>
+				<li><a href="#profile" data-toggle="tab">Sản phẩm gần đây</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade active in" id="home">
+					<h4>{{output.Name}} </h4>
+					<table class="table table-bordered">
+						<tbody>
+							<tr class="techSpecRow">
+								<th colspan="2">Cấu hình</th>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">CPU: </td>
+								<td class="techSpecTD2">Intel Core i7 Coffee Lake, 9750H, 2.60 GHz</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">RAM: </td>
+								<td class="techSpecTD2">8 GB, DDR4 (2 khe), 2666 MHz/td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Ổ cứng:</td>
+								<td class="techSpecTD2"> Hỗ trợ khe căm HDD SATA, SSD: 512 GB, M.2 PCIe</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Màn hình: </td>
+								<td class="techSpecTD2"> 15.6 inch, Full HD (1920 x 1080)</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Card màn hình:</td>
+								<td class="techSpecTD2">Card đồ họa rời, NVIDIA® GeForce RTX™ 2060</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Cổng kết nối:</td>
+								<td class="techSpecTD2">HDMI 2.0, 3 x USB 3.1, LAN (RJ45), USB Type-C</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Hệ điều hành: </td>
+								<td class="techSpecTD2">Windows 10 Home SL</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Thiết kế: </td>
+								<td class="techSpecTD2">Vỏ kim loại, PIN liền</td>
+							</tr>
+							<tr class="techSpecRow">
+								<td class="techSpecTD1">Kích thước: </td>
+								<td class="techSpecTD2">Dày 26 mm, 2.4 kg</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+				<div class="tab-pane fade" id="profile">
+					<div id="myTab" class="pull-right">
+						<a href="#listView" data-toggle="tab"><span class="btn btn-large"><i
+									class="icon-list"></i></span></a>
+						<a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i
+									class="icon-th-large"></i></span></a>
+					</div>
+					<br class="clr" />
+					<hr class="soft" />
+					<div class="tab-content">
+						<div class="tab-pane" id="listView">
+							{{#each sameBrand}}
+							<div class="row">
+								<div class="span2">
+									<img src="{{this.Image}}" alt="" />
+								</div>
+								<div class="span4">
+									<h3>{{this.Brand}} | {{this.Name}}</h3>
+									<hr class="soft" />
+									<h5>{{this.SimpleDetail}} </h5>
+									<p>
+										{{this.Description}}
+									</p>
+									<a class="btn btn-small pull-right"
+										href="/product/product_details/{{this.Brand}}?id={{this._id}}">View Details</a>
+									<br class="clr" />
+								</div>
+								<div class="span3 alignR">
+									<form class="form-horizontal qtyFrm">
+										<h3> $222.00</h3>
+										<label class="checkbox">
+											<input type="checkbox"> Adds product to compair
+										</label><br />
+										<div class="btn-group">
+											<a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary">
+												Add to <i class=" icon-shopping-cart"></i></a>
+											<a href="/product/product_details/{{this.Brand}}?id={{this._id}}"
+												class="btn btn-large"><i class="icon-zoom-in"></i></a>
+										</div>
+									</form>
+								</div>
+							</div>
+							<hr class="soft" />
+							{{/each}}
+						</div>
+						<div class="tab-pane active" id="blockView">
+							<ul class="thumbnails">
+								{{# each sameBrand}}
+								<li class="span3">
+									<div class="thumbnail">
+										<a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img
+												src="{{this.Image}}" alt="" /></a>
+										<div class="caption">
+											<h5>{{this.SimpleDetail}}</h5>
+											<h4 style="text-align:center"> <a class="btn"
+													href="/cart/add-to-cart/{{this._id}}">Thêm vào giỏ<i
+														class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
+													href="#">{{this.Cost}}</a></h4>
+										</div>
+									</div>
+								</li>
+								{{/each}}
+							</ul>
+							<hr class="soft" />
+						</div>
+
+					</div>
+					<br class="clr">
+				</div>
+			</div>
+			<h2>Bình luận</h2>
+			{{#if Comment}}
+			<div class='friend'>
+				{{#each Comment}}
+				<img src='/themes/images/avatar.png' class='avatar'>
+				<h5> &nbsp; &nbsp;{{name}}</h5>
+				<p> &nbsp; &nbsp;{{content}}</p>
+				<hr />
+				{{/each}}
+			</div>
+			{{else}}
+			<h2>Chưa có bình luận nào về sản phẩm này</h2>
+			{{/if}}
+
+			<div class="pagination" onload="generate_table({{output._id}},{{count}}">
+                <ul>
+                <li><a href="/product/product_details/{{this.Brand}}?id={{this.id}}&commentpage={{currentPage.pre}}">&lsaquo;</a></li>
+                {{#each pages}}
+                    <li><a href="/product/product_details/{{this.Brand}}?id={{this.id}}&commentpage={{this.pos}}">{{this.pos}}</a></li>
+                {{/each}}
+                <li><a href="/product/product_details/?{{this.Brand}}?id={{this.id}}&commentpage={{currentPage.pos}}">&rsaquo;</a></li> 
+                </ul> 
+                </div>
+            <br class="clr"/>
+            <nav class="pagination" role="navigation">
+
+			{{#if user}}
 			<form action="/product/comment?id={{output._id}}" method="POST">
-			<label for="fname"> Xin chào <strong>{{user.Name}}</strong>. Hãy để lại bình luận </label>
-			<label for="subject">Nội dung</label>
-			<textarea class="inserttexty" id="subject" name="content" placeholder="Write something.." style="height:200px"></textarea>
-			
-			<button class="submitz" type="submit" onclick="checkFunction()" name="submitcomment">Submit</button>
+				<label for="fname"> Xin chào <strong>{{user.Name}}</strong>. Hãy để lại bình luận </label>
+				<label for="subject">Nội dung</label>
+				<textarea class="inserttexty" id="subject" name="content" placeholder="Write something.."
+					style="height:200px"></textarea>
+
+				<button class="submitz" type="submit" onclick="checkFunction()" name="submitcomment">Submit</button>
 			</form>
 			{{else}}
-			<i class="textright"><span><u><a class="hyperlink" href="/users/login">Đăng nhập</a></u> để bình luận</span></i>
-		{{/if}}
-							
-		
-			</div>
+			<i class="textright"><span><u><a class="hyperlink" href="/users/login">Đăng nhập</a></u> để bình
+					luận</span></i>
+			{{/if}}
+		</div>
 	</div>
-    </div>
-	</div>
-	</div>
-	</div>
- 	</div>
+</div>
+</div>
+</div>
 </div>
