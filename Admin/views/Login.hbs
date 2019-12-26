@@ -1,0 +1,69 @@
+</div>
+<div class="color-line"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+        <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
+            <div class="text-center m-b-md custom-login">
+                <h3>PLEASE LOGIN TO APP</h3>
+                <p>This is the best app ever!</p>
+            </div>
+            {{#if success_msg }}
+            <div class="alert alert-success alert-dismissible show" role="alert">
+                <strong>{{this.success_msg}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            {{#if error }}
+            <div class="alert alert-error alert-dismissible show" role="alert">
+                <strong>{{this.error}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            {{#if error_msg }}
+            <div class="alert alert-error alert-dismissible show" role="alert">
+                <strong>{{this.error_msg}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            <div class="hpanel">
+                <div class="panel-body">
+                    <form action="/admin/login" method="POST" id="loginForm">
+                        <div class="form-group">
+                            <label class="control-label" for="username">Username</label>
+                            <input type="text" placeholder="example@gmail.com" title="Please enter you username"
+                                required="" value="" name="username" id="username" class="form-control">
+                            <span class="help-block small">Your unique username to app</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password</label>
+                            <input type="password" title="Please enter your password" placeholder="******" required=""
+                                value="" name="password" id="password" class="form-control">
+                            <span class="help-block small">Yur strong password</span>
+                        </div>
+                        <div class="checkbox login-checkbox">
+                            <label>
+                                <input type="checkbox" class="i-checks"> Remember me </label>
+                            <p class="help-block small">(if this is a private computer)</p>
+                        </div>
+                        <button class="btn btn-success btn-block loginbtn">Login</button>
+                        <a class="btn btn-default btn-block" href="#">Register</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <p>Copyright &copy; 2018 <a href="https://colorlib.com/wp/templates/">Colorlib</a> All rights reserved.</p>
+        </div>
+    </div>
