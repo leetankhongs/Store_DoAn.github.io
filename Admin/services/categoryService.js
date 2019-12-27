@@ -8,7 +8,9 @@ module.exports.getAllCategories = async () => {
 module.exports.findCategory = async (Type) => {
     return await Category.findOne({Type: { $regex : new RegExp(Type, "i") }});
 } 
-
+module.exports.findListBrandOfCategory = async (Type) => {
+    return (await Category.findOne({Type: { $regex : new RegExp(Type, "i") }})).Brands;
+}
 module.exports.findCategoryByID = async(_id) => {
     return await Category.findById(_id);
 }

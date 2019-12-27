@@ -7,6 +7,11 @@ const hbs = require('hbs');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+const bodyParser = require('body-parser');
+
+//doten
+require('dotenv').config();
+require('./handlers/cloudinary');
 
 //Passport 
 require('./Config/passport.js')(passport);
@@ -27,7 +32,7 @@ let categoryService = require('./services/categoryService');
 
 //Create app
 var app = express();
-
+app.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}));
 // Use env file
 require('dotenv').config();
 
