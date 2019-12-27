@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <head>
-     <meta charset="utf-8">
+
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Admin Panel</title>
     <meta name="description" content="">
@@ -59,9 +60,10 @@
 		============================================ -->
     <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -72,55 +74,83 @@
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
                         <li>
-                            <a class="has-arrow" href="index.html" aria-expanded="false"><i class="fa big-icon fa-bar-chart-o icon-wrap"></i> <span class="mini-click-non">Thống kê</span></a>
+                            <a class="has-arrow" href="index.html" aria-expanded="false"><i
+                                    class="fa big-icon fa-bar-chart-o icon-wrap"></i> <span class="mini-click-non">Thống
+                                    kê</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Inbox" href="TKNgay.html"><i class="fa big-icon fa-table icon-wrap" aria-hidden="true"></i> <span class="mini-sub-pro">Theo ngày</span></a></li>
-                                <li><a title="View Mail" href="TKThang.html"><i class="fa big-icon fa-table icon-wrap" aria-hidden="true"></i> <span class="mini-sub-pro">Theo tháng</span></a></li>
-                                <li><a title="View Mail" href="TKNam.html"><i class="fa big-icon fa-table icon-wrap" aria-hidden="true"></i> <span class="mini-sub-pro">Theo năm</span></a></li>
+                                <li><a title="Inbox" href="TKNgay.html"><i class="fa big-icon fa-table icon-wrap"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Theo ngày</span></a></li>
+                                <li><a title="View Mail" href="TKThang.html"><i class="fa big-icon fa-table icon-wrap"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Theo tháng</span></a>
+                                </li>
+                                <li><a title="View Mail" href="TKNam.html"><i class="fa big-icon fa-table icon-wrap"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Theo năm</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="/users" aria-expanded="false"><i class="fa fa-female sub-icon-mg"></i> <span class="mini-click-non">Người dùng</span></a>
+                            <a href="/users" aria-expanded="false"><i class="fa fa-female sub-icon-mg"></i> <span
+                                    class="mini-click-non">Người dùng</span></a>
                         </li>
                         <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="fa big-icon fa-envelope icon-wrap"></i> <span class="mini-click-non">Gian hàng</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><i
+                                    class="fa big-icon fa-envelope icon-wrap"></i> <span class="mini-click-non">Gian
+                                    hàng</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 {{#each Categories}}
-                                    <li><a title={{this.DisplayName}} href="/categories/{{this.Type}}/products"><i class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">{{this.DisplayName}}</span></a></li>
+                                <li><a title={{this.DisplayName}} href="/categories/{{this.Type}}/products"><i
+                                            class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span
+                                            class="mini-sub-pro">{{this.DisplayName}}</span></a></li>
                                 {{/each}}
-                                <li><a title="Settings" href="/categories"><i class="fa fa-cube sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Tùy chỉnh</span></a></li>
+                                <li><a title="Settings" href="/categories"><i class="fa fa-cube sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Tùy chỉnh</span></a></li>
                             </ul>
                         </li>
-                        
+
                         <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-cube sub-icon-mg"></i> <span class="mini-click-non">Đơn đặt hàng</span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-cube sub-icon-mg"></i>
+                                <span class="mini-click-non">Đơn đặt hàng</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="File Manager" href="DaGiao.html"><i class="fa fa-cube sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Đã giao</span></a></li>
-                                <li><a title="Blog" href="ChuaGiao.html"><i class="fa fa-bullseye sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Chưa giao</span></a></li>
-                                <li><a title="Blog Details" href="DangGiao.html"><i class="fa fa-circle-o sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Đang giao</span></a></li>
+                                <li><a title="File Manager" href="DaGiao.html"><i class="fa fa-cube sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Đã giao</span></a></li>
+                                <li><a title="Blog" href="ChuaGiao.html"><i class="fa fa-bullseye sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Chưa giao</span></a></li>
+                                <li><a title="Blog Details" href="DangGiao.html"><i class="fa fa-circle-o sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Đang giao</span></a></li>
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i class="fa fa-line-chart sub-icon-mg"></i> <span class="mini-click-non">TOP</span></a>
+                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i
+                                    class="fa fa-line-chart sub-icon-mg"></i> <span
+                                    class="mini-click-non">TOP</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Bar Charts" href="TopSP.html"><i class="fa fa-cube sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Theo sản phẩm</span></a></li>
-                                <li><a class="has-arrow" title="Line Charts" href="#.html"><i class="fa fa-area-chart sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Theo gian hàng </span></a>
+                                <li><a title="Bar Charts" href="TopSP.html"><i class="fa fa-cube sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Theo sản phẩm</span></a>
+                                </li>
+                                <li><a class="has-arrow" title="Line Charts" href="#.html"><i
+                                            class="fa fa-area-chart sub-icon-mg" aria-hidden="true"></i> <span
+                                            class="mini-sub-pro">Theo gian hàng </span></a>
                                     <ul class="submenu-angle" aria-expanded="false">
-                                        <li><a title="Bar Charts" href="TopGHLaptop.html"><i class="fa fa-television sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">LapTop</span></a></li>
-                                        <li><a title="Line Charts" href="TopGHPhone.html"><i class="fa fa-building sub-icon-mg" aria-hidden="true"></i> <span class="mini-sub-pro">Điện thoại </span></a>
+                                        <li><a title="Bar Charts" href="TopGHLaptop.html"><i
+                                                    class="fa fa-television sub-icon-mg" aria-hidden="true"></i> <span
+                                                    class="mini-sub-pro">LapTop</span></a></li>
+                                        <li><a title="Line Charts" href="TopGHPhone.html"><i
+                                                    class="fa fa-building sub-icon-mg" aria-hidden="true"></i> <span
+                                                    class="mini-sub-pro">Điện thoại </span></a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-            
-                        <li><a title="Landing Page" href="index.html" aria-expanded="false"><i class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Landing Page</span></a></li>
+
+                        <li><a title="Landing Page" href="index.html" aria-expanded="false"><i
+                                    class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span
+                                    class="mini-click-non">Landing Page</span></a></li>
                     </ul>
                 </nav>
             </div>
         </nav>
     </div>
-   
+
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
         <div class="container-fluid">
@@ -141,9 +171,10 @@
                                 <div class="row">
                                     <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
                                         <div class="menu-switcher-pro">
-                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
-													<i class="fa fa-bars"></i>
-												</button>
+                                            <button type="button" id="sidebarCollapse"
+                                                class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                <i class="fa fa-bars"></i>
+                                            </button>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
@@ -151,7 +182,7 @@
                                             <ul class="nav navbar-nav mai-top-nav">
                                                 <li class="nav-item"><a href="/" class="nav-link">Home</a>
                                                 </li>
-                                               
+
                                             </ul>
                                         </div>
                                     </div>
@@ -159,158 +190,53 @@
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
                                                 <li class="nav-item">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-															<i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
-															<span class="admin-name">Admin</span>
-															<i class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
-														</a>
-                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="#"><span class="fa fa-home author-log-ic"></span>Đăng kí</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="fa fa-user author-log-ic"></span>Thông tin</a>
-                                                        </li>
-                                                        <li><a href="/users"><span class="fa fa-diamond author-log-ic"></span> Khóa</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="fa fa-cog author-log-ic"></span>Cài đặt</a>
-                                                        </li>
-                                                        <li><a href="#"><span class="fa fa-lock author-log-ic"></span>Đăng xuất</a>
-                                                        </li>
-                                                    </ul>
+                                                    {{#if user}}
+                                                    <a href="#" data-toggle="dropdown" role="button"
+                                                        aria-expanded="false" class="nav-link dropdown-toggle">
+                                                        <i class="fa fa-user adminpro-user-rounded header-riht-inf"
+                                                            aria-hidden="true"></i>
+                                                        <span class="admin-name">{{user.Name}}</span>
+                                                        <i
+                                                            class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
+                                                    </a>
+                                                    <ul role="menu"
+                                                        class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                 </li>
-                                                <li class="nav-item nav-setting-open"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-tasks"></i></a>
-
-                                                    <div role="menu" class="admintab-wrap menu-setting-wrap menu-setting-wrap-bg dropdown-menu animated zoomIn">
-                                                        <ul class="nav nav-tabs custon-set-tab">
-                                                            <li class="active"><a data-toggle="tab" href="#Settings">Settings</a>
-                                                            </li>
-                                                        </ul>
-
-                                                        <div class="tab-content custom-bdr-nt">                                                                                                                        
-                                                            <div id="Settings" class="tab-pane fade in active">
-                                                                <div class="setting-panel-area">
-                                                                    <div class="note-heading-indicate">
-                                                                        <h2><i class="fa fa-gears"></i> Settings Panel</h2>
-                                                                    </div>
-                                                                    <ul class="setting-panel-list">
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Show notifications</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example">
-                                                                                            <label class="onoffswitch-label" for="example">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Disable Chat</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example3">
-                                                                                            <label class="onoffswitch-label" for="example3">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Enable history</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example4">
-                                                                                            <label class="onoffswitch-label" for="example4">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Show charts</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" class="onoffswitch-checkbox" id="example7">
-                                                                                            <label class="onoffswitch-label" for="example7">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Update everyday</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example2">
-                                                                                            <label class="onoffswitch-label" for="example2">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Global search</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example6">
-                                                                                            <label class="onoffswitch-label" for="example6">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                        <li>
-                                                                            <div class="checkbox-setting-pro">
-                                                                                <div class="checkbox-title-pro">
-                                                                                    <h2>Offline users</h2>
-                                                                                    <div class="ts-custom-check">
-                                                                                        <div class="onoffswitch">
-                                                                                            <input type="checkbox" name="collapsemenu" checked="" class="onoffswitch-checkbox" id="example5">
-                                                                                            <label class="onoffswitch-label" for="example5">
-																									<span class="onoffswitch-inner"></span>
-																									<span class="onoffswitch-switch"></span>
-																								</label>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    </ul>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <li><a href="#"><span class="fa fa-user author-log-ic"></span>Thông
+                                                        tin</a>
                                                 </li>
+                                                <li><a href="/users"><span class="fa fa-diamond author-log-ic"></span>
+                                                        Khóa</a>
+                                                </li>
+                                                <li><a href="#"><span class="fa fa-cog author-log-ic"></span>Cài đặt</a>
+                                                </li>
+                                                <li><a href="/admin/logout"><span class="fa fa-lock author-log-ic"></span>Đăng
+                                                        xuất</a>
+                                                </li>
+                                            </ul>
+                                            {{else}}
+
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                class="nav-link dropdown-toggle">
+                                                <i class="fa fa-user adminpro-user-rounded header-riht-inf"
+                                                    aria-hidden="true"></i>
+                                                <span class="admin-name">Admin</span>
+                                                <i class="fa fa-angle-down adminpro-icon adminpro-down-arrow"></i>
+                                            </a>
+                                            <ul role="menu"
+                                                class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                <li><a href="/admin/login"><span class="fa fa-home author-log-ic"></span>Đăng
+                                                        nhập</a>
+                                                </li>
+                                                <li><a href="/users"><span class="fa fa-diamond author-log-ic"></span>
+                                                        Khóa</a>
+                                                </li>
+                                                <li><a href="#"><span class="fa fa-cog author-log-ic"></span>Cài đặt</a>
+                                                </li>
+                                            </ul>
+                                            {{/if}}
+
+                                            </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -320,9 +246,9 @@
                     </div>
                 </div>
             </div>
-    {{{body}}}
-    </div>
-    <div class="footer-copyright-area">
+            {{{body}}}
+        </div>
+        <div class="footer-copyright-area">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -334,7 +260,7 @@
             </div>
         </div>
     </div>
-     <!-- jquery
+    <!-- jquery
 		============================================ -->
     <script src="/js/vendor/jquery-1.11.3.min.js"></script>
     <!-- bootstrap JS
@@ -386,5 +312,6 @@
     <!-- main JS
 		============================================ -->
     <script src="/js/main.js"></script>
-  </body>
+</body>
+
 </html>
