@@ -1,5 +1,8 @@
 const categoryService = require('../services/categoryService');
 const productService = require('../services/productService');
+const cloudinary = require('cloudinary');
+const category = require('../services/categoryService');
+const Product = require('../models/productModel');
 
 const pageLength = 10;
 const maxPage = 5;
@@ -68,9 +71,12 @@ module.exports.actionOnProduct = (req, res, next) => {
     
 }
 
-module.exports.addProduct = (req, res, next) => {
+module.exports.addProduct = async (req, res, next) => {
     const Category = req.params.CategoryName;
-    res.render("GianHang/SuaSanPham.hbs", {Category});
+    const brands = await categoryService.findListBrandOfCategory(req.query.category)
+    console.log(brands);
+
+    res.render("GianHang/SuaSanPham.hbs", {Category,brands: brands});
 }
 
 module.exports.upsertProduct = (req, res, next) => {
@@ -79,5 +85,24 @@ module.exports.upsertProduct = (req, res, next) => {
 
 const loadEditProductPage = async (res, productID, Category) => {
     const product = await productService.findProductByID(productID);
-    res.render("GianHang/SuaSanPham.hbs", {Category, product});
+    res.render("GianHang/SuaSanPham.hbs", {Category, product, });
 }
+
+module.exports.addProductPost = async (req, res, next) => {
+
+    const result = await cloudinary.v2.uploader.upload(req.file.path);
+  
+    var newProduct = new Product({
+      Brand: req.body.Brand,
+      Name: req.body.Name,
+      SimpleDetail: req.body.SimpleDetail,
+      Cost: req.body.Cost,
+      Image: result.secure_url,
+      TypeProduct: req.query.category,
+      Quantity: req.body.Quantity,
+      Description: req.body.Description
+    })
+  
+    newProduct.save();
+    res.redirect('/categories/'+ req.query.category + '/products');
+  }
