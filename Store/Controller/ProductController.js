@@ -17,6 +17,10 @@ exports.detailProduct = async (req,res, next) =>
       
       let pages = [];
 
+      let previous = (page -1 < 1) ? page: page-1;
+      let current = page;
+      let next = (page +1 > Math.ceil(count/limit)) ? page : page +1;
+
       for(var i =1; i<= Math.ceil(count/limit) ; i++)
       {
         pages[i] = {
@@ -27,11 +31,9 @@ exports.detailProduct = async (req,res, next) =>
       }
 
       comment = comment.slice(start,end);
-      console.log(comment);
-      res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand, Comment: comment, pages: pages, positionPage: {pre: page-1 < 1? page: page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1}});
+      res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand, Comment: comment, pages: pages, pos:{previous: previous, current:current, next:next}});
       
     }
-    console.log(comment);
 
     res.render('DetailProduct.hbs', {output: product, sameBrand: sameBrand, Comment: comment});
 

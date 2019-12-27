@@ -219,21 +219,22 @@
 				<hr />
 				{{/each}}
 			</div>
-			{{else}}
-			<h2>Chưa có bình luận nào về sản phẩm này</h2>
-			{{/if}}
-
 			<div class="pagination" onload="generate_table({{output._id}},{{count}}">
                 <ul>
-                <li><a href="/product/product_details/{{this.Brand}}?id={{this.id}}&commentpage={{currentPage.pre}}">&lsaquo;</a></li>
+                <li><a href="/product/product_details/{{output.Brand}}?id={{output._id}}&commentpage={{pos.previous}}">&lsaquo;</a></li>
                 {{#each pages}}
                     <li><a href="/product/product_details/{{this.Brand}}?id={{this.id}}&commentpage={{this.pos}}">{{this.pos}}</a></li>
                 {{/each}}
-                <li><a href="/product/product_details/?{{this.Brand}}?id={{this.id}}&commentpage={{currentPage.pos}}">&rsaquo;</a></li> 
+                <li><a href="/product/product_details/{{output.Brand}}?id={{output._id}}&commentpage={{pos.next}}">&rsaquo;</a></li> 
                 </ul> 
                 </div>
             <br class="clr"/>
             <nav class="pagination" role="navigation">
+			{{else}}
+			<h2>Chưa có bình luận nào về sản phẩm này</h2>
+			{{/if}}
+
+			
 
 			{{#if user}}
 			<form action="/product/comment?id={{output._id}}" method="POST">
