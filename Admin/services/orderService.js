@@ -7,9 +7,13 @@ module.exports.getOrdersCount = async (Delivery) => {
     return await Order.estimatedDocumentCount();
 }
 
-module.exports.getOrders = async (currentPage, pageLength, deliveryState) => {
+module.exports.getOrders = async (currentPage, pageLength, deliveryState, _id) => {
     const skip = currentPage * pageLength;
     let params = null;
+    if(_id) {
+        return await Order.findById(_id);
+    }
+
     if(deliveryState !== null && deliveryState !== undefined) {
         params = {};
         params.Delivery = deliveryState;
