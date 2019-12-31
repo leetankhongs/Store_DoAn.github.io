@@ -1,7 +1,7 @@
 const passport = require('passport');
 
 module.exports.loginGet = (req, res, next) => {
-    res.render('Login.hbs', { title: 'Express' });
+    res.render('Admin/Login.hbs', { title: 'Express' });
 }
 
 module.exports.loginPost = (req, res, next) => {
