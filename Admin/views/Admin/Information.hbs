@@ -1,0 +1,166 @@
+<!-- Mobile Menu end -->
+<div class="breadcome-area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcome-list single-page-breadcome">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="breadcome-heading">
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <ul class="breadcome-menu">
+                                <li><a href="index.html">Home</a> <span class="bread-slash">/</span>
+                                </li>
+                                <li><a href="/categories">Admin</a> <span class="bread-slash">/</span>
+                                </li>
+                                <li><a href="/categories/{{Category}}/products">Information</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Single pro tab start-->
+<div class="single-product-tab-area mg-tb-15">
+    <!-- Single pro tab review Start-->
+    <div class="single-pro-review-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="review-tab-pro-inner">
+                        <div id="myTabContent" class="tab-content custom-product-edit">
+                            <div class="product-tab-list tab-pane fade active in" id="description">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="review-content-section">
+                                            {{#if success_msg }}
+                                            <div class="alert alert-success alert-dismissible show" role="alert">
+                                                <strong>{{this.success_msg}}</strong>
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            {{/if}}
+                                            <h1>Thông tin cá nhân</h1>
+                                            <form action='/admin/information/change-information' method="POST">
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <span
+                                                        class="input-group-addon"><b>Tên&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;</b></span>
+                                                    <input name="Name" type="text" class="form-control"
+                                                        placeholder="Tên" value="{{user.Name}}">
+                                                </div>
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <span class="input-group-addon"><b>Địa
+                                                            chỉ&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                    <input name="Address" type="text" class="form-control"
+                                                        placeholder="Địa chỉ" value="{{user.Address}}">
+                                                </div>
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <span class="input-group-addon"><b>Số điện thoại&emsp;</b></span>
+                                                    <input name="Phone" type="number" class="form-control"
+                                                        placeholder="Số điện thoại" value="{{user.Phone}}">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
+                                                            <button data-toggle="tooltip" name="ID" type="submit"
+                                                                class="btn btn-primary waves-effect waves-light m-r-10">Thay
+                                                                đổi
+                                                            </button>
+                                                            <a href="/categories/{{Category}}/products"><button
+                                                                    type="button"
+                                                                    class="btn btn-warning waves-effect waves-light">Đóng
+                                                                </button></a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="product-tab-list tab-pane fade active in" id="description">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="review-content-section">
+                                            {{#if success_msg }}
+                                            <div class="alert alert-success alert-dismissible show" role="alert">
+                                                <strong>{{this.success_msg}}</strong>
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            {{/if}}
+                                            {{#if error_msg }}
+                                            <div class="alert alert-error alert-dismissible show" role="alert">
+                                                <strong>{{this.error_msg}}</strong>
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            {{/if}}
+                                            <h1>Thay đổi mật khẩu</h1>
+                                            <form action='/admin/information/change-password' method="POST">
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <span class="input-group-addon"><b>Mật khẩu
+                                                            cũ&emsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                    <input name="oldPassword" type="password" class="form-control"
+                                                        placeholder="Mật khẩu cũ">
+                                                </div>
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <span class="input-group-addon"><b>Mật khẩu mới&emsp;</b></span>
+                                                    <input name="newPassword1" type="password" class="form-control"
+                                                        placeholder="Mật khẩu mới">
+                                                </div>
+                                                <div class="input-group mg-b-pro-edt">
+                                                    <span class="input-group-addon"><b>Mật khẩu mới&emsp;</b></span>
+                                                    <input name="newPassword2" type="password" class="form-control"
+                                                        placeholder="Nhập lại mật khẩu mới">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="text-center mg-b-pro-edt custom-pro-edt-ds">
+                                                            <button data-toggle="tooltip" name="ID" type="submit"
+                                                                class="btn btn-primary waves-effect waves-light m-r-10">Đồng
+                                                                ý
+                                                            </button>
+                                                            <a href="/categories/{{Category}}/products"><button
+                                                                    type="button"
+                                                                    class="btn btn-warning waves-effect waves-light">Đóng
+                                                                </button></a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
