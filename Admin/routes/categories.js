@@ -24,8 +24,6 @@ router.post('/upsert',auth.ensureAuthenticated, categoryController.upsertCategor
     //Products
 router.post('/:CategoryName/products',auth.ensureAuthenticated, productController.actionOnProduct);
 
-router.get('/add', categoryController.addCategory);
-
 /* Đến chỗ khác */
     //Specific category products management
 router.use('/:CategoryName/products', productRouter);
