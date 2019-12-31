@@ -12,6 +12,7 @@ const indexRouter = require('./routes');
 const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart');
+const Categories = require('./models/Categories');
 
 const app = express();
 
@@ -55,15 +56,17 @@ app.use(passport.session());
 
 app.use(flash());
 
-app.use((req, res, next) =>
+app.use(async (req, res, next) =>
 {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   res.locals.session = req.session;
+  res.locals.categories = await Categories.find({});
   next();
 })
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -93,5 +96,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

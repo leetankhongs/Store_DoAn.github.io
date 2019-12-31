@@ -1,7 +1,7 @@
 const products = require("../models/productModel");
 var Cart = require('../models/cart');
 const Order = require('../models/order');
-
+const productService = require('../services/productService');
 
 exports.addToCart = async (req, res, next) => {
     var backURL=req.header('Referer') || '/';
@@ -9,8 +9,7 @@ exports.addToCart = async (req, res, next) => {
     
     var cart = new Cart(req.session.cart?req.session.cart: {});
     const qty = parseInt(req.body.qty) ||1  ;
-    console.log(req.body.qty);
-    products.findById(productID, function(err, product){
+    products.findById(productID, async (err, product) =>{
 
         if(err){
             return res.redirect('/')
@@ -24,6 +23,8 @@ exports.addToCart = async (req, res, next) => {
             req.user.Cart = cart;
             req.user.save();
         }
+
+      
         req.flash('success_msg', ' Đã thêm vào giỏ hàng thành công');
         res.redirect(backURL);
     })
@@ -36,7 +37,7 @@ exports.shoppingCart = async (req, res, next) => {
     res.render('Cart/Cart.hbs', {products: cart.generateArray(), totalPrice: cart.totalPrice});
 }
 
-exports.Pay = (req, res, next) => {
+exports.Pay = async (req, res, next) => {
     const {Fullname, Address, Phone} = req.body;
 
     var order = new Order({
@@ -46,6 +47,17 @@ exports.Pay = (req, res, next) => {
         Address: Address,
         Phone: Phone
     })
+
+    const cart = new Cart(req.session.cart);
+    const arrItem = cart.generateArray();
+
+    for(var i = 0; i < arrItem.length; i++)
+    {
+        const product = await productService.findProductByID(arrItem[i].item._id);
+        product.Quantity -= arrItem[i].qty;
+        product.save();
+        console.log(product);
+    }
 
     order.save ().then( (err, result) => {
             req.flash('success_msg', "Bạn đã thanh toán thành công");
@@ -92,16 +104,30 @@ exports.increaseNumberProduct =(req, res, next) => {
     }
     res.redirect('/cart/shopping-cart');
 }
-exports.Checkout =  (req, res, next) => {
+exports.Checkout = async (req, res, next) => {
 
-    if(!req.session.cart || req.session.cart === null)
+    if(!req.session.cart || req.session.cart === null || req.session.cart.totalPrice === 0)
     {
         req.flash('error_msg', "Không có sản phẩm để thanh toán");
-        req.session.cart = null;
         res.redirect('/cart/shopping-cart' );
     }
     else
     {
+        const cart = new Cart(req.session.cart);
+        const arrItem = cart.generateArray();
+    
+        for(var i = 0; i < arrItem.length; i++)
+        {
+            const product = await productService.findProductByID(arrItem[i].item._id);
+            const check = await productService.checkEnoughQuantity(arrItem[i].item._id, arrItem[i].qty);
+    
+            if(check === false)
+            {
+                req.flash('error_msg', "Sản phẩm" + product.SimpleDetail + " không đủ số lượng, mong bạn chờ!");
+                res.redirect('/cart/shopping-cart' );
+            }
+        }
+
         res.render('Cart/Checkout.hbs')
     }
 
