@@ -1,7 +1,6 @@
 const categoryService = require('../services/categoryService');
 const productService = require('../services/productService');
 const cloudinary = require('cloudinary');
-const category = require('../services/categoryService');
 const Product = require('../models/productModel');
 
 const pageLength = 10;
@@ -24,9 +23,10 @@ module.exports.manageProducts = (req, res, next) => {
         }
 
         //Check if page is legible
-        const totalPages = parseInt((await productService.getProductsCount(category))/pageLength) + 1;
+        const count = await productService.getProductsCount(category);
+        const totalPages = parseInt(Math.ceil(count/pageLength));
         
-        if(currentPage >= totalPages) {
+        if(currentPage >= totalPages && count > 0) {
             res.render('error.hbs', {message: "Resource not available"});
             return;
         }
@@ -40,9 +40,11 @@ module.exports.manageProducts = (req, res, next) => {
         }
 
         //Create pagination
-        const min = currentPage <= parseInt(maxPage/2) || totalPages <= maxPage ? 0 : currentPage - parseInt(maxPage/2);
-        const max = totalPages <= maxPage || currentPage >= parseInt(totalPages - maxPage/2) ? totalPages - 1 : currentPage + parseInt(maxPage/2);
-
+        const min = currentPage <= parseInt(maxPage/2) || totalPages <= maxPage ? 0 
+        : currentPage >= totalPages - 1 - parseInt(maxPage/2) ? totalPages - 1 - maxPage + 1 : currentPage - parseInt(maxPage/2);
+        const max = totalPages <= maxPage || currentPage >= totalPages - 1 - parseInt(maxPage/2) ? totalPages - 1 
+        : currentPage <= parseInt(maxPage/2) ? 0 + maxPage - 1: currentPage + parseInt(maxPage/2);
+        
         res.render('GianHang/QLSanPham.hbs', {products, min, max, totalPages, currentPage, category, link: `/categories/${categoryName}/products`});
     })(); 
 }
