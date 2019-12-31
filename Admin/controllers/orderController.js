@@ -5,8 +5,9 @@ const maxPage = 5;
 
 module.exports.getOrders = (req, res, next) => {
     const deliveryType = req.query.deliveryType;
+    const orderID = req.query.ID;
 
-    const currentPage = !req.query.currentPage ? 0 : req.query.currentPage - 1;
+    let currentPage = !req.query.currentPage ? 0 : req.query.currentPage - 1;
     if(currentPage < 0 || isNaN(currentPage)) {
         res.render('error.hbs', {message: "Resource not available"});
         return;
@@ -21,7 +22,12 @@ module.exports.getOrders = (req, res, next) => {
 
         //Check if page is legible
         const count = await orderService.getOrdersCount(deliveryType);
-        const totalPages = parseInt(Math.ceil(count/pageLength));
+        let totalPages = parseInt(Math.ceil(count/pageLength));
+
+        if(orderID) {
+            currentPage = 0;
+            totalPages = 1;
+        }
 
         if(currentPage >= totalPages && count > 0) {
             res.render('error.hbs', {message: "Resource not available currentPage"});
@@ -29,7 +35,8 @@ module.exports.getOrders = (req, res, next) => {
         }
 
         //Get users for current page
-        const orders = await orderService.getOrders(currentPage, pageLength, deliveryType);
+        let orders = await orderService.getOrders(currentPage, pageLength, deliveryType, orderID);
+        if(orderID) orders = [orders];
     
         if(!orders) {
             res.render('error.hbs', {message: "Resource not available"});
@@ -41,7 +48,10 @@ module.exports.getOrders = (req, res, next) => {
         : currentPage >= totalPages - 1 - parseInt(maxPage/2) ? totalPages - 1 - maxPage + 1 : currentPage - parseInt(maxPage/2);
         const max = totalPages <= maxPage || currentPage >= totalPages - 1 - parseInt(maxPage/2) ? totalPages - 1 
         : currentPage <= parseInt(maxPage/2) ? 0 + maxPage - 1: currentPage + parseInt(maxPage/2);
-        const query = deliveryType ? `?deliveryType=${deliveryType}` : undefined;
+    
+        //Add queries
+        let query = deliveryType ? `?deliveryType=${deliveryType}` : undefined;
+        if(orderID) query = `?ID=${orderID}`;
 
         res.render('DonHang/ListDonHang.hbs', {orders, min, max, totalPages, currentPage, deliveryType, link: "/orders", query});
     })(); 
