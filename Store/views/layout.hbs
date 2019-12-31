@@ -87,27 +87,15 @@
 	<div id="sidebar" class="span3">
 		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right">{{session.cart.totalPrice}}</span></a></div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<li class="subMenu open"><a> Điện thoại (132) </a>
+			{{#each categories}}
+			<li class="subMenu open"><a> {{this.DisplayName}}</a>
 				<ul>
-				<li><a class="active" href="/product/BrandProduct/Iphone"><i class="icon-chevron-right"></i>Iphone (30) </a></li>
-				<li><a href="/product/BrandProduct/Samsung"><i class="icon-chevron-right"></i>Samsung (45)</a></li>
-				<li><a href="/product/BrandProduct/Oppo"><i class="icon-chevron-right"></i>Oppo (30)</a></li>
-				<li><a href="/product/BrandProduct/Nokia"><i class="icon-chevron-right"></i>Nokia (27)</a></li>
+				{{#each this.Brands}}
+					<li><a class="active" href="/product/BrandProduct/{{this}}"><i class="icon-chevron-right"></i>{{this}} </a></li>
+				{{/each}}
 				</ul>
 			</li>
-			<li class="subMenu"><a> Laptop (170) </a>
-			<ul style="display:none">
-				<li><a href="/product/BrandProduct/Asus"><i class="icon-chevron-right"></i>Asus (35)</a></li>
-				<li><a href="/product/BrandProduct/Acer"><i class="icon-chevron-right"></i>Acer (30)</a></li>
-				<li><a href="/product/BrandProduct/Dell"><i class="icon-chevron-right"></i>Dell (41)</a></li>
-				<li><a href="/product/BrandProduct/Lenovo"><i class="icon-chevron-right"></i>Lenovo (25)</a></li>			
-				<li><a href="/product/BrandProduct/MSI"><i class="icon-chevron-right"></i>Laptop MSI (15)</a></li>
-				<li><a href="/product/BrandProduct/HP"><i class="icon-chevron-right"></i>Laptop HP (24)</a></li>												
-												
-			</ul>
-			</li>
-
-
+			{{/each}}
 		</ul>
 		<br/>
 		  <div class="thumbnail">

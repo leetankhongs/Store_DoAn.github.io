@@ -87,18 +87,20 @@ exports.register = (req,res,next) =>
 }
 exports.login = (req, res, next) => {
 
-      if(req.session.oldUrl)
-      {
-        res.redirect(req.session.oldUrl);
-      }
-      else
-      {
+ 
         if(req.session.cart)
           req.user.Cart =req.session.cart  ;
         else
         req.session.cart = req.user.Cart;
+        
+        if(req.session.oldUrl)
+        {
+          res.redirect(req.session.oldUrl);
+        }
+        else
+        {
         res.redirect('/');
-      }
+        }
   
 }
 
@@ -163,7 +165,7 @@ exports.isLogin = (req, res, next) =>{
       return next();
   }
   req.flash('error_msg','Bạn cần phải đăng nhập để thực hiện việc thanh toán');
-  req.session.oldUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  req.session.oldUrl = req.originalUrl;
   res.redirect('/users/login')
 }
 

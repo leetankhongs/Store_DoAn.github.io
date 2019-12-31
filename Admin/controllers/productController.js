@@ -90,7 +90,7 @@ const loadEditProductPage = async (res, productID, Category) => {
 
 module.exports.addProductPost = async (req, res, next) => {
 
-    const result = await cloudinary.v2.uploader.upload(req.file.path);
+    const result = await cloudinary.v2.uploader.upload(req.file.path, {folder: req.query.category + '/' + req.body.Brand} );
   
     var newProduct = new Product({
       Brand: req.body.Brand,
