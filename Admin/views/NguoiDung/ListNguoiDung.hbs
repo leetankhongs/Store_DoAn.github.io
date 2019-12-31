@@ -53,7 +53,7 @@
                                             {{/activityState}}
                                         </td>
                                         <td>
-                                            <a href="/EditUser.html"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                            <a href="/users/edit-user?id={{this._id}}"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             <form method="POST" action="#" style="display: inline-block;">
                                             {{#if this.isDelete}}
                                                 <button data-toggle="tooltip" title="Phục hồi" class="pd-setting-ed" name="recover" value={{this._id}}><i class="fa fa-undo" aria-hidden="true"></i></button>

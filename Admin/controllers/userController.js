@@ -1,4 +1,4 @@
-let userService = require("../services/userService");
+const userService = require("../services/userService");
 
 const pageLength = 10;
 const maxPage = 5;
@@ -56,3 +56,22 @@ module.exports.actionOnUser = (req, res, next) => {
 
     res.redirect(req.get('referer'));
 }
+module.exports.changeInformation = async (req, res, next) => {
+    const {Name, Phone, Address} = req.body;
+
+    const User = await userService.findUserByID(req.query.id);
+    
+    User.Name = Name;
+    User.Phone = Phone;
+    User.Address = Address;
+
+    User.save().then( (err, result) => {
+        req.flash('success_msg', "Bạn đã cập nhập thông tin thành công");
+        res.redirect('/users/edit-user?id=' + req.query.id);
+    })
+};
+module.exports.getInformationOfUser = async (req, res, next) => {
+    const User = await userService.findUserByID(req.query.id);
+    console.log(User);
+    res.render('NguoiDung/ThongTinNguoiDung', {User: User});
+};
