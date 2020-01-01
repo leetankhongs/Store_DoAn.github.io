@@ -12,4 +12,5 @@ router.post('/pay', CartController.Pay);
 router.get('/reduce/:id', CartController.reduceNumberProduct);
 router.get('/increase/:id', CartController.increaseNumberProduct);
 router.get('/remove/:id', CartController.removeProduct);
+router.get('/status', CartController.statusProduct);
 module.exports = router;

@@ -3,7 +3,10 @@
 		<li><a href="/">Home</a> <span class="divider">/</span></li>
 		<li class="active"> Giỏ hàng</li>
     </ul>
-	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]<a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
+	<h3>  GIỎ HÀNG [ <small>{{session.cart.totalQty}} Item(s) </small>]
+	<a href="/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a>
+	<a href="/cart/status" class="btn btn-large pull-right"> Trạng thái mua hàng </a></h3>	
+	
 	<hr class="soft"/>
 	{{#if error_msg }}
 	<div class="alert alert-success alert-dismissible show" role="alert">

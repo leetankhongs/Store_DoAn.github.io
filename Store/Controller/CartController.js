@@ -132,3 +132,15 @@ exports.Checkout = async (req, res, next) => {
     }
 
 }
+
+exports.statusProduct = async (req, res, next) =>
+{
+    const idUser = req.user;
+    let userStatus = [];
+    console.log(idUser);
+    if(idUser)
+    {
+        const itemofUser = await Order.find({User: idUser});
+    }
+    res.render('Cart/States/VanChuyen.hbs');
+}
