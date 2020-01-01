@@ -1,4 +1,5 @@
  <!-- Mobile Menu end -->
+ 
             <div class="breadcome-area">
                 <div class="container-fluid">
                     <div class="row">
@@ -50,7 +51,7 @@
                                 <div id="myTabContent" class="tab-content custom-product-edit">
                                     <div class="product-tab-list tab-pane fade active in" id="description">
                                         <form method="POST" action="/categories/upsert">
-                                            <div class="row">
+                                            <div class="row" style="margin-bottom: 20px;">
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <div class="review-content-section">
                                                         <div class="input-group mg-b-pro-edt">
@@ -65,16 +66,6 @@
                                                         </div>
 
                                                         <div class="input-group mg-b-pro-edt">
-                                                            <span class="input-group-addon"><b>Các dòng sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;</b></span>
-                                                            {{#if category}}
-                                                                
-                                                            {{else}}
-                                                                
-                                                            {{/if}}
-                                                            
-                                                        </div>
-
-                                                        <div class="input-group mg-b-pro-edt">
                                                             <span class="input-group-addon"><b>Mã loại gian hàng&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
                                                             {{#if category}}
                                                                 <input type="text" onkeydown="return alphaOnly(event);" name="CategoryType" class="form-control" placeholder="Mã loại gian hàng" value="{{category.Type}}" required/>
@@ -83,6 +74,40 @@
                                                             {{/if}}
                                                         </div>
                                                     
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <div class="review-content-section">
+                                                    <label>Các thương hiệu muốn thêm:</label>
+                                                    <div class="input-group custom-go-button">
+                                                        <input type="text" id="NewBrand" 
+                                                        class="form-control" placeholder="Nhập tên thương hiệu muốn thêm"/>
+                                                        <span class="input-group-btn">
+                                                            <button type="button" data-toggle="tooltip" class="btn btn-primary waves-effect waves-light m-r-10"
+                                                            onclick="addBrand()">
+                                                                Thêm thương hiệu
+                                                            </button>
+                                                        </span>
+                                                    </div>
+
+                                                    <table class="table sparkle-table">
+                                                        <thead>
+                                                        <th>Tên thương hiệu</th>
+                                                        <th>Thao tác</th>
+                                                        </thead>
+                                                        <tbody id="BrandList">
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                    {{#if category}}
+                                                        <label>Các thương hiệu muốn xóa: </label>
+                                                        <span style="font-style: italic;">Vui lòng nhập vào ô bên dưới</span>
+                                                        <select class="select2_demo_2 form-control" name="deletedBrands" id="DeleteList" multiple="multiple">     
+                                                            {{#each category.Brands}} 
+                                                                <option value={{this}}>{{this}}</option>
+                                                            {{/each}}
+                                                        </select>
+                                                    {{/if}}
                                                     </div>
                                                 </div>
                                             
@@ -113,11 +138,45 @@
             </div>
     </div> 
     </div>
+    
     <script>
         function alphaOnly(event) {
-
             var key = event.keyCode;
             return ((key >= 65 && key <= 90) || key == 8);
+        }
 
+        function addBrand() {
+            const BrandText = document.getElementById('NewBrand').value;
+            if(!BrandText || BrandText === "") return;
+            const BrandList = document.getElementById('BrandList');
+
+            //Create element
+            const Row = document.createElement("tr");
+            const Cell = document.createElement("td");
+            const RealOne = document.createElement("input");
+            Cell.appendChild(RealOne);
+            Row.appendChild(Cell);
+            //initiate
+            RealOne.name = "addedBrands[]";
+            RealOne.value = BrandText;
+            RealOne.className = "form-control";
+            const deleteButton = this.DeleteButton(Row);
+            const DeleteCell = document.createElement("td");
+            DeleteCell.appendChild(deleteButton);
+            Row.appendChild(DeleteCell);
+
+            //new line
+            BrandList.appendChild(Row);
+        }
+
+        function DeleteButton(RowToDelete) {
+            const button = document.createElement("button");
+            button.className = "btn";
+            button.textContent = "Xóa";
+            button.type = "button";
+            button.onclick = (ehandlers, e) => {
+                RowToDelete.remove();
+            }
+            return button;
         }
     </script>
