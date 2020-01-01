@@ -7,6 +7,11 @@ const hbs = require('hbs');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
+const bodyParser = require('body-parser');
+
+//doten
+require('dotenv').config();
+require('./handlers/cloudinary');
 
 //Passport 
 require('./Config/passport.js')(passport);
@@ -21,13 +26,14 @@ let indexRouter = require('./routes/index');
 let usersRouter = require('./routes/users');
 let categoryRouter = require('./routes/categories');
 let adminRouter = require('./routes/admin');
+let ordersRouter = require('./routes/orders');
 
 //Include services
 let categoryService = require('./services/categoryService');
 
 //Create app
 var app = express();
-
+app.use(bodyParser.json()).use(bodyParser.urlencoded({extended: true}));
 // Use env file
 require('dotenv').config();
 
@@ -92,6 +98,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/categories', categoryRouter);
 app.use('/admin', adminRouter);
+app.use('/orders', ordersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -113,5 +120,6 @@ app.use(function(err, req, res, next) {
 hbs.registerHelper('pagination', paginationHelpers.makePagination);
 hbs.registerHelper('activityState', stateHelpers.makeListItemState);
 hbs.registerHelper('compareString', miscellaneousHelpers.compareString);
+hbs.registerHelper('orderState', stateHelpers.makeOrdersListItemState);
 
 module.exports = app;

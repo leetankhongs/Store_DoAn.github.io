@@ -1,0 +1,151 @@
+  <div class="breadcome-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list single-page-breadcome">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            {{#if deliveryType}}
+                                                <form role="search" class="" method="GET" action="/orders"
+                                                style="display: inline-block;">
+                                                    <input name="deliveryType" value={{deliveryType}} class="form-control"
+                                                    style="display: none;"/>
+                                                    <input style="display: inline-block;" name="ID" type="text" placeholder="Nhập ID đơn hàng" class="form-control" required/>
+                                                    <button class="btn" style="display: inline-block;"><i class="fa fa-search"></i></button>
+                                                </form>
+                                            {{else}} 
+                                                <form role="search" class="" method="GET" action="/orders"
+                                                style="display: inline-block;">
+                                                    <input style="display: inline-block;" name="ID" type="text" placeholder="Nhập ID đơn hàng" class="form-control" required>
+                                                    <button class="btn" style="display: inline-block;"><i class="fa fa-search"></i></button>
+                                                </form>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="/">Home</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li>
+                                                <span class="bread-blod">Danh sách đơn hàng</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="product-status mg-tb-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="product-status-wrap">
+                            <h4>Danh sách đơn hàng</h4>
+                            <table>
+                                <tr>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Thông tin đơn hàng</th>
+                                    <th>Tình trạng</th>
+                                    <th>Họ tên</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Thời gian đặt</th>
+                                    <th>Số loại sản phẩm</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                                {{#each orders}}
+                                <tr>
+                                    <td>{{_id}}</td>
+                                    <td>
+                                        <button class="btn" onclick="showDetailsOrder('{{_id}}')">Ẩn/Hiện chi tiết</button>
+                                        <div id="{{_id}}" class="static-table-list" style="display: none;">
+                                        <table class="table sparkle-table">
+                                            <thead>
+                                            <th>Hình ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá</th>
+                                            </thead>
+                                            <tbody>
+                                            {{#each this.Cart.items}}
+                                            <tr>
+                                                <td><img src="{{item.Image}}" alt="" /></td>
+                                                <td>{{item.SimpleDetail}}</td>
+                                                <td>{{qty}}</td>
+                                                <td>{{price}}</td>
+                                            </tr>
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="/orders/changeState">
+                                            <input name="currentID" value="{{_id}}" style="display: none;"/>
+                                            <input name="currentDelivery" value="{{Delivery}}" style="display: none;"/>
+                                            <div class="input-group-btn">
+                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button" aria-expanded="false"
+                                                style="margin-bottom: 10px;">Đặt lại trạng thái<span class="caret"></span>
+                                                    </button>
+                                                <ul class="dropdown-menu" style="margin-top: -10px;">
+                                                    <button class="btn" name="notDelivered" value={{_id}}>Chưa giao</button>
+                                                    <button class="btn" name="isDelivering" value={{_id}}>Đang giao</button>
+                                                    <button class="btn" name="isDelivered" value={{_id}}>Đã giao</button>
+                                                </ul>
+                                            </div>
+                                            {{#orderState Delivery}}
+                                            {{/orderState}}
+                                        </form>
+                                    </td>
+                                    <td>
+                                        {{Fullname}}
+                                    </td>
+                                    <td>
+                                        {{Phone}}
+                                    </td>
+                                    <td>
+                                        {{Address}}
+                                    </td>
+                                    <td>
+                                        {{Time}}
+                                    </td>
+                                    <td>
+                                        {{Cart.totalQty}}
+                                    </td>
+                                    <td>
+                                        {{Cart.totalPrice}}
+                                    </td>
+                                </tr>
+
+                                {{/each}}
+                               
+                            </table>
+                            <div class="custom-pagination">
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination">
+                                        {{#pagination min currentPage max totalPages link query}} 
+                                        {{/pagination}}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            function showDetailsOrder(elementId) { 
+                console.log(elementId);
+                 var x = document.getElementById(elementId);
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                }
+            }
+        </script>

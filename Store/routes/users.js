@@ -26,7 +26,11 @@ router.get('/User', function(req, res, next) {
   res.render('Login/User.hbs', { title: 'Express' });
 });
 
-router.post('/register', userController.register);
+// router.post('/register', userController.register);
+router.post('/register', (req, res, next) => {
+  console.log(req.body);
+});
+
 router.post('/login', 
   passport.authenticate('local', {
     failureRedirect: '/users/login',

@@ -110,12 +110,14 @@
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-cube sub-icon-mg"></i>
                                 <span class="mini-click-non">Đơn đặt hàng</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="File Manager" href="DaGiao.html"><i class="fa fa-cube sub-icon-mg"
-                                            aria-hidden="true"></i> <span class="mini-sub-pro">Đã giao</span></a></li>
-                                <li><a title="Blog" href="ChuaGiao.html"><i class="fa fa-bullseye sub-icon-mg"
+                                <li><a title="Tất cả" href="/orders"><i class="fa fa-list sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Tất cả mọi đơn</span></a></li>
+                                <li><a title="Chưa giao" href="/orders?deliveryType=0"><i class="fa fa-bullseye sub-icon-mg"
                                             aria-hidden="true"></i> <span class="mini-sub-pro">Chưa giao</span></a></li>
-                                <li><a title="Blog Details" href="DangGiao.html"><i class="fa fa-circle-o sub-icon-mg"
+                                <li><a title="Đang giao" href="/orders?deliveryType=1"><i class="fa fa-circle-o sub-icon-mg"
                                             aria-hidden="true"></i> <span class="mini-sub-pro">Đang giao</span></a></li>
+                                <li><a title="Đã giao" href="/orders?deliveryType=2"><i class="fa fa-cube sub-icon-mg"
+                                            aria-hidden="true"></i> <span class="mini-sub-pro">Đã giao</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -141,10 +143,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li><a title="Landing Page" href="index.html" aria-expanded="false"><i
-                                    class="fa fa-bookmark icon-wrap sub-icon-mg" aria-hidden="true"></i> <span
-                                    class="mini-click-non">Landing Page</span></a></li>
                     </ul>
                 </nav>
             </div>
@@ -202,7 +200,7 @@
                                                     <ul role="menu"
                                                         class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                 </li>
-                                                <li><a href="#"><span class="fa fa-user author-log-ic"></span>Thông
+                                                <li><a href="/admin/information"><span class="fa fa-user author-log-ic"></span>Thông
                                                         tin</a>
                                                 </li>
                                                 <li><a href="/users"><span class="fa fa-diamond author-log-ic"></span>
@@ -245,7 +243,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
             {{{body}}}
         </div>
         <div class="footer-copyright-area">

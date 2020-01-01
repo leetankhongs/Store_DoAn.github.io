@@ -1,4 +1,4 @@
-let userService = require("../services/userService");
+const userService = require("../services/userService");
 
 const pageLength = 10;
 const maxPage = 5;
@@ -12,9 +12,10 @@ module.exports.loadUsers = (req, res, next) => {
 
     (async () => {
         //Check if page is legible
-        const totalPages = parseInt((await userService.getUsersCount())/pageLength) + 1;
+        const count = await userService.getUsersCount();
+        const totalPages = parseInt(Math.ceil(count/pageLength));
         
-        if(currentPage >= totalPages) {
+        if(currentPage >= totalPages && count > 0) {
             res.render('error.hbs', {message: "Resource not available"});
             return;
         }
@@ -28,8 +29,10 @@ module.exports.loadUsers = (req, res, next) => {
         }
 
         //Create pagination
-        const min = currentPage <= parseInt(maxPage/2) || totalPages <= maxPage ? 0 : currentPage - parseInt(maxPage/2);
-        const max = totalPages <= maxPage || currentPage >= parseInt(totalPages - maxPage/2) ? totalPages - 1 : currentPage + parseInt(maxPage/2);
+        const min = currentPage <= parseInt(maxPage/2) || totalPages <= maxPage ? 0 
+        : currentPage >= totalPages - 1 - parseInt(maxPage/2) ? totalPages - 1 - maxPage + 1 : currentPage - parseInt(maxPage/2);
+        const max = totalPages <= maxPage || currentPage >= totalPages - 1 - parseInt(maxPage/2) ? totalPages - 1 
+        : currentPage <= parseInt(maxPage/2) ? 0 + maxPage - 1: currentPage + parseInt(maxPage/2);
 
         res.render('NguoiDung/ListNguoiDung.hbs', {users, min, max, totalPages, currentPage, link: "/users"});
     })();  
@@ -53,3 +56,22 @@ module.exports.actionOnUser = (req, res, next) => {
 
     res.redirect(req.get('referer'));
 }
+module.exports.changeInformation = async (req, res, next) => {
+    const {Name, Phone, Address} = req.body;
+
+    const User = await userService.findUserByID(req.query.id);
+    
+    User.Name = Name;
+    User.Phone = Phone;
+    User.Address = Address;
+
+    User.save().then( (err, result) => {
+        req.flash('success_msg', "Bạn đã cập nhập thông tin thành công");
+        res.redirect('/users/edit-user?id=' + req.query.id);
+    })
+};
+module.exports.getInformationOfUser = async (req, res, next) => {
+    const User = await userService.findUserByID(req.query.id);
+    console.log(User);
+    res.render('NguoiDung/ThongTinNguoiDung', {User: User});
+};
