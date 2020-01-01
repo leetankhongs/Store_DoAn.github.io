@@ -70,12 +70,20 @@ module.exports.addCategory = (req, res, next) => {
 module.exports.upsertCategory = (req, res, next) => {
     (async() => {
         if(req.body.ID){
-            const result = await categoryService.updateCategory(req.body.ID, {Type: req.body.CategoryType, DisplayName: req.body.DisplayName})
+            const myCategory = await categoryService.findCategoryByID(req.body.ID);
+            const currentBrands = myCategory.Brands;
+            const addedBrands = req.body.addedBrands;
+            const deletedBrands = req.body.deletedBrands ? Array.isArray(req.body.deletedBrands) ? req.body.deletedBrands : 
+            [req.body.deletedBrands] : null;
+            const final = await categoryService.updateBrandsArray(currentBrands, addedBrands, deletedBrands, myCategory);
+
+            const result = await categoryService.updateCategory(req.body.ID, {Type: req.body.CategoryType, DisplayName: req.body.DisplayName, Brands: final});
             if(result !== true) {
                 req.flash('error_msg', result);
             }
         }else{
-            const result = await categoryService.insertCategory({Type: req.body.CategoryType, DisplayName: req.body.DisplayName});
+            const addedBrands = req.body.addedBrands.map(x => x.toUpperCase());
+            const result = await categoryService.insertCategory({Type: req.body.CategoryType, DisplayName: req.body.DisplayName, Brands: addedBrands});
             if(result !== true) {
                 req.flash('error_msg', 'Mã nhận diện gian hàng trùng với mã của gian hàng khác');
             }

@@ -22,6 +22,10 @@ module.exports.manageProducts = (req, res, next) => {
             res.render('error.hbs', {message: "Category not found"});
             return;
         }
+        if(brand && !(await categoryService.checkBrandInCategory(category, brand))) {
+            res.render('error.hbs', {message: "Brand not found"});
+            return;
+        } 
 
         //Check if page is legible
         const count = await productService.getProductsCount(category, brand);
@@ -112,6 +116,8 @@ module.exports.addProductPost = async (req, res, next) => {
     })
   
     newProduct.save();
+
+    
 
     res.redirect('/categories/'+ req.query.category + '/products');
 }

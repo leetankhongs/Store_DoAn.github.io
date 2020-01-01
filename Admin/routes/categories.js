@@ -9,15 +9,15 @@ const productRouter = require('./products');
 
 /* GET */
     //Manage categories
-router.get('/',auth.ensureAuthenticated, categoryController.manageCategories);
+router.get('/', categoryController.manageCategories);
     //Page to add new category
-router.get('/add',auth.ensureAuthenticated, categoryController.addCategory);
+router.get('/add', categoryController.addCategory);
 
 /*POST*/
     //Categories
-router.post('/',auth.ensureAuthenticated, categoryController.actionOnCategory);
+router.post('/', categoryController.actionOnCategory);
     //Update, if N/A then insert
-router.post('/upsert',auth.ensureAuthenticated, categoryController.upsertCategory)
+router.post('/upsert', categoryController.upsertCategory)
 
 /* Đến chỗ khác */
     //Specific category products management
