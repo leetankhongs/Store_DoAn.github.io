@@ -55,36 +55,24 @@
                         </ul>
                         <div id="myTabContent" class="tab-content custom-product-edit">
                             <div class="product-tab-list tab-pane fade active in" id="description">
+                                <form action='/categories/{{Category}}/products/addProduct?category={{Category}}' method="POST"
+                                                enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <div class="review-content-section">
                                             {{#if product}}
-
                                             <div class="input-group mg-b-pro-edt">
-                                                <span class="input-group-addon"><b>Tên gian
-                                                        hàng&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
-                                                <div class="form-control">
-
-                                                    <select class="span1" name="TypeProduct">
-                                                        <option>(Chọn Gian hàng)</option>
-                                                        {{#each Categories}}
-                                                        {{#compareString Type ../Category}}
-                                                        <option value={{../Type}} selected="selected">
-                                                            {{../DisplayName}}&nbsp;&nbsp;</option>
+                                                    <span class="input-group-addon"><b>Thương hiệu&emsp;&emsp;&emsp;</b></span>
+                                                    <select name="Brand" class="form-control">
+                                                        {{#each brands}}
+                                                        {{#compareString this ../product.Brand}}
+                                                            <option value="{{../this}}" selected>{{../this}}</option>
                                                         {{else}}
-                                                        <option value={{../Type}}>{{../DisplayName}}&nbsp;&nbsp;
-                                                        </option>
+                                                            <option value="{{../this}}">{{../this}}</option>
                                                         {{/compareString}}
                                                         {{/each}}
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="input-group mg-b-pro-edt">
-                                                <span
-                                                    class="input-group-addon"><b>Hãng&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
-                                                <input name="Brand" value="{{product.Brand}}" type="text"
-                                                    class="form-control" placeholder="Hãng sản xuất">
-                                            </div>
                                             <div class="input-group mg-b-pro-edt">
                                                 <span class="input-group-addon"><b>Dòng sản
                                                         phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
@@ -109,10 +97,21 @@
                                                 <input name="Quantity" type="number" value="{{product.Quantity}}"
                                                     min="0" class="form-control" placeholder="Số lượng">
                                             </div>
+                                            <div class="input-group mg-b-pro-edt">
+                                                <span class="input-group-addon"><b>Mô
+                                                        tả&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                <input name="Description" type="text" class="form-control" value="{{product.Description}}"
+                                                    placeholder="Mô tả">
+                                            </div>
+                                            <div class="input-group mg-b-pro-edt">
+                                                <span class="input-group-addon"><b>Ảnh
+                                                        &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                <input name="image" type="file" min="0" class="form-control"
+                                                    placeholder="Số lượng">
+                                            </div>
                                             {{else}}
-
-                                            <form action='/categories/{{Category}}/products/addProduct?category={{Category}}' method="POST"
-                                                enctype="multipart/form-data">
+                                                <input name="Category" type="hidden" class="form-control"
+                                                        placeholder="Gian hàng" value="{{Category}}">
                                                 <div class="input-group mg-b-pro-edt">
                                                     <span class="input-group-addon"><b>Dòng sản
                                                             phẩm&emsp;&emsp;&emsp;</b></span>
@@ -123,14 +122,12 @@
                                                     </select>
                                                 </div>
                                                 <div class="input-group mg-b-pro-edt">
-                                                    <span class="input-group-addon"><b>Tên sản
-                                                            phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                    <span class="input-group-addon"><b>Dòng sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
                                                     <input name="Name" type="text" class="form-control"
-                                                        placeholder="Tên sản phẩm">
+                                                        placeholder="Dòng sản phẩm">
                                                 </div>
                                                 <div class="input-group mg-b-pro-edt">
-                                                    <span class="input-group-addon"><b>Chi
-                                                            tiết&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
+                                                    <span class="input-group-addon"><b>Tên sản phẩm&emsp;&emsp;&emsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;</b></span>
                                                     <input name="SimpleDetail" type="text" class="form-control"
                                                         placeholder="Chi tiết">
                                                 </div>
@@ -159,15 +156,6 @@
                                                     <input name="image" type="file" min="0" class="form-control"
                                                         placeholder="Số lượng">
                                                 </div>
-                                                <button data-toggle="tooltip" name="ID" type="submit"
-                                                    class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
-                                                </button>
-                                                <a href="/categories/{{Category}}/products"><button type="button"
-                                                        class="btn btn-warning waves-effect waves-light">Đóng
-                                                    </button></a>
-                                            </form>
-
-
                                             {{/if}}
                                         </div>
                                     </div>
@@ -184,12 +172,18 @@
                                                     class="btn btn-warning waves-effect waves-light">Đóng
                                                 </button></a>
                                             {{else}}
+                                            <button data-toggle="tooltip" name="ID"
+                                                class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
+                                            </button>
+                                            <a href="/categories/{{Category}}/products"><button type="button"
+                                                    class="btn btn-warning waves-effect waves-light">Đóng
+                                                </button></a>
                                             {{/if}}
 
                                         </div>
                                     </div>
                                 </div>
-
+                                </form>
                             </div>
 
 

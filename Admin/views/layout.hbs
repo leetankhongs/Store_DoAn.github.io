@@ -97,9 +97,20 @@
                                     hàng</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 {{#each Categories}}
-                                <li><a title={{this.DisplayName}} href="/categories/{{this.Type}}/products"><i
+                                <li><a class="has-arrow" title={{this.DisplayName}} href="/categories/{{Type}}/products"><i
                                             class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span
-                                            class="mini-sub-pro">{{this.DisplayName}}</span></a></li>
+                                            class="mini-sub-pro">{{this.DisplayName}}</span></a>
+                                  <ul class="submenu-angle" aria-expanded="false">
+                                        <li><a title="Tất cả" href="/categories/{{Type}}/products"><i
+                                                    class="fa fa-list sub-icon-mg" aria-hidden="true"></i> <span
+                                                    class="mini-sub-pro">Tất cả</span></a></li>
+                                        {{#each this.Brands}}
+                                        <li><a title="{{this}}" href="/categories/{{../Type}}/products?Brand={{this}}"><i
+                                                    class="fa fa-television sub-icon-mg" aria-hidden="true"></i> <span
+                                                    class="mini-sub-pro">{{this}}</span></a></li>
+                                        {{/each}}
+                                  </ul>            
+                                </li>
                                 {{/each}}
                                 <li><a title="Settings" href="/categories"><i class="fa fa-cube sub-icon-mg"
                                             aria-hidden="true"></i> <span class="mini-sub-pro">Tùy chỉnh</span></a></li>

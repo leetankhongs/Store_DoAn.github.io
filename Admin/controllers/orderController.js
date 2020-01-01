@@ -29,19 +29,22 @@ module.exports.getOrders = (req, res, next) => {
             totalPages = 1;
         }
 
-        if(currentPage >= totalPages && count > 0) {
+        if(totalPages === 0) totalPages = 1;
+
+        if(currentPage >= totalPages) {
             res.render('error.hbs', {message: "Resource not available currentPage"});
             return;
         }
 
         //Get users for current page
         let orders = await orderService.getOrders(currentPage, pageLength, deliveryType, orderID);
-        if(orderID) orders = [orders];
     
         if(!orders) {
             res.render('error.hbs', {message: "Resource not available"});
             return;
         }
+
+        if(orderID) orders = [orders];
 
         //Create pagination
         const min = currentPage <= parseInt(maxPage/2) || totalPages <= maxPage ? 0 
@@ -83,8 +86,6 @@ module.exports.changeStateOrder = (req, res, next) => {
         res.render('error.hbs', {message: "Invalid request"});
         return;
     }
-
-    
 
     if(parseInt(currentDelivery) === parseInt(newDelivery)) {
         res.redirect(req.get('referrer'));
