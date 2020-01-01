@@ -5,11 +5,53 @@ module.exports.getAllCategories = async () => {
     return await Category.find({});
 }
 
+module.exports.checkBrandInCategory = async(categoryObj, brand) => {
+    const brands = categoryObj.Brands;
+    const regex = new RegExp(`\\b${brand}\\b`, "i");
+
+    for (let i = 0; i < brands.length; i++) {
+        if (brands[i].match(regex)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+module.exports.updateBrandsArray = async (current, toAdd, toDelete, category) => {
+    let currentBrands = current.map(x => x.toUpperCase());
+    //Apply added brands
+    if(toAdd) {
+        const addedBrands = toAdd.map(x => x.toUpperCase());
+        currentBrands = Array.from(new Set([...currentBrands, ...addedBrands]));
+    }
+    //Apply removal
+    if(toDelete) { 
+        let newState = [];
+        for(let count = 0; count < currentBrands.length; count++){
+            const regex = new RegExp(`\\b${currentBrands[count]}\\b`, "i");
+            let isDeleted = false;
+            for(let i = 0; i < toDelete.length; i++) {
+                if(toDelete[i].match(regex)){
+                    const productsAvailable = await productService.checkProductAvailable(category, currentBrands[count]);
+                    if(!productsAvailable) {isDeleted = true;}
+                    
+                    break;
+                }
+            }
+            if(!isDeleted) {newState.push(currentBrands[count]);}
+        }
+        currentBrands = newState;
+    }
+    
+    return currentBrands;
+}
+
 module.exports.findCategory = async (Type) => {
-    return await Category.findOne({Type: { $regex : new RegExp(Type, "i") }});
+    return await Category.findOne({Type: { $regex : new RegExp(`\\b${Type}\\b`, "i") }});
 } 
 module.exports.findListBrandOfCategory = async (Type) => {
-    return (await Category.findOne({Type: { $regex : new RegExp(Type, "i") }})).Brands;
+    return (await Category.findOne({Type: { $regex : new RegExp(`\\b${Type}\\b`, "i") }})).Brands;
 }
 module.exports.findCategoryByID = async(_id) => {
     return await Category.findById(_id);
@@ -37,20 +79,30 @@ module.exports.recoverCategory = async (_id) => {
 module.exports.updateCategory = async (_id, category) => {
     if(!category) return "Không có dữ liệu vào";
     if(!category.Type || !category.DisplayName) return "Thiếu tham số bắt buộc";
+    const regex = new RegExp(`\\b${category.Type}\\b`, "i");
     const himself = await Category.findById(_id);
-    const duplicate = await Category.findOne({Type: { $regex : new RegExp(category.Type, "i") }});
-    if(!duplicate || duplicate._id.equals(_id)) {
-        const productsCount = himself.productAmount;
-        if(productsCount === 0) {
-            await Category.findByIdAndUpdate(_id, category);
-            return true;
+    himself.DisplayName = category.DisplayName;
+    himself.Brands = category.Brands;
+    if(himself.Type.match(regex)){
+        await himself.save();
+        return true;
+    }else{
+        const duplicate = await Category.findOne({Type: { $regex : new RegExp(`\\b${category.Type}\\b`, "i") }});
+        if(!duplicate || duplicate._id.equals(_id)) {
+            const productsAvailable = await productService.checkProductAvailable(himself, null);
+            if(!productsAvailable) {
+                himself.Type = category.Type;
+                await himself.save();
+                return true;
+            }
         }
+        await himself.save();
     }
     return "Có vấn đề về tính hợp lý của dữ liệu nhập";
 }
 
 module.exports.insertCategory = async (category) => {
-    const duplicate = await Category.findOne({Type: { $regex : new RegExp(category.Type, "i") }});
+    const duplicate = await Category.findOne({Type: { $regex : new RegExp(`\\b${category.Type}\\b`, "i") }});
     if(!duplicate) {
         await Category.create(category);
         return true;

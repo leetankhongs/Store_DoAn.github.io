@@ -13,9 +13,11 @@ module.exports.loadUsers = (req, res, next) => {
     (async () => {
         //Check if page is legible
         const count = await userService.getUsersCount();
-        const totalPages = parseInt(Math.ceil(count/pageLength));
+        let totalPages = parseInt(Math.ceil(count/pageLength));
         
-        if(currentPage >= totalPages && count > 0) {
+        if(totalPages === 0) totalPages = 1;
+
+        if(currentPage >= totalPages) {
             res.render('error.hbs', {message: "Resource not available"});
             return;
         }
