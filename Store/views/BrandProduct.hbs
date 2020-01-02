@@ -59,7 +59,7 @@
                         </div>
                         <div class="span3 alignR">
                         <form class="form-horizontal qtyFrm">
-                        <h3>{{this.Cost}}</h3>
+                        <h3>{{_toStringMoney this.Cost}}</h3>
                         
                         <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào <i class=" icon-shopping-cart"></i></a>
                         <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
@@ -81,7 +81,7 @@
                             <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" ><img src="{{this.Image}}" alt="" /></a>
                             <div class="caption">
                             <h5>{{this.SimpleDetail}}</h5>
-					        <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					        <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{_toStringMoney this.Cost}}</a></h5>
                             </div>
                         </div>
                         </li>

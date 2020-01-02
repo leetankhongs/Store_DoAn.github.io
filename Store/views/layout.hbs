@@ -36,15 +36,15 @@
 <div id="header">
 <div class="container">
   <div id="welcomeLine" class="row">
-    <div class="span6">Welcome!<strong> </strong></div>
+    <div class="span6"><strong> </strong></div>
     <div class="span6">
       <div class="pull-right">
-          <a href="/cart/shopping-cart"><span class="">Fr</span></a>
+          {{!-- <a href="/cart/shopping-cart"><span class="">Fr</span></a>
           <a href="/cart/shopping-cart"><span class="">Es</span></a>
           <span class="btn btn-mini">En</span>
           <a href="/cart/shopping-cart"><span>&pound;</span></a>
           <span class="btn btn-mini">$155.00</span>
-          <a href="/cart/shopping-cart"><span class="">$</span></a>
+          <a href="/cart/shopping-cart"><span class="">$</span></a> --}}
           <a href="/cart/shopping-cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ {{session.cart.totalQty}} ] Giỏ hàng </span> </a> 
       </div>
     </div>
@@ -60,11 +60,11 @@
     <a class="brand" href="/index"><img src="/themes/images/logo.png" alt="Bootsshop"/></a>
 	<form class="form-inline navbar-search" action="/product/search" method="POST" >
 		<input id="srchFld" class="srchTxt" type="text" name="require" />
-		<button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+		<button type="submit" id="submitButton" class="btn btn-primary">Tìm</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
 		{{#if user}}
-				<li class=""><a href="/users/infor">{{user.Name}}</a></li>
+				<li class=""><a href="/users/infor">Xin chào <strong>{{user.Name}}</strong>!!!</a></li>
 				<li class="">
 				<a href="/users/logout"><span class="btn btn-large btn-success">Đăng xuất</span></a>	
 				</li>
@@ -85,7 +85,7 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right">{{session.cart.totalPrice}}</span></a></div>
+		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right" id="toltalPriceLayout">{{_toStringMoney session.cart.totalPrice}}</span></a></div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			{{#each categories}}
 			<li class="subMenu open"><a> {{this.DisplayName}}</a>
@@ -99,17 +99,17 @@
 		</ul>
 		<br/>
 		  <div class="thumbnail">
-			<img src="/themes/images/Laptop/LaptopAsus/Asus.jpg" alt="Bootshop panasonoc New camera"/>
+			<img src="https://res.cloudinary.com/khoa-hoc-tu-nhien/image/upload/v1577779540/Laptop/Asus/Asus_i7itzu.jpg" alt="Bootshop panasonoc New camera"/>
 			<div class="caption">
 			  <h5>Asus Gaming ROG</h5>
-				<h4 style="text-align:center"><a class="btn" href="product_details"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">38.990.000</a></h4>
+				<h4 style="text-align:center"><a class="btn" href="/product/product_details/Asus?id=5dd0a95a1c9d4400004d815e"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/5dd0a95a1c9d4400004d815e">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">38.990.000</a></h4>
 			</div>
 		  </div><br/>
 			<div class="thumbnail">
 				<img src="/themes/images/Mobile/Oppo/Oppo.jpg" title="Bootshop New Kindel" alt="Bootshop Kindel">
 				<div class="caption">
 				  <h5>Oppo</h5>
-				    <h4 style="text-align:center"><a class="btn" href="product_details"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">16.990.000</a></h4>
+				    <h4 style="text-align:center"><a class="btn" href="/product/product_details/Oppo?id=5dd0b2cb1c9d4400004d8178"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/5dd0b2cb1c9d4400004d8178">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">16.990.000</a></h4>
 				</div>
 			  </div><br/>
 			<div class="thumbnail">
@@ -164,6 +164,7 @@
 	
 	<script src="/themes/js/bootshop.js"></script>
     <script src="/themes/js/jquery.lightbox-0.5.js"></script>
+	<script src="/themes/js/script.js"></script>
 	
 	<!-- Themes switcher section ============================================================================================= -->
 <div id="secectionBox">
