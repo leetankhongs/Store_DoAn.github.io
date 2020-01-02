@@ -85,7 +85,7 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right">{{session.cart.totalPrice}}</span></a></div>
+		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right" id="toltalPriceLayout">{{session.cart.totalPrice}}</span></a></div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			{{#each categories}}
 			<li class="subMenu open"><a> {{this.DisplayName}}</a>
@@ -164,6 +164,7 @@
 	
 	<script src="/themes/js/bootshop.js"></script>
     <script src="/themes/js/jquery.lightbox-0.5.js"></script>
+	<script src="/themes/js/script.js"></script>
 	
 	<!-- Themes switcher section ============================================================================================= -->
 <div id="secectionBox">
