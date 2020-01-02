@@ -115,12 +115,16 @@ module.exports.upsertProductPost = async (req, res, next) => {
     };
 
     let result = null;
+    //Check file upload logic
     if(req.file){
         result = await cloudinary.v2.uploader.upload(req.file.path, {folder: req.body.Category + '/' + req.body.Brand} );
         result = result.secure_url;
+    }else if(req.body.oldFile){
+        result = req.body.oldFile;
     }
     newProduct.Image = result;
 
+    //Check update or insert
     if(req.body.ID) {
         await productService.updateProduct(req.body.ID, newProduct);
     }else{

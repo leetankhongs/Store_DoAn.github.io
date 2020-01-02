@@ -106,12 +106,29 @@
                                                 <input name="Description" type="text" class="form-control" value="{{product.Description}}"
                                                     placeholder="Mô tả">
                                             </div>
-                                            <div class="input-group mg-b-pro-edt">
-                                                <span class="input-group-addon"><b>Ảnh
-                                                        &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
-                                                <input name="image" type="file" min="0" class="form-control"
-                                                    placeholder="File to upload">
-                                            </div>
+                                                {{#if product.Image}}
+                                                    <div id="uploadForm" class="input-group mg-b-pro-edt" style="display: none;">
+                                                        <span class="input-group-addon"><b>Ảnh khác (để trống = không dùng ảnh)
+                                                            &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                        <input name="image" type="file" min="0" class="form-control"
+                                                            placeholder="File to upload">
+                                                    </div>
+
+                                                    <div id="deleteForm" class="input-group mg-b-pro-edt">
+                                                        <label>Ảnh hiện tại</label>
+                                                        <img id="currentImage" src={{product.Image}} />
+                                                        <input id="submitImageField" type="hidden" name="oldFile" value="{{product.Image}}" />
+                                                        <button type="button" class="btn" onclick="deletePicture()">Tôi muốn dùng ảnh khác</button>
+                                                    </div>
+                                                {{else}}
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><b>Ảnh
+                                                            &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                        <input name="image" type="file" min="0" class="form-control"
+                                                            placeholder="File to upload">
+                                                    </div>
+                                                {{/if}}
+
                                             {{else}}
                                                 <input name="Category" type="hidden" class="form-control"
                                                         placeholder="Gian hàng" value="{{Category}}">
@@ -196,3 +213,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function deletePicture() {
+            const currentImage = document.getElementById("currentImage");
+            const submitImageField = document.getElementById("submitImageField");
+            const uploadForm = document.getElementById("uploadForm");
+            const deleteForm = document.getElementById("deleteForm");
+
+            currentImage.src = null;
+            submitImageField.value = null;
+            deleteForm.style.display = "none";
+            uploadForm.style.display = null;
+        }
+    </script>
