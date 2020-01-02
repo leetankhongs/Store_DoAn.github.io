@@ -139,7 +139,7 @@ exports.statusProduct = async (req, res, next) =>
     let cartStatus = [];
     if(idUser)
     {
-        const itemofUser = await Order.find({User: idUser});
+        const itemofUser = await Order.find({User: idUser}).sort({Time:'descending'});
         const count1 = itemofUser.length;
         for(var i =0;i<count1;i++)
         {
@@ -170,8 +170,6 @@ exports.statusProduct = async (req, res, next) =>
                 cartStatus.push(temp);
             }
         }
-
-        console.log(cartStatus);
     }
     res.render('Cart/States/VanChuyen.hbs',{cartStatus:cartStatus});
 }
