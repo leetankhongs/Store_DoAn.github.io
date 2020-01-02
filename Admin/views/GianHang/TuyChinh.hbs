@@ -43,6 +43,7 @@
                                     <th>Danh sách các thương hiệu</th>
                                     <th>Trạng thái</th>
                                     <th>Chỉnh sửa</th>
+                                    <th>Xem gian hàng</th>
                                 </tr>
 
                                 {{#each categories}}
@@ -68,6 +69,9 @@
                                                 <button data-toggle="tooltip" title="Xoá" class="pd-setting-ed" name="delete" value={{this._id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             {{/if}}
                                             </form>
+                                        </td>
+                                        <td>
+                                            <button onclick="location.href = '/categories/{{this.Type}}/products' " data-toggle="tooltip" title="Xem" class="pd-setting-ed"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                         </td>
                                     </tr>
                                 {{/each}}

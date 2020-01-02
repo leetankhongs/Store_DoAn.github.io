@@ -21,11 +21,6 @@ var userSchema = new mongoose.Schema({
         default: false,
         required: false,
     },
-    productAmount:
-    {
-        type: Number,
-        default: 0,
-    },
 });
 
 module.exports = mongoose.model('category', userSchema);
