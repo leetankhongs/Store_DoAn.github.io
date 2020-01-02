@@ -85,7 +85,7 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right" id="toltalPriceLayout">{{session.cart.totalPrice}}</span></a></div>
+		<div class="well well-small"><a id="myCart" href="/cart/shopping-cart"><img src="/themes/images/ico-cart.png" alt="cart">{{session.cart.totalQty}}  <span class="badge badge-warning pull-right" id="toltalPriceLayout">{{_toStringMoney session.cart.totalPrice}}</span></a></div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			{{#each categories}}
 			<li class="subMenu open"><a> {{this.DisplayName}}</a>
@@ -99,17 +99,17 @@
 		</ul>
 		<br/>
 		  <div class="thumbnail">
-			<img src="/themes/images/Laptop/LaptopAsus/Asus.jpg" alt="Bootshop panasonoc New camera"/>
+			<img src="https://res.cloudinary.com/khoa-hoc-tu-nhien/image/upload/v1577779540/Laptop/Asus/Asus_i7itzu.jpg" alt="Bootshop panasonoc New camera"/>
 			<div class="caption">
 			  <h5>Asus Gaming ROG</h5>
-				<h4 style="text-align:center"><a class="btn" href="product_details"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">38.990.000</a></h4>
+				<h4 style="text-align:center"><a class="btn" href="/product/product_details/Asus?id=5dd0a95a1c9d4400004d815e"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/5dd0a95a1c9d4400004d815e">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">38.990.000</a></h4>
 			</div>
 		  </div><br/>
 			<div class="thumbnail">
 				<img src="/themes/images/Mobile/Oppo/Oppo.jpg" title="Bootshop New Kindel" alt="Bootshop Kindel">
 				<div class="caption">
 				  <h5>Oppo</h5>
-				    <h4 style="text-align:center"><a class="btn" href="product_details"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">16.990.000</a></h4>
+				    <h4 style="text-align:center"><a class="btn" href="/product/product_details/Oppo?id=5dd0b2cb1c9d4400004d8178"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/5dd0b2cb1c9d4400004d8178">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">16.990.000</a></h4>
 				</div>
 			  </div><br/>
 			<div class="thumbnail">

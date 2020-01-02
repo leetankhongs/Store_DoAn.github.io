@@ -15,7 +15,7 @@
 					<a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""></a>
 					<div class="caption">
 					  <h5>{{this.Name}}</h5>
-					  <h4><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}">Xem</a> <span class="pull-right">{{this.Cost}}</span></h4>
+					  <h4><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}">Xem</a> <span class="pull-right">{{_toStringMoney this.Cost}}</span></h4>
 					</div>
 				  </div>
 				</li>
@@ -62,7 +62,7 @@
 					<a  href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
 					  <h5>{{this.SimpleDetail}}</h5>
-					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{_toStringMoney this.Cost}}</a></h5>
 					</div>
 				  </div>
 				</li>
@@ -76,7 +76,7 @@
 					<a  href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}" alt=""/></a>
 					<div class="caption">
 					  <h5>{{this.SimpleDetail}}</h5>
-					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
+					 <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{_toStringMoney this.Cost}}</a></h5>
 					</div>
 				  </div>
 				</li>
