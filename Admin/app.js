@@ -121,5 +121,6 @@ hbs.registerHelper('pagination', paginationHelpers.makePagination);
 hbs.registerHelper('activityState', stateHelpers.makeListItemState);
 hbs.registerHelper('compareString', miscellaneousHelpers.compareString);
 hbs.registerHelper('orderState', stateHelpers.makeOrdersListItemState);
+hbs.registerHelper('compareIDs', miscellaneousHelpers.compareID);
 
 module.exports = app;
