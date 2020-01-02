@@ -13,4 +13,17 @@ router.get('/reduce/:id', CartController.reduceNumberProduct);
 router.get('/increase/:id', CartController.increaseNumberProduct);
 router.get('/remove/:id', CartController.removeProduct);
 router.get('/status', CartController.statusProduct);
+router.post('/updateQty/:id',(req, res, next) => {
+    var productID = req.params.id;
+    const {qty} = req.body;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.updateQty(productID,qty);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
+    }
+    res.redirect('/cart/shopping-cart');
+} )
 module.exports = router;

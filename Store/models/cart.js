@@ -40,6 +40,18 @@ module.exports = function Cart(oldCart) {
         this.items[id].price += this.items[id].item.Cost;
         this.totalPrice += this.items[id].item.Cost;
     }
+
+    this.updateQty = function(id, qty){
+        const oldQty = this.items[id].qty;
+        this.items[id].qty = qty;
+        this.items[id].price = this.items[id].item.Cost * qty;
+
+        var distance = qty - oldQty;
+        if(distance < 0)
+            this.totalPrice -= this.items[id].item.Cost*(Math.abs(distance))
+        else
+            this.totalPrice += this.items[id].item.Cost*(distance);
+    }
     
     this.removeItem = function(id){
         this.totalQty--;
