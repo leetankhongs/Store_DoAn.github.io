@@ -19,12 +19,7 @@ module.exports.checkBrandInCategory = async(categoryObj, brand) => {
 }
 
 module.exports.updateBrandsArray = async (current, toAdd, toDelete, category) => {
-    let currentBrands = current.map(x => x.toUpperCase());
-    //Apply added brands
-    if(toAdd) {
-        const addedBrands = toAdd.map(x => x.toUpperCase());
-        currentBrands = Array.from(new Set([...currentBrands, ...addedBrands]));
-    }
+    let currentBrands = current;
     //Apply removal
     if(toDelete) { 
         let newState = [];
@@ -42,6 +37,18 @@ module.exports.updateBrandsArray = async (current, toAdd, toDelete, category) =>
             if(!isDeleted) {newState.push(currentBrands[count]);}
         }
         currentBrands = newState;
+    }
+
+    //Apply added brands
+    if(toAdd) {
+        const addedBrands = toAdd.filter(x => {
+            const regex = new RegExp(`\\b${x}\\b`, "i");
+            for(let i = 0 ; i < currentBrands.length; i++) {
+                if(currentBrands[i].match(regex)) {return false;}
+            }
+            return true;
+        });
+        currentBrands = [...currentBrands, ...addedBrands];
     }
     
     return currentBrands;
@@ -98,7 +105,7 @@ module.exports.updateCategory = async (_id, category) => {
         }
         await himself.save();
     }
-    return "Có vấn đề về tính hợp lý của dữ liệu nhập";
+    return "Có vấn đề về tính hợp lý của mã gian hàng";
 }
 
 module.exports.insertCategory = async (category) => {

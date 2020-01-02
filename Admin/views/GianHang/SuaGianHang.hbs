@@ -81,7 +81,8 @@
                                                     <label>Các thương hiệu muốn thêm:</label>
                                                     <div class="input-group custom-go-button">
                                                         <input type="text" id="NewBrand" 
-                                                        class="form-control" placeholder="Nhập tên thương hiệu muốn thêm"/>
+                                                        class="form-control" placeholder="Nhập tên thương hiệu muốn thêm"
+                                                        onkeydown="return alphaOnly(event);"/>
                                                         <span class="input-group-btn">
                                                             <button type="button" data-toggle="tooltip" class="btn btn-primary waves-effect waves-light m-r-10"
                                                             onclick="addBrand()">
@@ -104,7 +105,7 @@
                                                         <span style="font-style: italic;">Vui lòng nhập vào ô bên dưới</span>
                                                         <select class="select2_demo_2 form-control" name="deletedBrands" id="DeleteList" multiple="multiple">     
                                                             {{#each category.Brands}} 
-                                                                <option value={{this}}>{{this}}</option>
+                                                                <option value="{{this}}">{{this}}</option>
                                                             {{/each}}
                                                         </select>
                                                     {{/if}}
@@ -122,8 +123,8 @@
                                                         <button data-toggle="tooltip" name="ID" class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
                                                         </button>
                                                         {{/if}}
-                                                        <a href="/categories"><button type="button" class="btn btn-warning waves-effect waves-light">Đóng
-                                                        </button></a>
+                                                        <button type="button" class="btn btn-warning waves-effect waves-light" onclick="history.back()">Đóng
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,6 +161,7 @@
             RealOne.name = "addedBrands[]";
             RealOne.value = BrandText;
             RealOne.className = "form-control";
+            RealOne.onkeydown = alphaOnly;
             const deleteButton = this.DeleteButton(Row);
             const DeleteCell = document.createElement("td");
             DeleteCell.appendChild(deleteButton);
