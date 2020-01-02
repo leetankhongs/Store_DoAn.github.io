@@ -36,15 +36,15 @@
 <div id="header">
 <div class="container">
   <div id="welcomeLine" class="row">
-    <div class="span6">Welcome!<strong> </strong></div>
+    <div class="span6"><strong> </strong></div>
     <div class="span6">
       <div class="pull-right">
-          <a href="/cart/shopping-cart"><span class="">Fr</span></a>
+          {{!-- <a href="/cart/shopping-cart"><span class="">Fr</span></a>
           <a href="/cart/shopping-cart"><span class="">Es</span></a>
           <span class="btn btn-mini">En</span>
           <a href="/cart/shopping-cart"><span>&pound;</span></a>
           <span class="btn btn-mini">$155.00</span>
-          <a href="/cart/shopping-cart"><span class="">$</span></a>
+          <a href="/cart/shopping-cart"><span class="">$</span></a> --}}
           <a href="/cart/shopping-cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ {{session.cart.totalQty}} ] Giỏ hàng </span> </a> 
       </div>
     </div>
@@ -60,11 +60,11 @@
     <a class="brand" href="/index"><img src="/themes/images/logo.png" alt="Bootsshop"/></a>
 	<form class="form-inline navbar-search" action="/product/search" method="POST" >
 		<input id="srchFld" class="srchTxt" type="text" name="require" />
-		<button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+		<button type="submit" id="submitButton" class="btn btn-primary">Tìm</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
 		{{#if user}}
-				<li class=""><a href="/users/infor">{{user.Name}}</a></li>
+				<li class=""><a href="/users/infor">Xin chào <strong>{{user.Name}}</strong>!!!</a></li>
 				<li class="">
 				<a href="/users/logout"><span class="btn btn-large btn-success">Đăng xuất</span></a>	
 				</li>

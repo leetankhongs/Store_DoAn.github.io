@@ -3,67 +3,29 @@
 		<li><a href="index">Home</a> <span class="divider">/</span></li>
 		<li class="active"> Lịch sử</li>
     </ul>
-	<h3>  Lịch sử mua hàng: Chờ Vận chuyển<a href="index" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
+	<h3>  Lịch sử mua hàng<a href="/users/infor" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
 	<hr class="soft"/>
-    <table class="table table-bordered">
-         <thead>
-                <tr>
-                  <th><a href="History">Đã giao</a></th>
-                  <th><a href="ThanhToan">Chờ thanh toán</a></th>
-                  <th><a href="#">Chờ Vận chuyển</a></th>
-                  <th><a href="GiaoHang">Chờ giao hàng</a></th>
-				</tr>
-              </thead>
-    </table>
-
-			
 	<table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Sản phẩm</th>
-                  <th>Mô tả</th>
-                  <th>Mã đơn hàng</th>
-                  <th>Số lượng</th>
-				  <th>Tình trạng</th>
-                  <th>Đơn vị</th>
-				</tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td> <img width="60" src="themes/images/Mobile/Oppo.jpg" alt=""/></td>
-                  <td>OPPO Reno</td>
-				  <td>#45451215454</td>
-                  <td>1</td>
-                  <td>Đang vận chuyển</td>
-                  <td>Giao hàng tiết kiệm</td>
-                </tr>
-				<tr>
-                  <td> <img width="60" src="themes/images/Mobile/Oppo.jpg" alt=""/></td>
-                  <td>OPPO Reno</td>
-				  <td>#45451215454</td>
-                  <td>1</td>
-                  <td>Đang vận chuyển</td>
-                  <td>Giao hàng tiết kiệm</td>
-                </tr>
-				<tr>
-                  <td> <img width="60" src="themes/images/Mobile/Oppo.jpg" alt=""/></td>
-                  <td>OPPO Reno</td>
-				  <td>#45451215454</td>
-                  <td>1</td>
-                  <td>Đang vận chuyển</td>
-                  <td>Giao hàng tiết kiệm</td>
-                </tr>
-				
-				</tbody>
-            </table>
-		
-		
-
-			
-			
-	<a href="index" class="btn btn-large"><i class="icon-arrow-left"></i> Quay lại </a>
-
-	
+        <thead>
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Mô tả</th>
+            <th>Số lượng</th>
+            <th>Tình trạng</th>
+            <th>Đơn vị</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each cartStatus}}
+          <tr>
+            <td>#{{this.idOrder}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.qty}}</td>
+            <td>{{this.state}}</td>
+            <td>Giao hàng tiết kiệm</td>
+          </tr>
+          {{/each}}
+        </tbody>
+    </table>
 </div>
 </div></div>
-</div>
