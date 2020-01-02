@@ -80,16 +80,16 @@
 
 				</td>
 				<td>
-					<p id='{{this.item._id}}Cost'>{{this.item.Cost}}</p>
+					<p id='{{this.item._id}}Cost'>{{_toStringMoney this.item.Cost}}</p>
 				</td>
 				<td>
-					<p id='{{this.item._id}}Sum' class='Sum'>{{this.price}}</p>
+					<p id='{{this.item._id}}Sum' class='Sum'>{{_toStringMoney this.price}}</p>
 				</td>
 			</tr>
 			{{/each}}
 			<tr>
 				<td colspan="4"><b>Tổng tiền</b></td>
-				<td id='totalPrice'>{{session.cart.totalPrice}}đ</td>
+				<td id='totalPrice'>{{_toStringMoney session.cart.totalPrice}}</td>
 			</tr>
 		</tbody>
 	</table>
