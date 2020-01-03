@@ -40,14 +40,18 @@ module.exports.topProducts = (req, res, next) => {
             return [key, dictionary[key]];
         });
         
-         // Sort the array
+        // Sort the array
         const min = items.length < maxNumber ? items.length : maxNumber;
-        for(let i = 0; i < min; i++) {
-            let max = i;
-            for(let j = i + 1; j < items.length; j++){
-                if (parseInt(items[j][1]) > parseInt(items[max][1])) {max = j;}
-            } 
-            [items[i], items[max]] = [items[max], items[i]];
+        if(items.length < Math.pow(2, min)){
+            items.sort((a, b) => parseInt(b[1]) - parseInt(a[1]));
+        }else{
+            for(let i = 0; i < min; i++) {
+                let max = i;
+                for(let j = i + 1; j < items.length; j++){
+                    if (parseInt(items[j][1]) > parseInt(items[max][1])) {max = j;}
+                } 
+                [items[i], items[max]] = [items[max], items[i]];
+            }
         }
         items = items.slice(0, min);
         
