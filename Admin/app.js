@@ -28,6 +28,7 @@ let usersRouter = require('./routes/users');
 let categoryRouter = require('./routes/categories');
 let adminRouter = require('./routes/admin');
 let ordersRouter = require('./routes/orders');
+let topRouter = require('./routes/top');
 
 //Include services
 let categoryService = require('./services/categoryService');
@@ -100,6 +101,7 @@ app.use('/users', usersRouter);
 app.use('/categories', categoryRouter);
 app.use('/admin', adminRouter);
 app.use('/orders', ordersRouter);
+app.use('/top', topRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

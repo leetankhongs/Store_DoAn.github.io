@@ -46,39 +46,6 @@
                                     </div>
                                 </div>
                             </div>
-                             <ul class="list-inline cus-product-sl-rp">
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color: rgba(255, 99, 132, 0.6);"></i>Asus</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(54, 162, 235, 0.6)"></i>SamSung</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(255, 206, 86, 0.6)"></i>Acer</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(75, 192, 192, 0.6)"></i>Nokia</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(153, 102, 255, 0.6)"></i>MSI</h5>
-                                </li>
-                                <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(255, 159, 64, 0.6)"></i>Lenovo</h5>
-                                </li>
-                                 <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(66, 189, 93, 0.6)"></i>IPhone</h5>
-                                </li>
-                                 <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(255, 64, 198, 0.6)"></i>Dell</h5>
-                                </li>
-                                 <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(37, 76, 88, 0.6)"></i>Oppo</h5>
-                                </li>
-                                 <li>
-                                    <h5><i class="fa fa-circle" style="color:rgba(233, 64, 255, 0.6)"></i>HP</h5>
-                                </li>
-                            </ul>
-
                             <div class="container">
                                 <canvas id="myChart"></canvas>
                                 <script>
@@ -86,71 +53,43 @@
 
                                 // Global Options
                                 Chart.defaults.global.defaultFontFamily = 'Lato';
-                                Chart.defaults.global.defaultFontSize = 18;
+                                Chart.defaults.global.defaultFontSize = 13;
                                 Chart.defaults.global.defaultFontColor = '#777';
 
+                                // Poll data
+                                const dataReceived = {{{pollData}}};
+                                const labels = dataReceived.map(x => x.SimpleDetail);
+                                const data = dataReceived.map(x => x.TotalSales);
+                                const backgroundColor = dataReceived.map(x => x.Color);
+
                                 let massPopChart = new Chart(myChart, {
-                                type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                                type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                                 data:{
-                                    labels:['Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo','Iphone', 'DELL', 'Oppo', 'HP'],
+                                    labels,
                                     datasets:[{
-                                    label:'CÁI',
-                                    data:[
-                                        200,
-                                        180,
-                                        175,
-                                        170,
-                                        163,
-                                        140,
-                                        100,
-                                        87,
-                                        65,
-                                        30,
-                                        0
-                                    ],
-                                    //backgroundColor:'green',
-                                    backgroundColor:[
-                                        'rgba(255, 99, 132, 0.6)',
-                                        'rgba(54, 162, 235, 0.6)',
-                                        'rgba(255, 206, 86, 0.6)',
-                                        'rgba(75, 192, 192, 0.6)',
-                                        'rgba(153, 102, 255, 0.6)',
-                                        'rgba(255, 159, 64, 0.6)',
-                                        'rgba(66, 189, 93, 0.6)',
-                                        'rgba(255, 64, 198, 0.6)',
-                                        'rgba(37, 76, 88, 0.6)',
-                                        'rgba(233, 64, 255, 0.6)',
-                                        'rgba(255, 99, 132, 0.6)'
-                                    ],
-                                    borderWidth:1,
-                                    borderColor:'#777',
-                                    hoverBorderWidth:3,
-                                    hoverBorderColor:'#000'
+                                        data,
+                                        backgroundColor,
+                                        borderWidth: 1,
+                                        borderColor: '#000',
+                                        hoverBorderWidth:3,
+                                        hoverBorderColor:'#000'
                                     }]
                                 },
                                 options:{
                                     title:{
-                                    display:true,
-                                    text:'TOP 10 CÁC SẢN PHẨM BÁN CHẠY NHẤT',
-                                    fontSize:25
+                                        display:true,
+                                        text:`TOP ${dataReceived.length} SẢN PHẨM BÁN CHẠY NHẤT`,
+                                        fontSize:25
                                     },
                                     legend:{
-                                    display:true,
-                                    position:'right',
-                                    labels:{
-                                        fontColor:'#000'
-                                    }
-                                    },
-                                    layout:{
-                                    padding:{
-                                        left:50,
-                                        right:0,
-                                        bottom:0,
-                                        top:0
-                                    }
+                                        display:true,
+                                        position:'right',
+                                        labels:{
+                                            fontColor:'#000',
+                                        }
                                     },
                                     tooltips:{
-                                    enabled:true
+                                        enabled:true,
                                     }
                                 }
                                 });
@@ -170,172 +109,39 @@
                             <h4>Thống kê
 
                             </h4>
+                            
                             <table>
                                 <tr>
+
                                     <th>TOP</th>
+                                    <th>Loại sản phẩm</th>
                                     <th>Ảnh</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Dòng sản phẩm</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Nhà cung cấp</th>
-                                    <th>Email nhà cung cấp</th>
-                                    <th>Địa chỉ nhà cung cấp</th>
                                     <th>Giá</th>
+                                    <th>Số lượng còn lại</th>
                                     <th>Tình trạng</th>
-                                    <th>Số lượng</th>
+                                    <th>Doanh thu</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><img src="img/new-product/Asus.jpg" alt="" /></td>
-                                    <td>Asus</td>
-                                    <td>Asus Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>200</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><img src="img/new-product/SumSung01.png" alt="" /></td>
-                                    <td>SamSung</td>
-                                    <td>SamSung Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>180</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><img src="img/new-product/Acer.jpg" alt="" /></td>
-                                    <td>Acer</td>
-                                    <td>Acer Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>175</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><img src="img/new-product/Nokia.jpg" alt="" /></td>
-                                    <td>Nokia</td>
-                                    <td>Nokia Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>170</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><img src="img/new-product/MSI.jpg" alt="" /></td>
-                                    <td>MSI</td>
-                                    <td>MSI Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>163</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td><img src="img/new-product/Lenovo.jpg" alt="" /></td>
-                                    <td>Lenovo</td>
-                                    <td>Lenovo Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>140</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><img src="img/new-product/Asus.jpg" alt="" /></td>
-                                    <td>Asus</td>
-                                    <td>Asus Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>200</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td><img src="img/new-product/Iphone.jpg" alt="" /></td>
-                                    <td>Iphone</td>
-                                    <td>Iphone Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>100</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td><img src="img/new-product/Dell.jpg" alt="" /></td>
-                                    <td>Dell</td>
-                                    <td>Dell Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>87</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td><img src="img/new-product/Oppo.jpg" alt="" /></td>
-                                    <td>Oppo</td>
-                                    <td>Oppo Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>65</td>
-                                 
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td><img src="img/new-product/HP.jpg" alt="" /></td>
-                                    <td>HP</td>
-                                    <td>HP Store</td>
-                                    <td>123asd321@gmail.com</td>
-                                    <td>135B Trần Hưng Đạo, Quận 1, TPHCM</td>
-                                    <td>5.000.000</td>
-                                    <td>
-                                        <button class="pd-setting">Hoạt động</button>
-                                    </td>
-                                    <td>30</td>
-                                 
-                                </tr>
+                                {{#each topItems}}
+                                    <tr>
+                                        <td>{{this.TOP}}</td>
+                                        <td>{{this.DisplayNameCategory}}</td>
+                                        <td><img src={{this.Image}} alt="" /></td>
+                                        <td>{{this.Brand}}</td>
+                                        <td>{{this.Name}}</td>
+                                        <td>{{this.SimpleDetail}}</td>
+                                        <td>{{_toStringMoney this.Cost}}</td>
+                                        <td>{{this.Quantity}}</td>
+                                        <td>
+                                            {{#activityState this.isDelete}}
+                                            {{/activityState}}
+                                        </td>
+                                        <td>{{_toStringMoney this.TotalSales}}</td>
+                                    
+                                    </tr>
+                                {{/each}}
 
                                
                             </table>
