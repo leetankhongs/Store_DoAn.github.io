@@ -1,69 +1,110 @@
+<!-- Sidebar end=============================================== -->
 <div class="span9">
-    <ul class="breadcrumb">
-		<li><a href="index">Home</a> <span class="divider">/</span></li>
-		<li class="active"> Lịch sử</li>
-    </ul>
-	<h3>  Lịch sử mua hàng: Giao Hàng<a href="index" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Quay lại </a></h3>	
-	<hr class="soft"/>
-    <table class="table table-bordered">
-         <thead>
-                <tr>
-                  <th><a href="History">Đã giao</a></th>
-                  <th><a href="ThanhToan">Chờ thanh toán</a></th>
-                  <th><a href="VanChuyen">Chờ Vận chuyển</a></th>
-                  <th><a href="#">Chờ giao hàng</a></th>
-				</tr>
-              </thead>
-    </table>
+  <ul class="breadcrumb">
+    <li><a href="/index">Home</a> <span class="divider">/</span></li>
+    <li class="active">Lịch sử</li>
+  </ul>
 
-			
-	<table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Sản phẩm</th>
-                  <th>Mô tả</th>
-                  <th>Mã đơn hàng</th>
-                  <th>Số lượng</th>
-				  <th>Tình trạng</th>
-                  <th>Đơn vị</th>
-				</tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td> <img width="60" src="themes/images/Mobile/Nokia.jpg" alt=""/></td>
-                  <td>Nokia 8.1</td>
-				  <td>#45451215454</td>
-                  <td>1</td>
-                  <td>Đang giao hàng</td>
-                  <td>Giao hàng tiết kiệm</td>
-                </tr>
-				<tr>
-                  <td> <img width="60" src="themes/images/Mobile/Nokia.jpg" alt=""/></td>
-                  <td>Nokia 8.1</td>
-				  <td>#45451215454</td>
-                  <td>1</td>
-                  <td>Đang giao hàng</td>
-                  <td>Giao hàng tiết kiệm</td>
-                </tr>
-				<tr>
-                  <td> <img width="60" src="themes/images/Mobile/Nokia.jpg" alt=""/></td>
-                  <td>Nokia 8.1</td>
-				  <td>#45451215454</td>
-                  <td>1</td>
-                  <td>Đang giao hàng</td>
-                  <td>Giao hàng tiết kiệm</td>
-                </tr>
-				
-				</tbody>
-            </table>
-		
-		
 
-			
-			
-	<a href="index" class="btn btn-large"><i class="icon-arrow-left"></i> Quay lại </a>
+  <div id="myTab" class="pull-left">
+    <a href="#chuagiao" data-toggle="tab"><span class="btn btn-large btn-primary">Chưa giao</span></a>
+    <a href="#danggiao" data-toggle="tab"><span class="btn btn-large btn-primary">Đang giao</span></a>
+    <a href="#dagiao" data-toggle="tab"><span class="btn btn-large btn-primary">Đã giao</span></a>
 
-	
+  </div>
+  <br class="clr" />
+  <br class="clr" />
+
+  <div class="tab-content">
+    <div class="tab-pane  active" id="chuagiao">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt hàng</th>
+            <th>Sản phẩm</th>
+            <th>Tổng tiền</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each chuagiao}}
+          <tr>
+            <td>#{{this._id}}</td>
+            <td>{{_toCompactDay this.Time}}</td>
+            <td style="width:30%">
+              {{#each this.Cart.items}}
+              <span><img style="width:20%" src="{{this.item.Image}}" alt="" /></span>
+              {{/each}}
+
+            </td>
+            <td>{{ _toStringMoney this.Cart.totalPrice}}</td>
+            <td><a style="color: red;" href="/users/DetailOrder?id={{this._id}}">Quản lý</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane" id="danggiao">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt hàng</th>
+            <th>Sản phẩm</th>
+            <th>Tổng tiền</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each danggiao}}
+          <tr>
+            <td>#{{this._id}}</td>
+            <td>{{_toCompactDay this.Time}}</td>
+            <td style="width:30%">
+              {{#each this.Cart.items}}
+              <span><img style="width:20%" src="{{this.item.Image}}" alt="" /></span>
+              {{/each}}
+
+            </td>
+            <td>{{ _toStringMoney this.Cart.totalPrice}}</td>
+            <td><a style="color: red;" href="/users/DetailOrder?id={{this._id}}">Quản lý</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane" id="dagiao">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt hàng</th>
+            <th>Sản phẩm</th>
+            <th>Tổng tiền</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each dagiao}}
+          <tr>
+            <td>#{{this._id}}</td>
+            <td>{{_toCompactDay this.Time}}</td>
+            <td style="width:30%">
+              {{#each this.Cart.items}}
+              <span><img style="width:20%" src="{{this.item.Image}}" alt="" /></span>
+              {{/each}}
+
+            </td>
+            <td>{{ _toStringMoney this.Cart.totalPrice}}</td>
+            <td><a style="color: red;" href="/users/DetailOrder?id={{this._id}}">Quản lý</a></td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
-</div></div>
+</div>
 </div>
