@@ -133,43 +133,18 @@ exports.Checkout = async (req, res, next) => {
 
 }
 
-exports.statusProduct = async (req, res, next) =>
-{
-    const idUser = req.user;
-    let cartStatus = [];
-    if(idUser)
-    {
-        const itemofUser = await Order.find({User: idUser}).sort({Time:'descending'});
-        const count1 = itemofUser.length;
-        for(var i =0;i<count1;i++)
-        {
-            
-            var cart = new Cart(itemofUser[i].Cart);
-            var arr = cart.generateArray();
-            var states = itemofUser[i].Delivery;
-            var idOrder = itemofUser[i]._id;
-            var strStates ="";
-            if(states == 0)
-            {
-                strStates="Đang xử lí";
-            }
-            else if (states ==1 )
-            {
-                strStates="Đang giao hàng";
-            }else strStates="Đã giao thành công";
-            
-            
 
-            for(var j=0; j< arr.length; j++)
-            {
-                var temp = {};
-                temp.idOrder = idOrder;
-                temp.name=arr[j].item.Name;
-                temp.qty = arr[j].qty;
-                temp.state = strStates;
-                cartStatus.push(temp);
-            }
-        }
+exports.updateQty = (req, res, next) => {
+    var productID = req.params.id;
+    const {qty} = req.body;
+    var cart = new Cart(req.session.cart?req.session.cart: {});
+    cart.updateQty(productID,qty);
+    req.session.cart = cart;
+    if(req.user)
+    {
+        req.user.Cart = cart;
+        req.user.save();
     }
-    res.render('Cart/States/VanChuyen.hbs',{cartStatus:cartStatus});
+    res.redirect('/cart/shopping-cart');
 }
+

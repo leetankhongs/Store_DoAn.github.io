@@ -1,0 +1,48 @@
+<!-- Sidebar end=============================================== -->
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="index">Home</a> <span class="divider">/</span></li>
+        <li class="active">Chi tiết đơn hàng: #{{order._id}}</li>
+    </ul>
+    <h3> Danh sách các sản phẩm </h3>
+    <div class="well">
+        {{#each order.Cart.items}}
+        <div class="row">
+            <div class="span2">
+                <img src="{{this.item.Image}}" alt="" />
+            </div>
+            <div class="span4">
+                <h3>{{this.item.Name}}</h3>
+                <hr class="soft" />
+                <h4>Giá: {{_toStringMoney this.item.Cost}}</h4>
+                <h4>Số lượng: {{this.qty}}</h4>
+                <h4>Tổng tiền: {{_toStringMoney this.price}}</h4>
+            </div>
+
+        </div>
+        {{/each}}
+
+    </div>
+
+
+</div>
+<div class="span4">
+    <h3>Thông tin giao hàng</h3>
+    <div class="well">
+        <h4>Người nhận</h4>
+        {{order.Fullname}}
+        <h4>Địa chỉ giao hàng</h4>
+        {{order.Address}}
+        <h4>Điện thoại </h4>
+        {{order.Phone}}
+        <h4>Tổng tiền </h4>
+        {{_toStringMoney order.Cart.totalPrice}}
+    </div>
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>

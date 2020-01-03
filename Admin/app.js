@@ -20,6 +20,7 @@ require('./Config/passport.js')(passport);
 let paginationHelpers = require('./helpers/pagination');
 let stateHelpers = require('./helpers/state');
 let miscellaneousHelpers = require('./helpers/misc');
+let converMoneyHelpers = require('./helpers/convertMoney');
 
 //Include routers
 let indexRouter = require('./routes/index');
@@ -122,5 +123,5 @@ hbs.registerHelper('activityState', stateHelpers.makeListItemState);
 hbs.registerHelper('compareString', miscellaneousHelpers.compareString);
 hbs.registerHelper('orderState', stateHelpers.makeOrdersListItemState);
 hbs.registerHelper('compareIDs', miscellaneousHelpers.compareID);
-
+hbs.registerHelper('_toStringMoney', converMoneyHelpers.convertMoney);
 module.exports = app;

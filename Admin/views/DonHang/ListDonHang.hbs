@@ -76,7 +76,7 @@
                                                 <td><img src="{{item.Image}}" alt="" /></td>
                                                 <td>{{item.SimpleDetail}}</td>
                                                 <td>{{qty}}</td>
-                                                <td>{{price}}</td>
+                                                <td>{{_toStringMoney price}}</td>
                                             </tr>
                                             {{/each}}
                                             </tbody>
@@ -117,7 +117,7 @@
                                         {{Cart.totalQty}}
                                     </td>
                                     <td>
-                                        {{Cart.totalPrice}}
+                                        {{_toStringMoney Cart.totalPrice}}
                                     </td>
                                 </tr>
 

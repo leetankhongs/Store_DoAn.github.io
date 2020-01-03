@@ -13,6 +13,7 @@ const usersRouter = require('./routes/users');
 const productRouter = require('./routes/product');
 const cartRouter = require('./routes/cart');
 const Categories = require('./models/Categories');
+const helpers = require('./helpers/register')
 
 const app = express();
 
@@ -98,27 +99,7 @@ app.use(function(err, req, res, next) {
 });
 
 var hbs = require('hbs');
-hbs.registerHelper('_toStringMoney', function(integer) {
-  var temp = Number(integer) ;
-  var string ="";
-  var dem=0;
-
-  while(temp > 0)
-  {
-    string += (temp % 10).toString();
-    temp = parseInt (temp/10);
-    dem++;
-    if(dem===3 & temp!==0)
-    {
-      string +='.';
-      dem=0;
-    }
-  }
-  var arrayofchars = string.split("");
-  var strtoarray = arrayofchars.reverse();
-  var newstring = strtoarray.join("");
-  newstring +="đ";
-  return newstring;
-});
+hbs.registerHelper('_toStringMoney', helpers.fromIntToStringMoney );
+hbs.registerHelper('_toCompactDay', helpers.toCompactTime);
 
 module.exports = app;
