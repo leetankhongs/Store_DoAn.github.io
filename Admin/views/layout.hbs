@@ -135,24 +135,22 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="has-arrow" href="mailbox.html" aria-expanded="false"><i
+                            <a class="has-arrow" href="/top" aria-expanded="false"><i
                                     class="fa fa-line-chart sub-icon-mg"></i> <span
                                     class="mini-click-non">TOP</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Bar Charts" href="TopSP.html"><i class="fa fa-cube sub-icon-mg"
+                                <li><a title="Theo sản phẩm" href="/top"><i class="fa fa-cube sub-icon-mg"
                                             aria-hidden="true"></i> <span class="mini-sub-pro">Theo sản phẩm</span></a>
                                 </li>
-                                <li><a class="has-arrow" title="Line Charts" href="#.html"><i
+                                <li><a class="has-arrow" title="Line Charts" href="/top"><i
                                             class="fa fa-area-chart sub-icon-mg" aria-hidden="true"></i> <span
                                             class="mini-sub-pro">Theo gian hàng </span></a>
                                     <ul class="submenu-angle" aria-expanded="false">
-                                        <li><a title="Bar Charts" href="TopGHLaptop.html"><i
+                                        {{#each Categories}}
+                                        <li><a title="{{this.DisplayName}}" href="/top?Category={{this.Type}}"><i
                                                     class="fa fa-television sub-icon-mg" aria-hidden="true"></i> <span
-                                                    class="mini-sub-pro">LapTop</span></a></li>
-                                        <li><a title="Line Charts" href="TopGHPhone.html"><i
-                                                    class="fa fa-building sub-icon-mg" aria-hidden="true"></i> <span
-                                                    class="mini-sub-pro">Điện thoại </span></a>
-                                        </li>
+                                                    class="mini-sub-pro">{{this.DisplayName}}</span></a></li>
+                                        {{/each}}
                                     </ul>
                                 </li>
                             </ul>

@@ -23,6 +23,20 @@ module.exports.getOrders = async (currentPage, pageLength, deliveryState, _id) =
     return products;
 }
 
+module.exports.getAllOrders = async (deliveryState) => {
+    let params = null;
+    if(deliveryState !== null && deliveryState !== undefined) {
+        params = {};
+        if(Array.isArray(deliveryState))
+            { params.Delivery = { "$in": deliveryState }; }
+        else
+            { params.Delivery = deliveryState; }
+    }
+    const products = await Order.find(params);
+
+    return products;
+}
+
 module.exports.changeDelivery = async (_id, deliveryState) => {
     return await Order.findByIdAndUpdate(_id, {Delivery: deliveryState});
 }

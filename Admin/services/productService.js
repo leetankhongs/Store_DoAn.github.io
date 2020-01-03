@@ -12,7 +12,7 @@ module.exports.getProductsCount = async (category, brand, name) => {
 }
 
 module.exports.findProductByID = async (_id) => {
-    return await Product.findById(_id);
+    return await Product.findById(_id).lean();
 }
 
 module.exports.load = async (currentPage, pageLength, category, brand, name) => {
