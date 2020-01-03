@@ -6,15 +6,12 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcome-heading">
-                                            <form role="search" class="">
-                                                <input type="text" placeholder="Search..." class="form-control">
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </form>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <ul class="breadcome-menu">
-                                            <li><a href="index.html">Home</a> <span class="bread-slash">/</span>
+                                            <li><a href="/">Home</a> <span class="bread-slash">/</span>
                                             </li>
                                             <li><span class="bread-blod">Top Sản phẩm</span>
                                             </li>
@@ -46,6 +43,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{#if topItems}}
                             <div class="container">
                                 <canvas id="myChart"></canvas>
                                 <script>
@@ -63,7 +61,7 @@
                                 const backgroundColor = dataReceived.map(x => x.Color);
 
                                 let massPopChart = new Chart(myChart, {
-                                type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                                type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                                 data:{
                                     labels,
                                     datasets:[{
@@ -78,7 +76,7 @@
                                 options:{
                                     title:{
                                         display:true,
-                                        text:`TOP ${dataReceived.length} SẢN PHẨM BÁN CHẠY NHẤT`,
+                                        text: `Biểu đồ thể hiện TOP ${dataReceived.length} sản phẩm bán chạy nhất`,
                                         fontSize:25
                                     },
                                     legend:{
@@ -95,6 +93,9 @@
                                 });
                             </script>
                             </div>
+                            {{else}}
+                                <label style="font-style: italic;">Chưa có sản phẩm nào được bán để vẽ biểu đồ</label>
+                            {{/if}}
                     </div>
                     </div>
 
@@ -109,10 +110,11 @@
                             <h4>Thống kê
 
                             </h4>
+
+                            {{#if topItems}}
                             
                             <table>
                                 <tr>
-
                                     <th>TOP</th>
                                     <th>Loại sản phẩm</th>
                                     <th>Ảnh</th>
@@ -122,7 +124,7 @@
                                     <th>Giá</th>
                                     <th>Số lượng còn lại</th>
                                     <th>Tình trạng</th>
-                                    <th>Doanh thu</th>
+                                    <th>Số lượng bán được</th>
                                 </tr>
                                 {{#each topItems}}
                                     <tr>
@@ -138,14 +140,16 @@
                                             {{#activityState this.isDelete}}
                                             {{/activityState}}
                                         </td>
-                                        <td>{{_toStringMoney this.TotalSales}}</td>
+                                        <td>{{this.TotalSales}} cái</td>
                                     
                                     </tr>
                                 {{/each}}
 
                                
                             </table>
-                            
+                            {{else}}
+                                <label style="font-style: italic;">Chưa có sản phẩm nào được bán để vẽ biểu đồ</label>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
