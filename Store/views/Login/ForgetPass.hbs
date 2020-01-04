@@ -6,6 +6,14 @@
 	<h3> QUÊN MẬT KHẨU?</h3>	
 	<hr class="soft"/>
 	
+	{{#if error_msg }}
+		<div class="alert alert-error alert-dismissible show" role="alert">
+			<strong>{{this.error_msg}}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{{/if}}
 	<div class="row">
 		<div class="span9" style="min-height:900px">
 			<div class="well">

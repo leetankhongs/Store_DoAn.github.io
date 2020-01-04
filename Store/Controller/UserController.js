@@ -90,11 +90,9 @@ exports.register = (req,res,next) =>
           //save
           newUser.save().then(User => {
             req.flash('success_msg','Đăng kí thành công. Đăng nhập ngay!!!');
-              res.redirect('/users/login');
-
-          }).catch(err => console.log(err));
-        }
-        ))
+              res.redirect('/users/login');}).
+              catch(err => console.log(err));
+        }))
           }
         })
     
@@ -205,10 +203,11 @@ exports.forgetPassword = async (req,res,next)=>
 
   var email = req.body.email;
   var rand,mailOptions,host,link;
+  var backURL = req.header('Referer') || '/';
 
   rand=Math.floor((Math.random() * 10000) + 54);
   host =req.get('host');
-  link="http://"+req.get('host')+"/verify?id="+email+"&verify"+rand;
+  link="http://"+req.get('host')+"/user/exchange-password/?email="+email+"&verify="+rand;
 
   var mailOptions=
   {
@@ -217,6 +216,13 @@ exports.forgetPassword = async (req,res,next)=>
     html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
   }
 
+  const findUserExist = await User.find({Email: email});
+  console.log(findUserExist);
+  if(findUserExist.length == null)
+  {
+    req.flash("error_msg","Email này không tồn tại");
+    res.redirect(backURL);
+  }
   console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response){
      if(error){
@@ -226,9 +232,9 @@ exports.forgetPassword = async (req,res,next)=>
 
   const findUserVerified = await Verify.findOne({Email: email});
   const id_findUserVerified = findUserVerified._id;
-  if(findUserVerified.length >0)
+  if(findUserVerified != null)
   {
-    await Verify.findByIdAndDelete({id: id_findUserVerified});
+    await Verify.findByIdAndDelete({_id: id_findUserVerified});
   }
   const verifyControl = new Verify({
     Email: email,
@@ -269,4 +275,44 @@ exports.detailOrder = async (req, res, next) => {
   console.log(order);
 
   res.render('Cart/DetailOrder', {order});
+}
+
+
+exports.exchangePassword = async (req, res, next)=>
+{
+  var pass1 = req.body.newpassword1;
+  var pass2 = req.body.newpassword2;
+  var email = req.query.email;
+  var code = req.query.verify;
+  var backURL = req.header('Referer') || '/';
+
+  const findUser = await User.findOne({Email: email});
+  if(findUser != null )
+  {
+    const codeUser = findUser.Code;
+    if(codeUser != code)
+    {
+      req.flash('error_msg','Có gì đó không đúng, kiểm tra lại email!');
+      res.redirect('/users/login');
+    }
+  }
+
+  if(pass1 != pass2)
+  {
+    req.flash("error_msg","Mật khẩu không khớp, thử lại!");
+    res.redirect(backURL);
+  }else{
+    const idU = findUser._id;
+    bcrypt.genSalt(10,(err, salt)=>
+        bcrypt.hash(pass1,salt,(err,hash)=>
+        {
+          if (err) throw err;
+          var newpass = hash;
+          User.findByIdAndUpdate({_id: idU, Password: newpass});
+
+          //save
+            req.flash('success_msg','Đổi mật khẩu thành công. Đăng nhập ngay!!!');
+            res.redirect('/users/login');
+        }))
+  }
 }

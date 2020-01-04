@@ -13,10 +13,16 @@ router.get('/register', userController.registerGet);
 router.get('/forgetpass', function(req, res, next) {
   res.render('Login/ForgetPass.hbs', { title: 'Express' });
 });
+
+router.get('/exchange-password', function(req,res,next)
+{
+  res.render("Login/ChangePassword.hbs");
+})
 router.get('/User', function(req, res, next) {
   res.render('Login/User.hbs', { title: 'Express' });
 });
 
+router.post('/exchange-password', userController.exchangePassword);
 router.post('/register', userController.register);
 router.post('/login', userController.authenticate, userController.login);
 router.get('/infor', userController.informationUser);
