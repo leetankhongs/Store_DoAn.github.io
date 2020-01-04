@@ -21,7 +21,8 @@ router.get('/register', function(req, res, next) {
 router.get('/forgetpass', function(req, res, next) {
   res.render('Login/ForgetPass.hbs', { title: 'Express' });
 });
-  
+ 
+
 router.get('/User', function(req, res, next) {
   res.render('Login/User.hbs', { title: 'Express' });
 });
@@ -42,4 +43,5 @@ router.get('/infor', userController.informationUser);
 router.get('/change-password', userController.pageChangePassword)
 router.post('/change-password', userController.changePassword);
 router.get('/logout', userController.logout);
+router.post('/forgetpass', userController.forgetPassword);
 module.exports = router;

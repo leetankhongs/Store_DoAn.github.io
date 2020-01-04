@@ -1,5 +1,6 @@
 let User = require("../models/userModel");
 const bcrypt = require('bcryptjs');
+var nodemailer = require('nodemailer');
 exports.register = (req,res,next) =>
 {
   const{Name,Email,Password,Password2,Address,Phone } =req.body;
@@ -167,5 +168,17 @@ exports.isLogin = (req, res, next) =>{
   req.flash('error_msg','Bạn cần phải đăng nhập để thực hiện việc thanh toán');
   req.session.oldUrl = req.originalUrl;
   res.redirect('/users/login')
+}
+
+
+exports.forgetPassword = (req,res,next)=>
+{
+  var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "lohuyhung1028@gmail.com",
+        pass: "huyhung1028#"
+    }
+});
 }
 
