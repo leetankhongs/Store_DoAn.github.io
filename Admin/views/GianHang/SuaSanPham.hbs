@@ -55,15 +55,18 @@
                         </ul>
                         <div id="myTabContent" class="tab-content custom-product-edit">
                             <div class="product-tab-list tab-pane fade active in" id="description">
-                                <form action='/categories/{{Category}}/products/addProduct?category={{Category}}' method="POST"
+                                <form action='/categories/{{Category}}/products/upsertProduct' method="POST"
                                                 enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <div class="review-content-section">
                                             {{#if product}}
+                                            <input name="Category" type="hidden" class="form-control"
+                                                        placeholder="Gian hàng" value="{{Category}}">
                                             <div class="input-group mg-b-pro-edt">
                                                     <span class="input-group-addon"><b>Thương hiệu&emsp;&emsp;&emsp;</b></span>
-                                                    <select name="Brand" class="form-control">
+                                                    <select name="Brand" class="form-control" required>
+                                                        <option value="">Chọn thương hiệu</option>
                                                         {{#each brands}}
                                                         {{#compareString this ../product.Brand}}
                                                             <option value="{{../this}}" selected>{{../this}}</option>
@@ -103,19 +106,37 @@
                                                 <input name="Description" type="text" class="form-control" value="{{product.Description}}"
                                                     placeholder="Mô tả">
                                             </div>
-                                            <div class="input-group mg-b-pro-edt">
-                                                <span class="input-group-addon"><b>Ảnh
-                                                        &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
-                                                <input name="image" type="file" min="0" class="form-control"
-                                                    placeholder="Số lượng">
-                                            </div>
+                                                {{#if product.Image}}
+                                                    <div id="uploadForm" class="input-group mg-b-pro-edt" style="display: none;">
+                                                        <span class="input-group-addon"><b>Ảnh khác (để trống = không dùng ảnh)
+                                                            &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                        <input name="image" type="file" min="0" class="form-control"
+                                                            placeholder="File to upload">
+                                                    </div>
+
+                                                    <div id="deleteForm" class="input-group mg-b-pro-edt">
+                                                        <label>Ảnh hiện tại</label>
+                                                        <img id="currentImage" src={{product.Image}} />
+                                                        <input id="submitImageField" type="hidden" name="oldFile" value="{{product.Image}}" />
+                                                        <button type="button" class="btn" onclick="deletePicture()">Tôi muốn dùng ảnh khác</button>
+                                                    </div>
+                                                {{else}}
+                                                    <div class="input-group mg-b-pro-edt">
+                                                        <span class="input-group-addon"><b>Ảnh
+                                                            &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+                                                        <input name="image" type="file" min="0" class="form-control"
+                                                            placeholder="File to upload">
+                                                    </div>
+                                                {{/if}}
+
                                             {{else}}
                                                 <input name="Category" type="hidden" class="form-control"
                                                         placeholder="Gian hàng" value="{{Category}}">
                                                 <div class="input-group mg-b-pro-edt">
                                                     <span class="input-group-addon"><b>Dòng sản
                                                             phẩm&emsp;&emsp;&emsp;</b></span>
-                                                    <select name="Brand" class="form-control">
+                                                    <select name="Brand" class="form-control" required>
+                                                        <option value="">Chọn thương hiệu</option>
                                                         {{#each brands}}
                                                         <option value="{{this}}">{{this}}</option>
                                                         {{/each}}
@@ -168,17 +189,15 @@
                                             <button data-toggle="tooltip" name="ID" value={{product._id}}
                                                 class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
                                             </button>
-                                            <a href="/categories/{{Category}}/products"><button type="button"
-                                                    class="btn btn-warning waves-effect waves-light">Đóng
-                                                </button></a>
                                             {{else}}
                                             <button data-toggle="tooltip" name="ID"
                                                 class="btn btn-primary waves-effect waves-light m-r-10">Đồng ý
                                             </button>
-                                            <a href="/categories/{{Category}}/products"><button type="button"
-                                                    class="btn btn-warning waves-effect waves-light">Đóng
-                                                </button></a>
                                             {{/if}}
+                                             <button type="button"
+                                                    class="btn btn-warning waves-effect waves-light"
+                                                    onclick="history.back()">Đóng
+                                                </button>
 
                                         </div>
                                     </div>
@@ -194,3 +213,17 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function deletePicture() {
+            const currentImage = document.getElementById("currentImage");
+            const submitImageField = document.getElementById("submitImageField");
+            const uploadForm = document.getElementById("uploadForm");
+            const deleteForm = document.getElementById("deleteForm");
+
+            currentImage.src = null;
+            submitImageField.value = null;
+            deleteForm.style.display = "none";
+            uploadForm.style.display = null;
+        }
+    </script>

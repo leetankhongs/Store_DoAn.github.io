@@ -1,6 +1,19 @@
-let User = require("../models/userModel");
 const bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
+
+let User = require("../models/userModel");
+const orderService = require('../services/orderService');
+const Order = require('../models/order');
+const passport = require('passport');
+
+
+exports.registerGet = (req, res, next) => {
+  res.render('Login/register.hbs', { title: 'Express' });
+}
+exports.loginGet = (req, res, next) => {
+  res.render('Login/login.hbs', { title: 'Express' });
+}
+
 exports.register = (req,res,next) =>
 {
   const{Name,Email,Password,Password2,Address,Phone } =req.body;
@@ -86,6 +99,13 @@ exports.register = (req,res,next) =>
     
   } 
 }
+exports.authenticate = (req, res, next) => {
+  passport.authenticate('local', {
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next)
+}
+
 exports.login = (req, res, next) => {
 
  
@@ -182,3 +202,33 @@ exports.forgetPassword = (req,res,next)=>
 });
 }
 
+exports.statusProduct = async (req, res, next) =>
+{
+    const idUser = req.user;
+    const itemofUser = await Order.find({User: idUser}).sort({Time:'descending'});
+    var chuagiao = [];
+    var danggiao = []; 
+    var dagiao = [];
+
+    for(var i = 0; i< itemofUser.length; i++)
+    {
+        if(itemofUser[i].Delivery === 0)
+            chuagiao.push(itemofUser[i])
+        else
+        {
+            if(itemofUser[i].Delivery === 1)
+                danggiao.push(itemofUser[i]);
+            else
+                dagiao.push(itemofUser[i]);
+        }
+    }
+
+    res.render('Cart/States/GiaoHang.hbs', {chuagiao, danggiao, dagiao});
+}
+exports.detailOrder = async (req, res, next) => {
+  const idOrder = req.query.id;
+  const order = await orderService.findOrderByID(idOrder);
+  console.log(order);
+
+  res.render('Cart/DetailOrder', {order});
+}

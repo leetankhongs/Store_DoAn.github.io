@@ -52,9 +52,9 @@ router.get('/TopSP.html', function (req, res, next) {
   res.render('TOP/TopSP.hbs', { title: 'Express' });
 });
 router.get('/TopGHLaptop.html', function (req, res, next) {
-  res.render('TOP/TopGHLaptop.hbs', { title: 'Express' });
+  res.render('TOP/TopGH.hbs', { title: 'Express' });
 });
 router.get('/TopGHPhone.html', function (req, res, next) {
-  res.render('TOP/TopGHPhone.hbs', { title: 'Express' });
+  res.render('TOP/TopGH.hbs', { title: 'Express' });
 });
 module.exports = router;

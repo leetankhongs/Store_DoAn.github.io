@@ -82,7 +82,11 @@ module.exports.upsertCategory = (req, res, next) => {
                 req.flash('error_msg', result);
             }
         }else{
-            const addedBrands = req.body.addedBrands.map(x => x.toUpperCase());
+            const addedBrands = req.body.addedBrands.map(x => {
+                let newCase = x.toLowerCase();
+                newCase = newCase.charAt(0).toUpperCase() + newCase.slice(1);  
+                return newCase;
+            });
             const result = await categoryService.insertCategory({Type: req.body.CategoryType, DisplayName: req.body.DisplayName, Brands: addedBrands});
             if(result !== true) {
                 req.flash('error_msg', 'Mã nhận diện gian hàng trùng với mã của gian hàng khác');

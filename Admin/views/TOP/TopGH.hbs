@@ -6,14 +6,14 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <div class="breadcome-heading">
-                                            
+                                           
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <ul class="breadcome-menu">
                                             <li><a href="/">Home</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">Top Sản phẩm</span>
+                                            <li><span class="bread-blod">Top Sản phẩm của {{category.DisplayName}}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -43,6 +43,14 @@
                                     </div>
                                 </div>
                             </div>
+                             <ul class="list-inline cus-product-sl-rp">
+                                {{#each topItems}}
+                                <li>
+                                    <h5><i class="fa fa-circle" style="color: {{this.Color}};"></i>{{this.SimpleDetail}}</h5>
+                                </li>
+                                {{/each}}
+                            </ul>
+
                             {{#if topItems}}
                             <div class="container">
                                 <canvas id="myChart"></canvas>
@@ -51,43 +59,46 @@
 
                                 // Global Options
                                 Chart.defaults.global.defaultFontFamily = 'Lato';
-                                Chart.defaults.global.defaultFontSize = 13;
+                                Chart.defaults.global.defaultFontSize = 18;
                                 Chart.defaults.global.defaultFontColor = '#777';
 
                                 // Poll data
+                                const category = {{{pollCategory}}};
                                 const dataReceived = {{{pollData}}};
                                 const labels = dataReceived.map(x => x.SimpleDetail);
                                 const data = dataReceived.map(x => x.TotalSales);
                                 const backgroundColor = dataReceived.map(x => x.Color);
 
                                 let massPopChart = new Chart(myChart, {
-                                type: 'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+                                type:'horizontalBar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                                 data:{
                                     labels,
                                     datasets:[{
-                                        data,
-                                        backgroundColor,
-                                        borderWidth: 1,
-                                        borderColor: '#000',
-                                        hoverBorderWidth:3,
-                                        hoverBorderColor:'#000'
+                                    label:'Số lượng đã bán',
+                                    data,
+                                    backgroundColor,
+                                    borderWidth:1,
+                                    borderColor:'#777',
+                                    hoverBorderWidth:3,
+                                    hoverBorderColor:'#000'
                                     }]
                                 },
                                 options:{
                                     title:{
                                         display:true,
-                                        text: `Biểu đồ thể hiện TOP ${dataReceived.length} sản phẩm bán chạy nhất`,
+                                        text:`Biểu đồ thể hiên TOP ${dataReceived.length} sản phẩm ` + category.DisplayName
+                                        + ' bán chạy nhất',
                                         fontSize:25
                                     },
                                     legend:{
                                         display:true,
                                         position:'right',
                                         labels:{
-                                            fontColor:'#000',
+                                            fontColor:'#000'
                                         }
                                     },
                                     tooltips:{
-                                        enabled:true,
+                                        enabled:true
                                     }
                                 }
                                 });
@@ -110,9 +121,7 @@
                             <h4>Thống kê
 
                             </h4>
-
                             {{#if topItems}}
-                            
                             <table>
                                 <tr>
                                     <th>TOP</th>
@@ -144,11 +153,10 @@
                                     
                                     </tr>
                                 {{/each}}
-
                                
                             </table>
                             {{else}}
-                                <label style="font-style: italic;">Chưa có sản phẩm nào được bán để vẽ biểu đồ</label>
+                                <label style="font-style: italic;">Chưa có sản phẩm nào được bán để tạo bảng thống kê</label>
                             {{/if}}
                         </div>
                     </div>

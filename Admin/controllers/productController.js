@@ -9,6 +9,7 @@ const maxPage = 5;
 module.exports.manageProducts = (req, res, next) => {
     const categoryName = req.params.CategoryName;
     const brand = req.query.Brand;
+    const productLineName = req.query.Name;
     const currentPage = !req.query.currentPage ? 0 : req.query.currentPage - 1;
     if(currentPage < 0 || isNaN(currentPage)) {
         res.render('error.hbs', {message: "Resource not available"});
@@ -28,7 +29,7 @@ module.exports.manageProducts = (req, res, next) => {
         } 
 
         //Check if page is legible
-        const count = await productService.getProductsCount(category, brand);
+        const count = await productService.getProductsCount(category, brand, productLineName);
         let totalPages = parseInt(Math.ceil(count/pageLength));
         
         if(totalPages === 0) totalPages = 1;
@@ -39,7 +40,7 @@ module.exports.manageProducts = (req, res, next) => {
         }
 
         //Get users for current page
-        const products = await productService.load(currentPage, pageLength, category, brand);
+        const products = await productService.load(currentPage, pageLength, category, brand, productLineName);
     
         if(!products) {
             res.render('error.hbs', {message: "Resource not available"});
@@ -53,9 +54,14 @@ module.exports.manageProducts = (req, res, next) => {
         : currentPage <= parseInt(maxPage/2) ? 0 + maxPage - 1: currentPage + parseInt(maxPage/2);
 
         //Add queries
+        //Brand
         let query = brand ? `?Brand=${brand}` : undefined;
+        //Product line name
+        query = productLineName ? 
+            query ? query + `&Name=${productLineName}` : `?Name=${productLineName}`
+            : query;
 
-        res.render('GianHang/QLSanPham.hbs', {products, min, max, totalPages, currentPage, category, link: `/categories/${categoryName}/products`, query});
+        res.render('GianHang/QLSanPham.hbs', {products, min, max, totalPages, currentPage, category, link: `/categories/${categoryName}/products`, query, currentBrand: brand});
     })(); 
 }
 
@@ -90,34 +96,41 @@ module.exports.addProduct = async (req, res, next) => {
     res.render("GianHang/SuaSanPham.hbs", {Category,brands: brands});
 }
 
-module.exports.upsertProduct = (req, res, next) => {
-
-}
-
 const loadEditProductPage = async (res, productID, Category) => {
     const product = await productService.findProductByID(productID);
     const brands = await categoryService.findListBrandOfCategory(Category);
     res.render("GianHang/SuaSanPham.hbs", {Category, product, brands});
 }
 
-module.exports.addProductPost = async (req, res, next) => {
+module.exports.upsertProductPost = async (req, res, next) => {
 
-    const result = await cloudinary.v2.uploader.upload(req.file.path, {folder: req.body.Category + '/' + req.body.Brand} );
-  
-    var newProduct = new Product({
-      Brand: req.body.Brand,
-      Name: req.body.Name,
-      SimpleDetail: req.body.SimpleDetail,
-      Cost: req.body.Cost,
-      Image: result.secure_url,
-      TypeProduct: req.body.Category,
-      Quantity: req.body.Quantity,
-      Description: req.body.Description
-    })
-  
-    newProduct.save();
+    let newProduct = {
+        Brand: req.body.Brand,
+        Name: req.body.Name,
+        SimpleDetail: req.body.SimpleDetail,
+        Cost: req.body.Cost,
+        TypeProduct: req.body.Category,
+        Quantity: req.body.Quantity,
+        Description: req.body.Description
+    };
 
-    
+    let result = null;
+    //Check file upload logic
+    if(req.file){
+        result = await cloudinary.v2.uploader.upload(req.file.path, {folder: req.body.Category + '/' + req.body.Brand} );
+        result = result.secure_url;
+    }else if(req.body.oldFile){
+        result = req.body.oldFile;
+    }
+    newProduct.Image = result;
 
-    res.redirect('/categories/'+ req.query.category + '/products');
+    //Check update or insert
+    if(req.body.ID) {
+        await productService.updateProduct(req.body.ID, newProduct);
+    }else{
+        newProduct = new Product(newProduct);
+        await newProduct.save();
+    }
+   
+    res.redirect('/categories/'+ req.body.Category + '/products');
 }
