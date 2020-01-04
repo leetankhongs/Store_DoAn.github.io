@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
 
 let User = require("../models/userModel");
+const Verify = require("../models/verify");
 const orderService = require('../services/orderService');
 const Order = require('../models/order');
 const passport = require('passport');
@@ -191,15 +192,52 @@ exports.isLogin = (req, res, next) =>{
 }
 
 
-exports.forgetPassword = (req,res,next)=>
+exports.forgetPassword = async (req,res,next)=>
 {
   var smtpTransport = nodemailer.createTransport({
     service: "Gmail",
+    
     auth: {
         user: "lohuyhung1028@gmail.com",
-        pass: "huyhung1028#"
+        pass: "hung123#"
     }
-});
+  });
+
+  var email = req.body.email;
+  var rand,mailOptions,host,link;
+
+  rand=Math.floor((Math.random() * 10000) + 54);
+  host =req.get('host');
+  link="http://"+req.get('host')+"/verify?id="+email+"&verify"+rand;
+
+  var mailOptions=
+  {
+    to : email,
+    subject : "Please confirm your Email account",
+    html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
+  }
+
+  console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+     if(error){
+            console.log(error);
+        res.render("/Login/ForgetPass.hbs", {er: "Can't send email right now. Try later!"});
+     }});
+
+  const findUserVerified = await Verify.findOne({Email: email});
+  const id_findUserVerified = findUserVerified._id;
+  if(findUserVerified.length >0)
+  {
+    await Verify.findByIdAndDelete({id: id_findUserVerified});
+  }
+  const verifyControl = new Verify({
+    Email: email,
+    Code: rand
+  })
+  await verifyControl.save();
+
+  req.flash('success_msg','Kiểm tra email và đổi mật khẩu!');
+  res.redirect('/users/login');
 }
 
 exports.statusProduct = async (req, res, next) =>
