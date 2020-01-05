@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 var nodemailer = require('nodemailer');
 
-let User = require("../models/userModel");
+const User = require("../models/userModel");
 const Verify = require("../models/verify");
 const orderService = require('../services/orderService');
 const Order = require('../models/order');
@@ -192,6 +192,20 @@ exports.isLogin = (req, res, next) =>{
 
 exports.forgetPassword = async (req,res,next)=>
 {
+  var email = req.body.email;
+  var backURL = req.header('Referer') || '/';
+  var rand,mailOptions,host,link;
+  rand=Math.floor((Math.random() * 100000) + 69);
+  host =req.get('host');
+  link="http://"+req.get('host')+"/users/exchange-password/?email="+email+"&verify="+rand;
+  const findUser = await User.findOne({Email: email});
+  console.log(findUser);
+  if(findUser == null || findUser.length == 0)
+  {
+    req.flash("error_msg","Email này không tồn tại");
+    res.redirect(backURL);
+  }
+
   var smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     
@@ -201,14 +215,6 @@ exports.forgetPassword = async (req,res,next)=>
     }
   });
 
-  var email = req.body.email;
-  var rand,mailOptions,host,link;
-  var backURL = req.header('Referer') || '/';
-
-  rand=Math.floor((Math.random() * 10000) + 54);
-  host =req.get('host');
-  link="http://"+req.get('host')+"/user/exchange-password/?email="+email+"&verify="+rand;
-
   var mailOptions=
   {
     to : email,
@@ -216,13 +222,7 @@ exports.forgetPassword = async (req,res,next)=>
     html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
   }
 
-  const findUserExist = await User.find({Email: email});
-  console.log(findUserExist);
-  if(findUserExist.length == null)
-  {
-    req.flash("error_msg","Email này không tồn tại");
-    res.redirect(backURL);
-  }
+  
   console.log(mailOptions);
     smtpTransport.sendMail(mailOptions, function(error, response){
      if(error){
@@ -231,9 +231,10 @@ exports.forgetPassword = async (req,res,next)=>
      }});
 
   const findUserVerified = await Verify.findOne({Email: email});
-  const id_findUserVerified = findUserVerified._id;
-  if(findUserVerified != null)
+  console.log(findUserVerified);
+  if(findUserVerified != null || findUserVerified.length > 0)
   {
+    const id_findUserVerified = findUserVerified._id;
     await Verify.findByIdAndDelete({_id: id_findUserVerified});
   }
   const verifyControl = new Verify({
@@ -287,32 +288,58 @@ exports.exchangePassword = async (req, res, next)=>
   var backURL = req.header('Referer') || '/';
 
   const findUser = await User.findOne({Email: email});
+  console.log(findUser);
   if(findUser != null )
   {
-    const codeUser = findUser.Code;
-    if(codeUser != code)
+    const verifiedEmail = await Verify.findOne({Email: email});
+    
+    console.log(verifiedEmail);
+    if(verifiedEmail != null )
     {
-      req.flash('error_msg','Có gì đó không đúng, kiểm tra lại email!');
-      res.redirect('/users/login');
+      const codeUser = verifiedEmail.Code;
+      console.log(codeUser);
+      if(codeUser == code)
+      {
+        if(pass1 != pass2)
+        {
+          req.flash("error_msg","Mật khẩu không khớp, thử lại!");
+          res.redirect(backURL);
+        }
+        else if (pass1.length <6 || pass2.length<6)
+        {
+          req.flash("error_msg","Hãy điền mật khẩu trên 6 kí tự, thử lại!");
+          res.redirect(backURL);
+        }
+        else
+        {
+         // var newpass;
+          //const idU = findUser._id;
+          //console.log(idU);
+          await bcrypt.genSalt(10,(err, salt)=>
+          bcrypt.hash(pass1,salt,(err,hash)=>
+          {
+            if(err) throw err;
+            
+            findUser.Password = hash;
+            findUser.save().then(() =>
+            {
+              const verifyID = verifiedEmail._id;
+              Verify.findOneAndDelete({_id:verifyID}).then(()=>
+              {
+                req.flash('success_msg','Đổi mật khẩu thành công. Đăng nhập ngay!!!');
+                res.redirect('/users/login');
+              });
+            
+            });
+          }));
+        
+        }
+      }
     }
   }
-
-  if(pass1 != pass2)
-  {
-    req.flash("error_msg","Mật khẩu không khớp, thử lại!");
-    res.redirect(backURL);
-  }else{
-    const idU = findUser._id;
-    bcrypt.genSalt(10,(err, salt)=>
-        bcrypt.hash(pass1,salt,(err,hash)=>
-        {
-          if (err) throw err;
-          var newpass = hash;
-          User.findByIdAndUpdate({_id: idU, Password: newpass});
-
-          //save
-            req.flash('success_msg','Đổi mật khẩu thành công. Đăng nhập ngay!!!');
-            res.redirect('/users/login');
-        }))
+  else{
+    console.log("11111111111111111111");
+  req.flash('error','Có gì đó không đúng. Hãy kiểm tra lại!');
+  res.redirect('/users/login');
   }
 }
