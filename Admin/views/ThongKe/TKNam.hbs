@@ -221,6 +221,7 @@
             </div>
         </div>
     </div>
+    {{#if data}}
     <div class="product-sales-area mg-tb-30">
         <div class="container-fluid">
             <div class="row">
@@ -230,7 +231,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                     <div class="caption pro-sl-hd">
-                                        <span class="caption-subject text-uppercase"><b>Bán sản phẩm</b></span>
+                                        <span class="caption-subject text-uppercase"><b>Biểu đồ</b></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -240,26 +241,6 @@
                                 </div>
                             </div>
                         </div>
-                        <ul class="list-inline cus-product-sl-rp">
-                            <li>
-                                <h5><i class="fa fa-circle" style="color: rgba(255, 99, 132, 0.6);"></i>Asus</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color:rgba(54, 162, 235, 0.6)"></i>SamSung</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color:rgba(255, 206, 86, 0.6)"></i>Acer</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color:rgba(75, 192, 192, 0.6)"></i>Nokia</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color:rgba(153, 102, 255, 0.6)"></i>MSI</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color:rgba(255, 159, 64, 0.6)"></i>Lenovo</h5>
-                            </li>
-                        </ul>
 
                         <div>
                             <canvas id="myChart"></canvas>
@@ -272,103 +253,19 @@
                                 Chart.defaults.global.defaultFontSize = 18;
                                 Chart.defaults.global.defaultFontColor = '#777';
 
+                                const labels = {{{label}}};
+                                const data = {{{data}}};
+                                const backgroundColor = {{{color}}};
+                                const text = {{{text}}};
                                 let massPopChart = new Chart(myChart, {
                                     type: 'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
                                     data: {
-                                        labels: ['Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo', 'Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo', 'Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo', 'Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo', 'Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo', 'Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo', 'Asus', 'SamSung', 'Acer', 'Nokia', 'MSI', 'Lenovo'],
+                                        labels,
                                         datasets: [{
-                                            label: 'triệu ',
-                                            data: [
-                                                420,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                240,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                240,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                240,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                240,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                240,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                240,
-                                                150,
-                                                180,
-                                                160,
-                                                120,
-                                                260,
-                                                0
-                                            ],
+                                            label: 'Đồng',
+                                            data,
                                             //backgroundColor:'green',
-                                            backgroundColor: [
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)',
-                                                'rgba(54, 162, 235, 0.6)',
-                                                'rgba(255, 206, 86, 0.6)',
-                                                'rgba(75, 192, 192, 0.6)',
-                                                'rgba(153, 102, 255, 0.6)',
-                                                'rgba(255, 159, 64, 0.6)',
-                                                'rgba(255, 99, 132, 0.6)'
-                                            ],
+                                            backgroundColor,
                                             borderWidth: 1,
                                             borderColor: '#777',
                                             hoverBorderWidth: 3,
@@ -378,7 +275,7 @@
                                     options: {
                                         title: {
                                             display: true,
-                                            text: 'Doanh số bán các sản phẩm',
+                                            text,
                                             fontSize: 25
                                         },
                                         legend: {
@@ -408,6 +305,7 @@
             </div>
         </div>
     </div>
+    {{/if}}
     <script>
 
     </script>

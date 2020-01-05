@@ -12,6 +12,6 @@ router.get('/index.html', function (req, res, next) {
 });
 router.get('/statistical',  auth.ensureAuthenticated, indexController.statistical)
 router.get('/statistical/year', auth.ensureAuthenticated, indexController.statisticalYear )
-router.get('/statistical/month', auth.ensureAuthenticated, indexController.statisticalMonth )
+router.get('/statistical/month',  indexController.statisticalMonth )
 router.get('/statistical/day',  auth.ensureAuthenticated, indexController.statisticalDay)
 module.exports = router;
