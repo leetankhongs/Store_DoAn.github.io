@@ -81,7 +81,7 @@ module.exports.topProducts = (req, res, next) => {
             res.render('TOP/TopSP.hbs', {topItems: items, pollData: JSON.stringify(items)});
             return;
         }
-
+        console.log(items);
         res.render('TOP/TopGH.hbs', {topItems: items, pollData: JSON.stringify(items), category, pollCategory: JSON.stringify(category)});
         
     })();

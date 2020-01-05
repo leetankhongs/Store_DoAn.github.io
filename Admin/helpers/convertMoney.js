@@ -1,6 +1,8 @@
 module.exports.convertMoney = function(integer) {
     var temp = Number(integer) ;
     var string ="";
+    if(integer === 0)
+      string += "0";
     var dem=0;
   
     while(temp > 0)
