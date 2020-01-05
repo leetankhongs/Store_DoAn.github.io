@@ -1,110 +1,200 @@
+<!-- Sidebar end=============================================== -->
+<div class="span9">
+    <ul class="breadcrumb">
+        <li><a href="/index">Home</a> <span class="divider">/</span></li>
+        <li class="active">{{Brand}}</li>
+    </ul>
+    <h3> {{Brand}} <small class="pull-right"> {{title}}</small></h3>
+    <hr class="soft" />
 
-        <!-- Sidebar end=============================================== -->
-            <div class="span9">
-            <ul class="breadcrumb">
-                <li><a href="/index">Home</a> <span class="divider">/</span></li>
-                <li class="active">{{Brand}}</li>
-            </ul>
-            <h3> {{Brand}} <small class="pull-right"> {{title}}</small></h3>	
-            <hr class="soft"/>
+    <hr class="soft" />
+    <form class="form-horizontal span6" action="/product/search?require={{require}}" method="POST">
+        <div class="control-group">
+            <label class="control-label alignL">Sắp xếp </label>
 
-            <hr class="soft"/>
-            <form class="form-horizontal span6" action="/product/search?require={{require}}" method="POST">
-                <div class="control-group">
-                <label class="control-label alignL">Sắp xếp </label>
+            <select id="mySelect" name="sort" onchange="this.form.submit()">
+                <option name="table0" value="0">Mặc định</option>
+                <option name="table1" value="1">Theo tên A -Z</option>
+                <option name="table2" value="2">Theo tên Z-A</option>
+                <option name="table3" value="3">Giá tăng dần</option>
+                <option name="table4" value="4">Giá giảm dần</option>
+            </select>
 
-                <select id="mySelect" name="sort" onchange="this.form.submit()" >
-                    <option name="table0" value="0" >Mặc định</option>
-                    <option name="table1" value="1" >Theo tên A -Z</option>
-                    <option name="table2" value="2" >Theo tên Z-A</option>
-                    <option name="table3" value="3" >Giá tăng dần</option>
-                    <option name="table4" value="4">Giá giảm dần</option>
-                </select>
-                  
-                </div>
-                <script>
-                        document.getElementById("mySelect").selectedIndex = {{sort}};
-                </script>
-            </form>
-                        
-            <div id="myTab" class="pull-right">
-                <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
-                <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
-            </div>
-            <br class="clr"/>
-            {{#if success_msg }}
-                <div class="alert alert-success alert-dismissible show" role="alert">
-                    <strong>{{this.success_msg}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>	
-	        {{/if}}
+        </div>
+        <script>
+            document.getElementById("mySelect").selectedIndex = {{ sort }};
+        </script>
+    </form>
+
+    <div id="myTab" class="pull-right">
+        <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+        <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i
+                    class="icon-th-large"></i></span></a>
+    </div>
+    <br class="clr" />
+    {{#if success_msg }}
+    <div class="alert alert-success alert-dismissible show" role="alert">
+        <strong>{{this.success_msg}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {{/if}}
+    <div class="tab-content">
+        <div class="tab-pane" id="listView">
             <div class="tab-content">
-                 <div class="tab-pane" id="listView">
-                    {{#each products}}
-                    <div class="row">	  
+                {{#each temp}}
+                {{#if this.active}}
+                <div class="tab-pane  active" id="pagelist{{this.pos}}">
+                    {{#each this.laptop}}
+                    <div class="row">
                         <div class="span2">
-                            <img src="{{this.Image}}" alt=""/>
+                            <img src="{{this.Image}}" alt="" />
                         </div>
                         <div class="span4">
-                            <h3>{{this.name}}</h3>				
-                            <hr class="soft"/>
-                            <h5>{{this.name}} </h5>
+                            <h3>{{this.Name}}</h3>
+                            <hr class="soft" />
+                            <h5>{{this.Name}} </h5>
                             <p>
-                            {{this.Description}}
+                                {{this.Description}}
                             </p>
-                            <a class="btn btn-small pull-right" href="/product/product_details/{{this.Brand}}?id={{this._id}}">Chi tiết</a>
-                            <br class="clr"/>
+                            <a class="btn btn-small pull-right"
+                                href="/product/product_details/{{this.Brand}}?id={{this._id}}">Chi tiết</a>
+                            <br class="clr" />
                         </div>
                         <div class="span3 alignR">
-                        <form class="form-horizontal qtyFrm">
-                        <h3>{{this.Cost}}</h3>
-                        
-                        <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào <i class=" icon-shopping-cart"></i></a>
-                        <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-                        
-                        </form>
+                            <form class="form-horizontal qtyFrm">
+                                <h3>{{_toStringMoney this.Cost}}</h3>
+
+                                <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào
+                                    <i class=" icon-shopping-cart"></i></a>
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"
+                                    class="btn btn-large"><i class="icon-zoom-in"></i></a>
+
+                            </form>
                         </div>
                     </div>
                     {{/each}}
-                    <hr class="soft"/>
-                   
-                    <hr class="soft"/>
                 </div>
-                <div class="tab-pane  active" id="blockView">
-                    <ul class="thumbnails">
-                        {{# each products}}
-                        <li class="span3">
-                        <div class="thumbnail">
-                            <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" ><img src="{{this.Image}}" alt="" /></a>
-                            <div class="caption">
-                            <h5>{{this.SimpleDetail}}</h5>
-					        <h5 style="text-align:center"><a class="btn" href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i class="icon-zoom-in"></i></a> <a class="btn" href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">{{this.Cost}}</a></h5>
-                            </div>
+                {{else}}
+                <div class="tab-pane" id="pagelist{{this.pos}}">
+                    {{#each this.laptop}}
+                    <div class="row">
+                        <div class="span2">
+                            <img src="{{this.Image}}" alt="" />
                         </div>
-                        </li>
-                       {{/each}}
-                    </ul>
-                <hr class="soft"/>
-                </div>
-            </div>
+                        <div class="span4">
+                            <h3>{{this.Name}}</h3>
+                            <hr class="soft" />
+                            <h5>{{this.Name}} </h5>
+                            <p>
+                                {{this.Description}}
+                            </p>
+                            <a class="btn btn-small pull-right"
+                                href="/product/product_details/{{this.Brand}}?id={{this._id}}">Chi tiết</a>
+                            <br class="clr" />
+                        </div>
+                        <div class="span3 alignR">
+                            <form class="form-horizontal qtyFrm">
+                                <h3>{{_toStringMoney this.Cost}}</h3>
 
-            <a href="compair" class="btn btn-large pull-right">Compair Product</a>
-            <div class="pagination" onload="generate_table({{Brand}},{{count}}">
-                <ul>
-                <li><a href="/product/search?require={{require}}&page={{positionPage.pre}}&sort={{sort}}">&lsaquo;</a></li>
-                {{#each pages}}
-                    <li><a href="/product/search?require={{this.require}}&page={{this.pos}}&sort={{this.sort}}">{{this.pos}}</a></li>
+                                <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào
+                                    <i class=" icon-shopping-cart"></i></a>
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"
+                                    class="btn btn-large"><i class="icon-zoom-in"></i></a>
+
+                            </form>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
                 {{/each}}
-                <li><a href="/product/search?require={{require}}&page={{positionPage.pos}}&sort={{sort}}">&rsaquo;</a></li> 
-                </ul> 
-                </div>
-                <br class="clr"/>
-                <nav class="pagination" role="navigation">
-
             </div>
+            <div id="myTab" class="pull-left">
+                <div class="pagination">
+                    <ul>
+                        {{#each temp}}
+                        <li><a href="#pagelist{{this.pos}}" data-toggle="tab">{{this.pos}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <hr class="soft" />
+
+            <hr class="soft" />
+        </div>
+
+        <div class="tab-pane  active" id="blockView">
+
+            <div class="tab-content">
+                {{#each temp}}
+                {{#if this.active}}
+                <div class="tab-pane  active" id="page{{this.pos}}">
+                    <ul class="thumbnails">
+                        {{#each this.laptop}}
+                        <li class="span3">
+                            <div class="thumbnail">
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img
+                                        src="{{this.Image}}" alt="" /></a>
+                                <div class="caption">
+                                    <h5>{{this.SimpleDetail}}</h5>
+                                    <h5 style="text-align:center"><a class="btn"
+                                            href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i
+                                                class="icon-zoom-in"></i></a> <a class="btn"
+                                            href="/cart/add-to-cart/{{this._id}}">Thêm <i
+                                                class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
+                                            href="#">{{_toStringMoney this.Cost}}</a></h5>
+                                </div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{else}}
+                <div class="tab-pane" id="page{{this.pos}}">
+                    <ul class="thumbnails">
+                        {{#each this.laptop}}
+                        <li class="span3">
+                            <div class="thumbnail">
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img
+                                        src="{{this.Image}}" alt="" /></a>
+                                <div class="caption">
+                                    <h5>{{this.SimpleDetail}}</h5>
+                                    <h5 style="text-align:center"><a class="btn"
+                                            href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i
+                                                class="icon-zoom-in"></i></a> <a class="btn"
+                                            href="/cart/add-to-cart/{{this._id}}">Thêm <i
+                                                class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
+                                            href="#">{{_toStringMoney this.Cost}}</a></h5>
+                                </div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+
+                {{/each}}
+            </div>
+            <div id="myTab" class="pull-left">
+                <div class="pagination">
+                    <ul>
+                        {{#each temp}}
+                        <li><a href="#page{{this.pos}}" data-toggle="tab">{{this.pos}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="soft" />
         </div>
     </div>
-</div>
 
+
+</div>
+</div>
+</div>
