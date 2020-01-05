@@ -2,6 +2,59 @@
 const productService = require('../services/productService');
 const orderService = require('../services/orderService');
 const Cart = require('../models/cartModel');
+const categoriesService = require('../services/categoryService');
+
+random_rgba = () => {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
+}
+
+module.exports.index = async (req, res, next) =>{
+    const orders = await orderService.getOrdersToday();
+    
+    const date = new Date(Date.now());
+  
+    const categories = await categoriesService.getAllCategories();
+  
+    var listBrand = [];
+    var statisticals =[];
+    var colors = [];
+    for(var i = 0; i < categories.length; i++)
+    {
+      const brands = await categoriesService.findListBrandOfCategory(categories[i].Type);
+      for(var j = 0; j < brands.length; j++)
+      {
+        listBrand.push(brands[j]);
+        statisticals.push(Number(0));
+        colors.push(random_rgba());
+      }
+    }
+  
+    var totalMoney = 0;
+    const countOrder = orders.length;
+  
+    for(var i = 0; i < orders.length; i++)
+    {
+      const cart = new Cart(orders[i].Cart);
+      const arr = await cart.generateArray();
+  
+      for(var j =0 ; j < arr.length; j++)
+      {
+        for(var k = 0; k < listBrand.length; k++)
+        {
+          if(listBrand[k] === arr[j].item.Brand)
+          {
+            statisticals[k] += Number(arr[j].price);
+            totalMoney += Number(arr[j].price);
+            break;
+          }
+        }
+      }
+    }
+    const text = "THỐNG KÊ DOANH SỐ NGÀY HÔM NAY ( " + date.getDate() + " / " + (date.getMonth()+1) + " / " + date.getFullYear() + " )";
+
+    res.render('index', { totalMoney, countOrder, lable: JSON.stringify(listBrand), data: JSON.stringify(statisticals), color: JSON.stringify(colors), text: JSON.stringify(text) });
+  }
 
 module.exports.statistical = async (req, res, next) => {
     const date =  new Date(Date.now());
