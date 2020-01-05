@@ -239,7 +239,7 @@ exports.forgetPassword = async (req,res,next)=>
   link="http://"+req.get('host')+"/users/exchange-password/?email="+email+"&verify="+rand;
   const findUser = await User.findOne({Email: email});
   console.log(findUser);
-  if(findUser == null || findUser.length == 0)
+  if(findUser == null)
   {
     req.flash("error_msg","Email này không tồn tại");
     res.redirect(backURL);
@@ -270,7 +270,7 @@ exports.forgetPassword = async (req,res,next)=>
 
   const findUserVerified = await Verify.findOne({Email: email});
   console.log(findUserVerified);
-  if(findUserVerified != null || findUserVerified.length > 0)
+  if(findUserVerified != null)
   {
     const id_findUserVerified = findUserVerified._id;
     await Verify.findByIdAndDelete({_id: id_findUserVerified});
