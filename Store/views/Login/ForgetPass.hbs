@@ -1,21 +1,29 @@
 <div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index">Home</a> <span class="divider">/</span></li>
+		<li><a href="/index">Home</a> <span class="divider">/</span></li>
 		<li class="active">Quên mật khẩu</li>
     </ul>
 	<h3> QUÊN MẬT KHẨU?</h3>	
 	<hr class="soft"/>
 	
+	{{#if error_msg }}
+		<div class="alert alert-error alert-dismissible show" role="alert">
+			<strong>{{this.error_msg}}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{{/if}}
 	<div class="row">
 		<div class="span9" style="min-height:900px">
 			<div class="well">
 			<h5>Đặt lại mật khẩu </h5><br/>
 			Vui lòng nhập địa chỉ email cho tài khoản của bạn. Một mã xác minh sẽ được gửi đến bạn. Khi bạn đã nhận được mã xác minh, bạn sẽ có thể chọn mật khẩu mới cho tài khoản của mình.<br/><br/><br/>
-			<form>
+			<form method="POST">
 			  <div class="control-group">
 				<label class="control-label" for="inputEmail1">Địa chỉ Email</label>
 				<div class="controls">
-				  <input class="span3"  type="text" id="inputEmail1" placeholder="Email">
+				  <input class="span3" name="email" type="text" id="inputEmail1" placeholder="Email">
 				</div>
 			  </div>
 			  <div class="controls">

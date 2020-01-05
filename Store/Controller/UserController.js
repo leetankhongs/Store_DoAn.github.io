@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
+var nodemailer = require('nodemailer');
 
-let User = require("../models/userModel");
+const User = require("../models/userModel");
+const Verify = require("../models/verify");
 const orderService = require('../services/orderService');
 const Order = require('../models/order');
 const passport = require('passport');
@@ -73,7 +75,7 @@ exports.register = (req,res,next) =>
           Email,
           Password,
           Address,
-          Phone
+          Phone,
         });
   
 
@@ -87,12 +89,41 @@ exports.register = (req,res,next) =>
 
           //save
           newUser.save().then(User => {
-            req.flash('success_msg','Đăng kí thành công. Đăng nhập ngay!!!');
-              res.redirect('/users/login');
+            var rand,mailOptions,host,link;
+            rand=Math.floor((Math.random() * 50000) + 139);
+            host =req.get('host');
+            link="http://"+req.get('host')+"/users/activeAccount/?email="+Email+"&verify="+rand;
 
-          }).catch(err => console.log(err));
-        }
-        ))
+            var smtpTransport = nodemailer.createTransport({
+              service: "Gmail",
+              auth: {
+                  user: "hfordocument@gmail.com",
+                  pass: "hung123#"
+              }
+            });
+            var mailOptions=
+            {
+              to : Email,
+              subject : "Please confirm your Email account",
+              html : "Hello,<br> Please Click on the link to active your account.<br><a href="+link+">Click here to active</a>"
+            }
+            console.log(mailOptions);
+            smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                    console.log(error);
+                res.render("/Login/ForgetPass.hbs", {er: "Can't send email right now. Try later!"});
+            }});
+
+            const verifyControl = new Verify({
+              Email: Email,
+              Code: rand
+            })
+            verifyControl.save();
+
+            req.flash('success_msg','Hãy xác nhận email của mình!!!');
+              res.redirect('/users/login');}).
+              catch(err => console.log(err));
+        }))
           }
         })
     
@@ -105,9 +136,13 @@ exports.authenticate = (req, res, next) => {
   })(req, res, next)
 }
 
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
 
- 
+  const user1 = await User.findOne({Email: req.user.Email});
+  const isActive = user1.isActive;
+  if(isActive)
+  {
+  
         if(req.session.cart)
           req.user.Cart =req.session.cart  ;
         else
@@ -121,6 +156,10 @@ exports.login = (req, res, next) => {
         {
         res.redirect('/');
         }
+  }else{
+    req.flash('error','Hãy xác thực email của mình');
+    res.redirect('/users/login')
+  }
   
 }
 
@@ -189,6 +228,63 @@ exports.isLogin = (req, res, next) =>{
   res.redirect('/users/login')
 }
 
+
+exports.forgetPassword = async (req,res,next)=>
+{
+  var email = req.body.email;
+  var backURL = req.header('Referer') || '/';
+  var rand,mailOptions,host,link;
+  rand=Math.floor((Math.random() * 50000) + 69);
+  host =req.get('host');
+  link="http://"+req.get('host')+"/users/exchange-password/?email="+email+"&verify="+rand;
+  const findUser = await User.findOne({Email: email});
+  console.log(findUser);
+  if(findUser == null || findUser.length == 0)
+  {
+    req.flash("error_msg","Email này không tồn tại");
+    res.redirect(backURL);
+  }
+
+  var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "hfordocument@gmail.com",
+        pass: "hung123#"
+    }
+  });
+
+  var mailOptions=
+  {
+    to : email,
+    subject : "Please confirm your Email account",
+    html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
+  }
+
+  
+  console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response){
+     if(error){
+            console.log(error);
+        res.render("/Login/ForgetPass.hbs", {er: "Can't send email right now. Try later!"});
+     }});
+
+  const findUserVerified = await Verify.findOne({Email: email});
+  console.log(findUserVerified);
+  if(findUserVerified != null || findUserVerified.length > 0)
+  {
+    const id_findUserVerified = findUserVerified._id;
+    await Verify.findByIdAndDelete({_id: id_findUserVerified});
+  }
+  const verifyControl = new Verify({
+    Email: email,
+    Code: rand
+  })
+  await verifyControl.save();
+
+  req.flash('success_msg','Kiểm tra email và đổi mật khẩu!');
+  res.redirect('/users/login');
+}
+
 exports.statusProduct = async (req, res, next) =>
 {
     const idUser = req.user;
@@ -218,4 +314,99 @@ exports.detailOrder = async (req, res, next) => {
   console.log(order);
 
   res.render('Cart/DetailOrder', {order});
+}
+
+
+exports.exchangePassword = async (req, res, next)=>
+{
+  var pass1 = req.body.newpassword1;
+  var pass2 = req.body.newpassword2;
+  var email = req.query.email;
+  var code = req.query.verify;
+  var backURL = req.header('Referer') || '/';
+
+  const findUser = await User.findOne({Email: email});
+  if(findUser != null )
+  {
+    const verifiedEmail = await Verify.findOne({Email: email});
+    if(verifiedEmail != null )
+    {
+      const codeUser = verifiedEmail.Code;
+      console.log(codeUser);
+      if(codeUser == code)
+      {
+        if(pass1 != pass2)
+        {
+          req.flash("error_msg","Mật khẩu không khớp, thử lại!");
+          res.redirect(backURL);
+        }
+        else if (pass1.length <6 || pass2.length<6)
+        {
+          req.flash("error_msg","Hãy điền mật khẩu trên 6 kí tự, thử lại!");
+          res.redirect(backURL);
+        }
+        else
+        {
+          await bcrypt.genSalt(10,(err, salt)=>
+          bcrypt.hash(pass1,salt,(err,hash)=>
+          {
+            if(err) throw err;
+            
+            findUser.Password = hash;
+            findUser.save().then(() =>
+            {
+              const verifyID = verifiedEmail._id;
+              Verify.findOneAndDelete({_id:verifyID}).then(()=>
+              {
+                req.flash('success_msg','Đổi mật khẩu thành công. Đăng nhập ngay!!!');
+                res.redirect('/users/login');
+              });
+            
+            });
+          }));
+        
+        }
+      }
+    }
+  }
+  else{
+  
+  req.flash('error','Có gì đó không đúng. Hãy kiểm tra lại!');
+  res.redirect('/users/login');
+  }
+}
+
+exports.activeAccount = async (req, res, next)=>
+{
+  const email = req.query.email;
+  const code = req.query.verify;
+
+  const findUser = await User.findOne({Email: email});
+  if(findUser != null )
+  {
+    const verifiedEmail = await Verify.findOne({Email: email});
+    if(verifiedEmail != null )
+    {
+      const codeUser = verifiedEmail.Code;
+      if(codeUser == code)
+      {
+        findUser.isActive = true;
+        findUser.save().then(() =>
+        {
+          const verifyID = verifiedEmail._id;
+          Verify.findOneAndDelete({_id:verifyID}).then(()=>
+          {
+            req.flash('success_msg','Xác thực thành công. Đăng nhập ngay!!!');
+            res.redirect('/users/login');
+          });
+        
+        });
+      }
+    }
+  }else{
+    req.flash('error','Có gì đó không đúng. Hãy kiểm tra lại!');
+    res.redirect('/users/login');
+  }
+
+  
 }

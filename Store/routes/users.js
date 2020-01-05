@@ -14,15 +14,24 @@ router.get('/forgetpass', function(req, res, next) {
   res.render('Login/ForgetPass.hbs', { title: 'Express' });
 });
 
+router.get('/exchange-password', function(req,res,next)
+{
+  res.render("Login/ChangePassword.hbs");
+})
+router.get('/User', function(req, res, next) {
+  res.render('Login/User.hbs', { title: 'Express' });
+});
+
+router.post('/exchange-password', userController.exchangePassword);
 router.post('/register', userController.register);
-
-
 router.post('/login', userController.authenticate, userController.login);
 router.get('/infor', userController.informationUser);
 router.get('/change-password', userController.pageChangePassword)
 router.post('/change-password', userController.changePassword);
 router.get('/logout', userController.logout);
+router.post('/forgetpass', userController.forgetPassword);
 router.get('/status', userController.statusProduct);
-router.get('/DetailOrder', userController.detailOrder)
+router.get('/DetailOrder', userController.detailOrder);
+router.get('/activeAccount', userController.activeAccount);
 
 module.exports = router;
