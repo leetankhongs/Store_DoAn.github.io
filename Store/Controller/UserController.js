@@ -90,18 +90,17 @@ exports.register = (req,res,next) =>
           //save
           newUser.save().then(User => {
             var rand,mailOptions,host,link;
-            rand=Math.floor((Math.random() * 100000) + 127);
+            rand=Math.floor((Math.random() * 50000) + 139);
             host =req.get('host');
             link="http://"+req.get('host')+"/users/activeAccount/?email="+Email+"&verify="+rand;
 
             var smtpTransport = nodemailer.createTransport({
               service: "Gmail",
               auth: {
-                  user: "lohuyhung1028@gmail.com",
+                  user: "hfordocument@gmail.com",
                   pass: "hung123#"
               }
             });
-
             var mailOptions=
             {
               to : Email,
@@ -121,7 +120,7 @@ exports.register = (req,res,next) =>
             })
             verifyControl.save();
 
-            req.flash('success_msg','Hãy xác nhận email  của mình!!!');
+            req.flash('success_msg','Hãy xác nhận email của mình!!!');
               res.redirect('/users/login');}).
               catch(err => console.log(err));
         }))
@@ -235,7 +234,7 @@ exports.forgetPassword = async (req,res,next)=>
   var email = req.body.email;
   var backURL = req.header('Referer') || '/';
   var rand,mailOptions,host,link;
-  rand=Math.floor((Math.random() * 100000) + 69);
+  rand=Math.floor((Math.random() * 50000) + 69);
   host =req.get('host');
   link="http://"+req.get('host')+"/users/exchange-password/?email="+email+"&verify="+rand;
   const findUser = await User.findOne({Email: email});
@@ -249,7 +248,7 @@ exports.forgetPassword = async (req,res,next)=>
   var smtpTransport = nodemailer.createTransport({
     service: "Gmail",
     auth: {
-        user: "lohuyhung1028@gmail.com",
+        user: "hfordocument@gmail.com",
         pass: "hung123#"
     }
   });
