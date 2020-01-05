@@ -23,6 +23,23 @@ module.exports.getOrders = async (currentPage, pageLength, deliveryState, _id) =
     return products;
 }
 
+module.exports.getOrdersToday = async () => {
+    const orders = await Order.find({});
+    const ordersToday =[];
+    const today = new Date(Date.now());
+
+    for(var i=0; i < orders.length; i++)
+    {
+        const time = new Date(orders[i].Time);
+        if(today.getDate() === time.getDate() && today.getMonth() === time.getMonth() && today.getFullYear() === time.getFullYear())
+        {
+            ordersToday.push(orders[i]);
+        }
+    }
+
+    return ordersToday;
+}
+
 module.exports.getAllOrders = async (deliveryState) => {
     let params = null;
     if(deliveryState !== null && deliveryState !== undefined) {
@@ -39,4 +56,8 @@ module.exports.getAllOrders = async (deliveryState) => {
 
 module.exports.changeDelivery = async (_id, deliveryState) => {
     return await Order.findByIdAndUpdate(_id, {Delivery: deliveryState});
+}
+
+module.exports.getAllSucessOrder = async ()=>{
+    return await Order.find({});
 }

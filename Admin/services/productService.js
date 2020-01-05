@@ -15,6 +15,10 @@ module.exports.findProductByID = async (_id) => {
     return await Product.findById(_id).lean();
 }
 
+module.exports.getAllProduct = async () => {
+    return await Product.find({});
+}
+
 module.exports.load = async (currentPage, pageLength, category, brand, name) => {
     const skip = currentPage * pageLength;
     let params = null;
