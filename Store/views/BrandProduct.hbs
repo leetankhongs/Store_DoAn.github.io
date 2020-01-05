@@ -42,73 +42,158 @@
     {{/if}}
     <div class="tab-content">
         <div class="tab-pane" id="listView">
-            {{#each laptops}}
-            <div class="row">
-                <div class="span2">
-                    <img src="{{this.Image}}" alt="" />
-                </div>
-                <div class="span4">
-                    <h3>{{this.Name}}</h3>
-                    <hr class="soft" />
-                    <h5>{{this.Name}} </h5>
-                    <p>
-                        {{this.Description}}
-                    </p>
-                    <a class="btn btn-small pull-right"
-                        href="/product/product_details/{{this.Brand}}?id={{this._id}}">Chi tiết</a>
-                    <br class="clr" />
-                </div>
-                <div class="span3 alignR">
-                    <form class="form-horizontal qtyFrm">
-                        <h3>{{_toStringMoney this.Cost}}</h3>
+            <div class="tab-content">
+                {{#each temp}}
+                {{#if this.active}}
+                <div class="tab-pane  active" id="pagelist{{this.pos}}">
+                    {{#each this.laptop}}
+                    <div class="row">
+                        <div class="span2">
+                            <img src="{{this.Image}}" alt="" />
+                        </div>
+                        <div class="span4">
+                            <h3>{{this.Name}}</h3>
+                            <hr class="soft" />
+                            <h5>{{this.Name}} </h5>
+                            <p>
+                                {{this.Description}}
+                            </p>
+                            <a class="btn btn-small pull-right"
+                                href="/product/product_details/{{this.Brand}}?id={{this._id}}">Chi tiết</a>
+                            <br class="clr" />
+                        </div>
+                        <div class="span3 alignR">
+                            <form class="form-horizontal qtyFrm">
+                                <h3>{{_toStringMoney this.Cost}}</h3>
 
-                        <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào <i
-                                class=" icon-shopping-cart"></i></a>
-                        <a href="/product/product_details/{{this.Brand}}?id={{this._id}}" class="btn btn-large"><i
-                                class="icon-zoom-in"></i></a>
+                                <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào
+                                    <i class=" icon-shopping-cart"></i></a>
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"
+                                    class="btn btn-large"><i class="icon-zoom-in"></i></a>
 
-                    </form>
+                            </form>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <div class="tab-pane" id="pagelist{{this.pos}}">
+                    {{#each this.laptop}}
+                    <div class="row">
+                        <div class="span2">
+                            <img src="{{this.Image}}" alt="" />
+                        </div>
+                        <div class="span4">
+                            <h3>{{this.Name}}</h3>
+                            <hr class="soft" />
+                            <h5>{{this.Name}} </h5>
+                            <p>
+                                {{this.Description}}
+                            </p>
+                            <a class="btn btn-small pull-right"
+                                href="/product/product_details/{{this.Brand}}?id={{this._id}}">Chi tiết</a>
+                            <br class="clr" />
+                        </div>
+                        <div class="span3 alignR">
+                            <form class="form-horizontal qtyFrm">
+                                <h3>{{_toStringMoney this.Cost}}</h3>
+
+                                <a href="/cart/add-to-cart/{{this._id}}" class="btn btn-large btn-primary"> Thêm vào
+                                    <i class=" icon-shopping-cart"></i></a>
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"
+                                    class="btn btn-large"><i class="icon-zoom-in"></i></a>
+
+                            </form>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{/each}}
+            </div>
+            <div id="myTab" class="pull-left">
+                <div class="pagination">
+                    <ul>
+                        {{#each temp}}
+                        <li><a href="#pagelist{{this.pos}}" data-toggle="tab">{{this.pos}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
                 </div>
             </div>
-            {{/each}}
             <hr class="soft" />
 
             <hr class="soft" />
         </div>
 
         <div class="tab-pane  active" id="blockView">
-            <ul class="thumbnails">
-                {{# each laptops}}
-                <li class="span3">
-                    <div class="thumbnail">
-                        <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img src="{{this.Image}}"
-                                alt="" /></a>
-                        <div class="caption">
-                            <h5>{{this.SimpleDetail}}</h5>
-                            <h5 style="text-align:center"><a class="btn"
-                                    href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i
-                                        class="icon-zoom-in"></i></a> <a class="btn"
-                                    href="/cart/add-to-cart/{{this._id}}">Thêm <i class="icon-shopping-cart"></i></a> <a
-                                    class="btn btn-primary" href="#">{{_toStringMoney this.Cost}}</a></h5>
-                        </div>
-                    </div>
-                </li>
+
+            <div class="tab-content">
+                {{#each temp}}
+                {{#if this.active}}
+                <div class="tab-pane  active" id="page{{this.pos}}">
+                    <ul class="thumbnails">
+                        {{#each this.laptop}}
+                        <li class="span3">
+                            <div class="thumbnail">
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img
+                                        src="{{this.Image}}" alt="" /></a>
+                                <div class="caption">
+                                    <h5>{{this.SimpleDetail}}</h5>
+                                    <h5 style="text-align:center"><a class="btn"
+                                            href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i
+                                                class="icon-zoom-in"></i></a> <a class="btn"
+                                            href="/cart/add-to-cart/{{this._id}}">Thêm <i
+                                                class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
+                                            href="#">{{_toStringMoney this.Cost}}</a></h5>
+                                </div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{else}}
+                <div class="tab-pane" id="page{{this.pos}}">
+                    <ul class="thumbnails">
+                        {{#each this.laptop}}
+                        <li class="span3">
+                            <div class="thumbnail">
+                                <a href="/product/product_details/{{this.Brand}}?id={{this._id}}"><img
+                                        src="{{this.Image}}" alt="" /></a>
+                                <div class="caption">
+                                    <h5>{{this.SimpleDetail}}</h5>
+                                    <h5 style="text-align:center"><a class="btn"
+                                            href="/product/product_details/{{this.Brand}}?id={{this._id}}"> <i
+                                                class="icon-zoom-in"></i></a> <a class="btn"
+                                            href="/cart/add-to-cart/{{this._id}}">Thêm <i
+                                                class="icon-shopping-cart"></i></a> <a class="btn btn-primary"
+                                            href="#">{{_toStringMoney this.Cost}}</a></h5>
+                                </div>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+
                 {{/each}}
-            </ul>
+            </div>
+            <div id="myTab" class="pull-left">
+                <div class="pagination">
+                    <ul>
+                        {{#each temp}}
+                        <li><a href="#page{{this.pos}}" data-toggle="tab">{{this.pos}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
             <hr class="soft" />
         </div>
     </div>
 
-    <div class="pagination" onload="generate_table({{Brand}},{{count}}">
-        <ul>
-            <li><a href="/product/BrandProduct/{{Brand}}?sort={{sort}}&page={{currentPage.pre}}">&lsaquo;</a></li>
-            {{#each pages}}
-            <li><a href="/product/BrandProduct/{{this.brand}}?sort={{this.sort}}&page={{this.pos}}">{{this.pos}}</a>
-            </li>
-            {{/each}}
-            <li><a href="/product/BrandProduct/{{Brand}}?sort={{sort}}&page={{currentPage.pos}}">&rsaquo;</a></li>
-        </ul>
-    </div>
     <br class="clr" />
     <nav class="pagination" role="navigation">
 
