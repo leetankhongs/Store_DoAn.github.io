@@ -1,4 +1,5 @@
 const orderService = require('../services/orderService');
+const mongoose = require('mongoose');
 
 const pageLength = 5;
 const maxPage = 5;
@@ -6,6 +7,12 @@ const maxPage = 5;
 module.exports.getOrders = (req, res, next) => {
     const deliveryType = req.query.deliveryType;
     const orderID = req.query.ID;
+
+    if(orderID && !mongoose.Types.ObjectId.isValid(orderID)) {
+        req.flash('error_msg', 'ID sai cú pháp rồi kìa bạn gì ơi !!!!');
+        res.redirect(req.get('referrer'));
+        return;
+    }
 
     let currentPage = !req.query.currentPage ? 0 : req.query.currentPage - 1;
     if(currentPage < 0 || isNaN(currentPage)) {
