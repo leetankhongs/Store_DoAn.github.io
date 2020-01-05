@@ -137,9 +137,13 @@ exports.authenticate = (req, res, next) => {
   })(req, res, next)
 }
 
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
 
- 
+  const user1 = await User.findOne({Email: req.user.Email});
+  const isActive = user1.isActive;
+  if(isActive)
+  {
+  
         if(req.session.cart)
           req.user.Cart =req.session.cart  ;
         else
@@ -153,6 +157,10 @@ exports.login = (req, res, next) => {
         {
         res.redirect('/');
         }
+  }else{
+    req.flash('error','Hãy xác thực email của mình');
+    res.redirect('/users/login')
+  }
   
 }
 
