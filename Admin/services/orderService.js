@@ -40,3 +40,7 @@ module.exports.getAllOrders = async (deliveryState) => {
 module.exports.changeDelivery = async (_id, deliveryState) => {
     return await Order.findByIdAndUpdate(_id, {Delivery: deliveryState});
 }
+
+module.exports.getAllSucessOrder = async ()=>{
+    return await Order.find({});
+}
