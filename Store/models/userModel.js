@@ -21,12 +21,19 @@ var userSchema= new mongoose.Schema({
     {   type: String,
         require:true
     },
+    isActive:
+    {
+        type: Boolean,
+        default: false,
+        require: true
+    },
     Cart:
     {
         type: Object,
         default: null,
         required: false
-    }
+    },
+   
 });
 
 module.exports = mongoose.model('users', userSchema);

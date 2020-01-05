@@ -31,6 +31,7 @@ router.post('/change-password', userController.changePassword);
 router.get('/logout', userController.logout);
 router.post('/forgetpass', userController.forgetPassword);
 router.get('/status', userController.statusProduct);
-router.get('/DetailOrder', userController.detailOrder)
+router.get('/DetailOrder', userController.detailOrder);
+router.get('/activeAccount', userController.activeAccount);
 
 module.exports = router;

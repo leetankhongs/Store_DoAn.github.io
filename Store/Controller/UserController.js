@@ -75,7 +75,7 @@ exports.register = (req,res,next) =>
           Email,
           Password,
           Address,
-          Phone
+          Phone,
         });
   
 
@@ -89,7 +89,39 @@ exports.register = (req,res,next) =>
 
           //save
           newUser.save().then(User => {
-            req.flash('success_msg','Đăng kí thành công. Đăng nhập ngay!!!');
+            var rand,mailOptions,host,link;
+            rand=Math.floor((Math.random() * 100000) + 127);
+            host =req.get('host');
+            link="http://"+req.get('host')+"/users/activeAccount/?email="+Email+"&verify="+rand;
+
+            var smtpTransport = nodemailer.createTransport({
+              service: "Gmail",
+              auth: {
+                  user: "lohuyhung1028@gmail.com",
+                  pass: "hung123#"
+              }
+            });
+
+            var mailOptions=
+            {
+              to : Email,
+              subject : "Please confirm your Email account",
+              html : "Hello,<br> Please Click on the link to active your account.<br><a href="+link+">Click here to active</a>"
+            }
+            console.log(mailOptions);
+            smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                    console.log(error);
+                res.render("/Login/ForgetPass.hbs", {er: "Can't send email right now. Try later!"});
+            }});
+
+            const verifyControl = new Verify({
+              Email: Email,
+              Code: rand
+            })
+            verifyControl.save();
+
+            req.flash('success_msg','Hãy xác nhận email  của mình!!!');
               res.redirect('/users/login');}).
               catch(err => console.log(err));
         }))
@@ -208,7 +240,6 @@ exports.forgetPassword = async (req,res,next)=>
 
   var smtpTransport = nodemailer.createTransport({
     service: "Gmail",
-    
     auth: {
         user: "lohuyhung1028@gmail.com",
         pass: "hung123#"
@@ -288,12 +319,9 @@ exports.exchangePassword = async (req, res, next)=>
   var backURL = req.header('Referer') || '/';
 
   const findUser = await User.findOne({Email: email});
-  console.log(findUser);
   if(findUser != null )
   {
     const verifiedEmail = await Verify.findOne({Email: email});
-    
-    console.log(verifiedEmail);
     if(verifiedEmail != null )
     {
       const codeUser = verifiedEmail.Code;
@@ -312,9 +340,6 @@ exports.exchangePassword = async (req, res, next)=>
         }
         else
         {
-         // var newpass;
-          //const idU = findUser._id;
-          //console.log(idU);
           await bcrypt.genSalt(10,(err, salt)=>
           bcrypt.hash(pass1,salt,(err,hash)=>
           {
@@ -338,8 +363,43 @@ exports.exchangePassword = async (req, res, next)=>
     }
   }
   else{
-    console.log("11111111111111111111");
+  
   req.flash('error','Có gì đó không đúng. Hãy kiểm tra lại!');
   res.redirect('/users/login');
   }
+}
+
+exports.activeAccount = async (req, res, next)=>
+{
+  const email = req.query.email;
+  const code = req.query.verify;
+
+  const findUser = await User.findOne({Email: email});
+  if(findUser != null )
+  {
+    const verifiedEmail = await Verify.findOne({Email: email});
+    if(verifiedEmail != null )
+    {
+      const codeUser = verifiedEmail.Code;
+      if(codeUser == code)
+      {
+        findUser.isActive = true;
+        findUser.save().then(() =>
+        {
+          const verifyID = verifiedEmail._id;
+          Verify.findOneAndDelete({_id:verifyID}).then(()=>
+          {
+            req.flash('success_msg','Xác thực thành công. Đăng nhập ngay!!!');
+            res.redirect('/users/login');
+          });
+        
+        });
+      }
+    }
+  }else{
+    req.flash('error','Có gì đó không đúng. Hãy kiểm tra lại!');
+    res.redirect('/users/login');
+  }
+
+  
 }
