@@ -15,6 +15,7 @@ module.exports.topProducts = (req, res, next) => {
             category = await categoryService.findCategory(req.query.Category);
             if(!category) {
                 res.render('error.hbs', {message: "Error finding category"});
+                return;
             }
         }
         const dictionary = {};
