@@ -1,6 +1,7 @@
+const cloudinary = require('cloudinary');
+
 const categoryService = require('../services/categoryService');
 const productService = require('../services/productService');
-const cloudinary = require('cloudinary');
 const Product = require('../models/productModel');
 
 const pageLength = 10;
@@ -131,6 +132,6 @@ module.exports.upsertProductPost = async (req, res, next) => {
         newProduct = new Product(newProduct);
         await newProduct.save();
     }
-   
+    req.flash('success_msg','Thực hiện thành công');
     res.redirect('/categories/'+ req.body.Category + '/products');
 }

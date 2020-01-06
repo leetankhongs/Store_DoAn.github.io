@@ -29,6 +29,7 @@ exports.addToCart = async (req, res, next) => {
         res.redirect(backURL);
     })
 }
+
 exports.shoppingCart = async (req, res, next) => {
     if(!req.session.cart && ! req.user  || (req.session.cart === null))
         return res.render('Cart/Cart.hbs', {products: null} );
@@ -132,7 +133,6 @@ exports.Checkout = async (req, res, next) => {
     }
 
 }
-
 
 exports.updateQty = (req, res, next) => {
     var productID = req.params.id;
