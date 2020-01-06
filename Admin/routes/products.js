@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
+
 const productController = require('../controllers/productController');
 const auth = require("../Config/auth");
 const upload = require("../handlers/multer");

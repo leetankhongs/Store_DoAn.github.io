@@ -1,5 +1,6 @@
 const products = require("../models/productModel");
 const productService = require("../services/productService");
+
 exports.home = async (req,res,next) =>{
     const laptop = await productService.findProductByTypeWithLimit('Laptop', 8);
     const phone = await productService.findProductByTypeWithLimit('Phone', 8);
