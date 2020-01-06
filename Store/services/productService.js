@@ -38,3 +38,8 @@ module.exports.checkEnoughQuantity = async(ID, Count) =>{
         return true;
     
 }
+
+module.exports.findProductByTypeWithLimit = async (Type, limit) => {
+    return await products.find({TypeProduct: Type}).limit(limit);
+}
+
