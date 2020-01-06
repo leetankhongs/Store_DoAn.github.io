@@ -107,10 +107,8 @@ exports.register = (req,res,next) =>
               subject : "Please confirm your Email account",
               html : "Hello,<br> Please Click on the link to active your account.<br><a href="+link+">Click here to active</a>"
             }
-            console.log(mailOptions);
             smtpTransport.sendMail(mailOptions, function(error, response){
             if(error){
-                    console.log(error);
                 res.render("/Login/ForgetPass.hbs", {er: "Can't send email right now. Try later!"});
             }});
 
@@ -239,7 +237,7 @@ exports.forgetPassword = async (req,res,next)=>
   link="http://"+req.get('host')+"/users/exchange-password/?email="+email+"&verify="+rand;
   const findUser = await User.findOne({Email: email});
   console.log(findUser);
-  if(findUser == null || findUser.length == 0)
+  if(findUser == null)
   {
     req.flash("error_msg","Email này không tồn tại");
     res.redirect(backURL);
@@ -270,7 +268,7 @@ exports.forgetPassword = async (req,res,next)=>
 
   const findUserVerified = await Verify.findOne({Email: email});
   console.log(findUserVerified);
-  if(findUserVerified != null || findUserVerified.length > 0)
+  if(findUserVerified != null)
   {
     const id_findUserVerified = findUserVerified._id;
     await Verify.findByIdAndDelete({_id: id_findUserVerified});
@@ -410,3 +408,12 @@ exports.activeAccount = async (req, res, next)=>
 
   
 }
+
+exports.forgetPass = function(req, res, next) {
+  res.render('Login/ForgetPass.hbs', { title: 'Express' });
+}
+
+exports.exchangePasswordGet = function(req,res,next)
+{
+  res.render("Login/ChangePassword.hbs");
+};

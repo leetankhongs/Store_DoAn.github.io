@@ -9,13 +9,6 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 
-//doten
-require('dotenv').config();
-require('./handlers/cloudinary');
-
-//Passport 
-require('./Config/passport.js')(passport);
-
 //Include helpers
 let paginationHelpers = require('./helpers/pagination');
 let stateHelpers = require('./helpers/state');
@@ -32,6 +25,13 @@ let topRouter = require('./routes/top');
 
 //Include services
 let categoryService = require('./services/categoryService');
+
+//doten
+require('dotenv').config();
+require('./handlers/cloudinary');
+
+//Passport 
+require('./Config/passport.js')(passport);
 
 //Create app
 var app = express();

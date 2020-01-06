@@ -38,41 +38,48 @@ exports.detailProduct = async (req, res, next) => {
 
 }
 
-exports.brand = async (req,res, next) =>
-{
-      const sort = req.query.sort || 0;
-      var typeSort = null;
+exports.brand = async (req, res, next) => {
+  const sort = req.query.sort || 0;
+  var typeSort = null;
 
-      if(parseInt(req.query.sort) === 1)
-        typeSort ={Name: 1};
-      if(parseInt(req.query.sort) ===2)
-        typeSort ={Name: -1}
-      if(parseInt(req.query.sort) ===3)
-        typeSort = {Cost: 1}
-      if(parseInt(req.query.sort) ===4)
-        typeSort = {Cost: -1}
+  if (parseInt(req.query.sort) === 1)
+    typeSort = { Name: 1 };
+  if (parseInt(req.query.sort) === 2)
+    typeSort = { Name: -1 }
+  if (parseInt(req.query.sort) === 3)
+    typeSort = { Cost: 1 }
+  if (parseInt(req.query.sort) === 4)
+    typeSort = { Cost: -1 }
 
 
-      const laptop = await productService.findProductByBrandWithSort(req.params.Brand, typeSort);
-      const count = await productService.countDocumentsByBrand(req.params.Brand);
+  const laptop = await productService.findProductByBrandWithSort(req.params.Brand, typeSort);
+  const count = await productService.countDocumentsByBrand(req.params.Brand);
 
-      var page = parseInt(req.query.page) || 1;
-      const limit = 3;
-      const start = (page - 1) * limit;
-      const end = page * limit;
-      const pages = [];
-  
-      for(var i =1; i<= Math.ceil(count/limit) ; i++)
-      {
-        pages[i] = {
-        pos : i,
-        sort: sort,
-        brand: req.params.Brand
-        }
-      }
-  
-      res.render('BrandProduct.hbs',{laptops: laptop.slice(start,end), Brand: req.params.Brand, count: count, pages: pages, 
-            currentPage: {pre: page -1 < 1 ? page:page-1, current: page, pos: page + 1 > Math.ceil(count/limit)? page: page+1} , sort: sort});
+  var temp = [];
+  var pos = 0;
+  var sl = 1;
+
+  while (pos < laptop.length) {
+    if (sl === 1) {
+      temp.push({
+        laptop: laptop.slice(pos, pos + 6),
+        pos: sl,
+        active: true
+      });
+    }
+    else
+    {
+      temp.push({
+        laptop: laptop.slice(pos, pos + 6),
+        pos: sl
+      });
+    }
+    pos += 6;
+    sl++;
+  }
+  res.render('BrandProduct.hbs', {
+    Brand: req.params.Brand, count: count, sort: sort, temp
+  });
 }
 
 
@@ -116,22 +123,29 @@ exports.search = async (req, res, next) => {
     }
   }
 
-  var page = parseInt(req.query.page) || 1;
-  const limit = 3;
-  const start = (page - 1) * limit;
-  const end = page * limit;
-
-  const pages = [];
-
-  for (var i = 1; i <= Math.ceil(count / limit); i++) {
-    pages[i] = {
-      pos: i,
-      sort: sort,
-      require: require
+  var temp = [];
+  var pos = 0;
+  var sl = 1;
+  while (pos < result.length) {
+    if (sl === 1) {
+      temp.push({
+        laptop: result.slice(pos, pos + 6),
+        pos: sl,
+        active: true
+      });
     }
+    else
+    {
+      temp.push({
+        laptop: result.slice(pos, pos + 6),
+        pos: sl
+      });
+    }
+    pos += 6;
+    sl++;
   }
 
-  res.render('searchProduct.hbs', { products: result.slice(start, end), require: require, pages: pages, positionPage: { pre: page - 1 < 1 ? page : page - 1, current: page, pos: page + 1 > Math.ceil(count / limit) ? page : page + 1 }, sort: sort });
+  res.render('searchProduct.hbs', { require: require,  sort: sort, temp });
 }
 
 exports.comment = (req, res, next) => {
