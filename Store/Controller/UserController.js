@@ -107,10 +107,8 @@ exports.register = (req,res,next) =>
               subject : "Please confirm your Email account",
               html : "Hello,<br> Please Click on the link to active your account.<br><a href="+link+">Click here to active</a>"
             }
-            console.log(mailOptions);
             smtpTransport.sendMail(mailOptions, function(error, response){
             if(error){
-                    console.log(error);
                 res.render("/Login/ForgetPass.hbs", {er: "Can't send email right now. Try later!"});
             }});
 
@@ -410,3 +408,12 @@ exports.activeAccount = async (req, res, next)=>
 
   
 }
+
+exports.forgetPass = function(req, res, next) {
+  res.render('Login/ForgetPass.hbs', { title: 'Express' });
+}
+
+exports.exchangePasswordGet = function(req,res,next)
+{
+  res.render("Login/ChangePassword.hbs");
+};

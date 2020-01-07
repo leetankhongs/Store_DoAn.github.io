@@ -62,7 +62,7 @@ exports.brand = async (req, res, next) => {
   while (pos < laptop.length) {
     if (sl === 1) {
       temp.push({
-        laptop: laptop.slice(pos, pos + 3),
+        laptop: laptop.slice(pos, pos + 6),
         pos: sl,
         active: true
       });
@@ -70,11 +70,11 @@ exports.brand = async (req, res, next) => {
     else
     {
       temp.push({
-        laptop: laptop.slice(pos, pos + 3),
+        laptop: laptop.slice(pos, pos + 6),
         pos: sl
       });
     }
-    pos += 3;
+    pos += 6;
     sl++;
   }
   res.render('BrandProduct.hbs', {
@@ -129,7 +129,7 @@ exports.search = async (req, res, next) => {
   while (pos < result.length) {
     if (sl === 1) {
       temp.push({
-        laptop: result.slice(pos, pos + 3),
+        laptop: result.slice(pos, pos + 6),
         pos: sl,
         active: true
       });
@@ -137,11 +137,11 @@ exports.search = async (req, res, next) => {
     else
     {
       temp.push({
-        laptop: result.slice(pos, pos + 3),
+        laptop: result.slice(pos, pos + 6),
         pos: sl
       });
     }
-    pos += 3;
+    pos += 6;
     sl++;
   }
 
