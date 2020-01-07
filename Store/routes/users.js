@@ -23,5 +23,5 @@ router.post('/register', userController.register);
 router.post('/login', userController.authenticate, userController.login);
 router.post('/change-password', userController.changePassword);
 router.post('/forgetpass', userController.forgetPassword);
-
+router.post('/updateInfor', userController.userUpdate);
 module.exports = router;
