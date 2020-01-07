@@ -40,7 +40,33 @@ exports.detailProduct = async (req, res, next) => {
 
 exports.brand = async (req, res, next) => {
   const sort = req.query.sort || 0;
+  const cost = Number(req.query.cost) || 0;
+  
   var typeSort = null;
+  var costMin = 0;
+  var costMax = 1000000000000;
+
+  if(cost === 1)
+  {
+    costMin = 0;
+    costMax = 10000000;
+  }
+  if(cost === 2)
+  {
+    costMin = 10000000;
+    costMax = 15000000;
+  }
+  if(cost === 3)
+  {
+    costMin = 15000000;
+    costMax = 20000000;
+  }
+
+  if(cost === 4)
+  {
+    costMin = 20000000;
+    costMax = 99999999999;
+  }
 
   if (parseInt(req.query.sort) === 1)
     typeSort = { Name: 1 };
@@ -52,8 +78,17 @@ exports.brand = async (req, res, next) => {
     typeSort = { Cost: -1 }
 
 
-  const laptop = await productService.findProductByBrandWithSort(req.params.Brand, typeSort);
+  const tempProduct = await productService.findProductByBrandWithSort(req.params.Brand, typeSort);
   const count = await productService.countDocumentsByBrand(req.params.Brand);
+
+  var laptop =[];
+  for(var i = 0 ; i < tempProduct.length; i++)
+  {
+    if(tempProduct[i].Cost <= costMax && tempProduct[i].Cost >= costMin)
+    {
+        laptop.push(tempProduct[i]);
+    }
+  }
 
   var temp = [];
   var pos = 0;
@@ -78,7 +113,7 @@ exports.brand = async (req, res, next) => {
     sl++;
   }
   res.render('BrandProduct.hbs', {
-    Brand: req.params.Brand, count: count, sort: sort, temp
+    Brand: req.params.Brand, count: count, sort: sort, temp, cost
   });
 }
 
@@ -86,17 +121,44 @@ exports.brand = async (req, res, next) => {
 exports.searchPost = (req, res, next) => {
   const require = req.query.require || req.body.require;
   const typeSort = req.body.sort || 0;
+  const Cost = req.query.cost || req.body.cost;
 
   if (typeSort === 0)
-    res.redirect('/product/search?require=' + require);
+    res.redirect('/product/search?require=' + require + '&cost=' + Cost);
   else
-    res.redirect('/product/search?require=' + require + '&sort=' + typeSort);
+    res.redirect('/product/search?require=' + require +  '&cost=' + Cost + '&sort=' + typeSort);
 
 }
 
 exports.search = async (req, res, next) => {
   const sort = req.query.sort || req.body.sort || 0;
+  var cost =  Number(req.query.cost) || Number(req.body.cost) || 0;
   var typeSort;
+
+  var costMin = 0;
+  var costMax = 1000000000000;
+
+  if(cost === 1)
+  {
+    costMin = 0;
+    costMax = 10000000;
+  }
+  if(cost === 2)
+  {
+    costMin = 10000000;
+    costMax = 15000000;
+  }
+  if(cost === 3)
+  {
+    costMin = 15000000;
+    costMax = 20000000;
+  }
+
+  if(cost === 4)
+  {
+    costMin = 20000000;
+    costMax = 99999999999;
+  }
 
   if (parseInt(req.query.sort) === 1)
     typeSort = { Name: 1 };
@@ -116,8 +178,8 @@ exports.search = async (req, res, next) => {
   var result = [];
   var count = 0;
   for (var i = 0; i < product.length; i++) {
-    if (String(product[i].Name).toLocaleLowerCase().includes(String(require.toLocaleLowerCase())) || String(product[i].Brand).toLocaleLowerCase().includes(String(require.toLocaleLowerCase()))
-      || String(product[i].TypeProduct).toLocaleLowerCase().includes(String(require.toLocaleLowerCase()))) {
+    if ((String(product[i].Name).toLocaleLowerCase().includes(String(require.toLocaleLowerCase())) || String(product[i].Brand).toLocaleLowerCase().includes(String(require.toLocaleLowerCase()))
+      || String(product[i].TypeProduct).toLocaleLowerCase().includes(String(require.toLocaleLowerCase()))) && (Number(product[i].Cost) <= Number(costMax) && Number (product[i].Cost) >= Number(costMin))) {
       result[count] = product[i];
       count++;
     }
@@ -145,7 +207,8 @@ exports.search = async (req, res, next) => {
     sl++;
   }
 
-  res.render('searchProduct.hbs', { require: require,  sort: sort, temp });
+  cost = cost.toString();
+  res.render('searchProduct.hbs', { require: require,  sort: sort, temp, cost });
 }
 
 exports.comment = (req, res, next) => {

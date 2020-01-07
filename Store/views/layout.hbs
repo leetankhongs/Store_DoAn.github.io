@@ -60,6 +60,16 @@
     <a class="brand" href="/index"><img src="/themes/images/logo.png" alt="Bootsshop"/></a>
 	<form class="form-inline navbar-search" action="/product/search" method="POST" >
 		<input  class="srchTxt" type="text" name="require" value="{{require}}"/>
+		<select id="mySelect1" name="cost">
+			<option name="table0" value="0">Giá</option>
+			<option name="table0" value="1">0 - 10tr</option>
+			<option name="table1" value="2">10tr - 15tr</option>
+			<option name="table2" value="3">15tr - 20tr</option>
+			<option name="table3" value="4">20tr ></option>
+        </select>
+		<script>
+            document.getElementById("mySelect1").selectedIndex = {{ cost }};
+        </script>
 		<button type="submit" id="submitButton" class="btn btn-primary">Tìm</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
