@@ -10,8 +10,13 @@
     <hr class="soft" />
     <form class="form-horizontal span6" action="/product/BrandProduct/{{Brand}}" method="get">
         <div class="control-group">
-            <label class="control-label alignL">Sắp xếp </label>
-
+            <select class="control-label alignL" id="mySelect2" name="cost" onchange="this.form.submit()">
+                <option name="table0" value="0">Giá</option>
+                <option name="table0" value="1">0 - 10tr</option>
+                <option name="table1" value="2">10tr - 15tr</option>
+                <option name="table2" value="3">15tr - 20tr</option>
+                <option name="table3" value="4">20tr ></option>
+            </select>
             <select id="mySelect" name="sort" onchange="this.form.submit()">
                 <option name="table0" value="0">Mặc định</option>
                 <option name="table1" value="1">Theo tên A -Z</option>
@@ -21,6 +26,10 @@
             </select>
 
         </div>
+
+		<script>
+            document.getElementById("mySelect2").selectedIndex = {{ cost }};
+        </script>
         <script>
             document.getElementById("mySelect").selectedIndex = {{ sort }};
         </script>
