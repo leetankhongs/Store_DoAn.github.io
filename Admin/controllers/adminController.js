@@ -2,6 +2,10 @@ const passport = require('passport');
 const bcrypt = require('bcryptjs');
 
 module.exports.loginGet = (req, res, next) => {
+    if(req.isAuthenticated()){
+      res.redirect('/');
+      return;
+    }
     res.render('Admin/Login.hbs', { title: 'Express' });
 }
 

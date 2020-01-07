@@ -5,7 +5,7 @@ module.exports = {
             return next();
         }
 
-        req.flash('error_msg','Please log in to view this resource');
+        req.flash('error_msg','Vui lòng đăng nhập để xem tài nguyên');
         res.redirect('/admin/login')
     }
 }
