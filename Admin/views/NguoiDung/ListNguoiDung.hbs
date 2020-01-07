@@ -54,9 +54,9 @@
                                             {{#compareIDs ../user._id this._id}}
                                             {{else}}
                                                 {{#if ../isDelete}}
-                                                    <button data-toggle="tooltip" title="Phục hồi" class="pd-setting-ed" name="recover" value={{this._id}}><i class="fa fa-undo" aria-hidden="true"></i></button>
+                                                    <button data-toggle="tooltip" title="Phục hồi" class="pd-setting-ed" name="recover" value={{../_id}}><i class="fa fa-undo" aria-hidden="true"></i></button>
                                                 {{else}}
-                                                    <button data-toggle="tooltip" title="Xoá" class="pd-setting-ed" name="delete" value={{this._id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                    <button data-toggle="tooltip" title="Xoá" class="pd-setting-ed" name="delete" value={{../_id}}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                 {{/if}}
                                             {{/compareIDs}}
 
