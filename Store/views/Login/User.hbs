@@ -7,26 +7,34 @@
 	<a href="/users/status" class="btn btn-large pull-right"> Lịch sử mua hàng </a>
 	<h3> Thông Tin Tài Khoản</h3>
 	<div class="well">
+			{{#if success_msg }}
+	<div class="alert alert-success alert-dismissible show" role="alert">
+ 		 <strong>{{this.success_msg}}</strong>
+  		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    	<span aria-hidden="true">&times;</span>
+  		</button>
+		</div>	
+	{{/if}}
 		
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="/users/updateInfor?id={{user._id}}" method="POST">
 			<h4>THÔNG TIN CÁ NHÂN</h4>
 			<div class="control-group">
 				<label class="control-label" for="inputFname1">Tên <sup>*</sup></label>
 				<div class="controls">
-					<input type="text" id="inputFname1" placeholder="Tên" value="{{user.Name}}">
+					<input type="text" id="inputFname1" name="Name" placeholder="Tên" value="{{user.Name}}">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="input_email">Email <sup>*</sup></label>
 				<div class="controls">
-					<input type="text" id="input_email" placeholder="Email" value="{{user.Email}}">
+					<p  >{{user.Email}}</p>
 				</div>
 			</div>
 			<h4>ĐỊA CHỈ</h4>
 			<div class="control-group">
 				<label class="control-label" for="address">Địa chỉ<sup>*</sup></label>
 				<div class="controls">
-					<input type="text" id="address" placeholder="Adress" value="{{user.Address}}" /> <span>Tên đường,
+					<input type="text" id="address" name="Address" placeholder="Adress" value="{{user.Address}}" /> <span>Tên đường,
 						quận (huyện)</span>
 				</div>
 			</div>
@@ -34,7 +42,7 @@
 			<div class="control-group">
 				<label class="control-label " for="phone">Điện thoại<sup>*</sup></label>
 				<div class="controls">
-					<input type="text" name="phone" id="phone" placeholder="Điện thoại" value="{{user.Phone}}" />
+					<input type="text" name="phone" name="Phone" id="phone" placeholder="Điện thoại" value="{{user.Phone}}" />
 					<span>Bạn bắt buộc phải đăng kí số điện thoại</span>
 				</div>
 			</div>

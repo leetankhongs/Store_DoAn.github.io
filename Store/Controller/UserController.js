@@ -424,3 +424,19 @@ exports.activeAccount = (req,res, next)=>
 {
   res.render("Login/verify.hbs");
 }
+exports.userUpdate = async (req, res, next) => {
+  const id = req.query.id;
+
+  const user = await User.findById(id);
+
+  const {Name, Address, Phone} = req.body;
+
+  user.Name = Name;
+  user.Address = Address;
+  user.Phone = Phone;
+
+  user.save();
+
+  req.flash('success_msg','Cập nhập thông tin thành công!!!');
+  res.redirect('/users/infor');
+}
