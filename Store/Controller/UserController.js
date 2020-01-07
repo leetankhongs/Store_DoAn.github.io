@@ -53,7 +53,7 @@ exports.register = (req,res,next) =>
     })
   }
   else{
-    User.findOne({email:Email}).then(UserResult => {
+    User.findOne({Email: Email}).then(UserResult => {
       if(UserResult)
       {
         errors.push({msg: "Email đã tồn tại"});
