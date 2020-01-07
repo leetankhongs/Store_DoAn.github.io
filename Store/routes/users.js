@@ -15,7 +15,7 @@ router.get('/logout', userController.logout);
 router.get('/status', userController.statusProduct);
 router.get('/DetailOrder', userController.detailOrder);
 router.get('/activeAccount', userController.activeAccount);
-
+router.post('/activeAccount', userController.verifyAccount);
 
 //Post
 router.post('/exchange-password', userController.exchangePassword);

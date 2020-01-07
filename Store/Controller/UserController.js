@@ -90,9 +90,9 @@ exports.register = (req,res,next) =>
           //save
           newUser.save().then(User => {
             var rand,mailOptions,host,link;
-            rand=Math.floor((Math.random() * 50000) + 139);
-            host =req.get('host');
-            link="http://"+req.get('host')+"/users/activeAccount/?email="+Email+"&verify="+rand;
+            rand = Math.floor((Math.random() * 50000) + 139);
+            host = req.get('host');
+            link = 'http://' + req.get('host')+"/users/activeAccount/?email="+Email+"&verify="+rand;
 
             var smtpTransport = nodemailer.createTransport({
               service: "Gmail",
@@ -374,19 +374,19 @@ exports.exchangePassword = async (req, res, next)=>
   }
 }
 
-exports.activeAccount = async (req, res, next)=>
+exports.verifyAccount = async (req, res, next)=>
 {
   const email = req.query.email;
   const code = req.query.verify;
 
   const findUser = await User.findOne({Email: email});
-  if(findUser != null )
+  if(findUser !== null )
   {
     const verifiedEmail = await Verify.findOne({Email: email});
-    if(verifiedEmail != null )
+    if(verifiedEmail !== null )
     {
       const codeUser = verifiedEmail.Code;
-      if(codeUser == code)
+      if(parseInt(codeUser) === parseInt(code))
       {
         findUser.isActive = true;
         findUser.save().then(() =>
@@ -401,12 +401,14 @@ exports.activeAccount = async (req, res, next)=>
         });
       }
     }
-  }else{
+  }
+  else
+  {
     req.flash('error','Có gì đó không đúng. Hãy kiểm tra lại!');
     res.redirect('/users/login');
   }
 
-  
+
 }
 
 exports.forgetPass = function(req, res, next) {
@@ -417,3 +419,8 @@ exports.exchangePasswordGet = function(req,res,next)
 {
   res.render("Login/ChangePassword.hbs");
 };
+
+exports.activeAccount = (req,res, next)=>
+{
+  res.render("Login/verify.hbs");
+}

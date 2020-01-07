@@ -1,0 +1,21 @@
+<div class="span9">
+	<div class="well">
+		{{#if error_msg }}
+		<div class="alert alert-error alert-dismissible show" role="alert">
+			<strong>{{this.error_msg}}</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		{{/if}}
+		<form class="form-horizontal" method="POST">
+			<strong>Ấn nút bên dưới để xác nhận</strong>
+			<div class="control-group">
+				<div class="controls">
+					<input class="btn btn-large btn-success" type="submit" value="Xác nhận" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
